@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green,
         title: Text('Fashapp'),
         actions: <Widget>[
           new IconButton(

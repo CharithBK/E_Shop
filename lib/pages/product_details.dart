@@ -22,7 +22,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green,
         title: Text('Fashapp'),
         actions: <Widget>[
           new IconButton(
@@ -188,7 +188,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               Expanded(
                 child: MaterialButton(
                   onPressed: () {},
-                  color: Colors.red,
+                  color: Colors.green,
                   textColor: Colors.white,
                   elevation: 0.2,
                   child: new Text("Buy now"),
@@ -198,7 +198,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               new IconButton(
                   icon: Icon(
                     Icons.add_shopping_cart,
-                    color: Colors.red,
+                    color: Colors.black,
                   ),
                   onPressed: () {}),
               new IconButton(

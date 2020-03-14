@@ -20,6 +20,18 @@ class _ProductsState extends State<Products> {
       "picture": "images/products/dress1.jpeg",
       "old_price": 100,
       "price": 50,
+    },
+    {
+      "name": "Blazer",
+      "picture": "images/products/blazer1.jpeg",
+      "old_price": 120,
+      "price": 85,
+    },
+    {
+      "name": "Red ress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
     }
   ];
 
