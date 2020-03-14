@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
       appBar: new AppBar(
         elevation: 0.1,
         backgroundColor: Colors.green,
-        title: Text('Fashapp'),
+        title: Text('ⓉⓇⒺⓃⒹⓈ'),
         actions: <Widget>[
           new IconButton(
               icon: Icon(
@@ -66,16 +66,16 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
 //            header
             new UserAccountsDrawerHeader(
-                accountName: Text('Santos Enoque'),
-                accountEmail: Text('santosenoque.ss@gmail.com'),
+                accountName: Text('Chaminda Puswedilla'),
+                accountEmail: Text('trends@gmail.com'),
             currentAccountPicture: GestureDetector(
               child: new CircleAvatar(
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.lime,
                 child: Icon(Icons.person, color: Colors.white,),
               ),
             ),
             decoration: new BoxDecoration(
-              color: Colors.red
+              color: Colors.green
             ),
             ),
 
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
             onTap: (){},
             child: ListTile(
               title: Text('Home Page'),
-              leading: Icon(Icons.home),
+              leading: Icon(Icons.home ,color: Colors.green,),
             ),
           ),
 
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){},
               child: ListTile(
                 title: Text('My account'),
-                leading: Icon(Icons.person),
+                leading: Icon(Icons.person,color: Colors.green,),
               ),
             ),
 
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){},
               child: ListTile(
                 title: Text('My Orders'),
-                leading: Icon(Icons.shopping_basket),
+                leading: Icon(Icons.shopping_basket,color: Colors.green,),
               ),
             ),
 
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){},
               child: ListTile(
                 title: Text('Categoris'),
-                leading: Icon(Icons.dashboard),
+                leading: Icon(Icons.shopping_cart ,color: Colors.green,),
               ),
             ),
 
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){},
               child: ListTile(
                 title: Text('Favourites'),
-                leading: Icon(Icons.favorite),
+                leading: Icon(Icons.favorite ,color: Colors.green,),
               ),
             ),
 
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){},
               child: ListTile(
                 title: Text('Settings'),
-                leading: Icon(Icons.settings, color: Colors.blue,),
+                leading: Icon(Icons.settings),
               ),
             ),
 
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){},
               child: ListTile(
                 title: Text('About'),
-                leading: Icon(Icons.help, color: Colors.green),
+                leading: Icon(Icons.help),
               ),
             ),
           ],
