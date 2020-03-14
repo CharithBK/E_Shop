@@ -75,7 +75,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
           ),
 
-          //btn1==========
+          //btn1==========R
           Row(
             children: <Widget>[
               //btnSize=============================
@@ -94,7 +94,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 onPressed: () {
                                   Navigator.of(context).pop(context);
                                 },
-                                child: new Text("Close"),
+                                child: new Text("Close" ,style: TextStyle(color: Colors.black),),
                               )
                             ],
                           );
@@ -127,7 +127,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 onPressed: () {
                                   Navigator.of(context).pop(context);
                                 },
-                                child: new Text("Close"),
+                                child: new Text("Close"  ,style: TextStyle(color: Colors.black)),
                               )
                             ],
                           );
@@ -161,7 +161,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 onPressed: () {
                                   Navigator.of(context).pop(context);
                                 },
-                                child: new Text("Close"),
+                                child: new Text("Close"  ,style: TextStyle(color: Colors.black)),
                               )
                             ],
                           );

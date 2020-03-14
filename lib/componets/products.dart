@@ -16,32 +16,32 @@ class _ProductsState extends State<Products> {
     },
     {
       "name": "Red ress",
-      "picture": "images/products/dress1.jpeg",
+      "picture": "images/products/blazer2.jpg",
       "old_price": 100,
       "price": 50,
     },
     {
       "name": "Blazer",
-      "picture": "images/products/blazer2.jpeg",
+      "picture": "images/products/dress1.jpg",
       "old_price": 120,
       "price": 85,
     },
     {
       "name": "Red ress",
-      "picture": "images/products/dress2.jpeg",
+      "picture": "images/products/blazer3.jpg",
       "old_price": 100,
       "price": 50,
     }
     ,
     {
       "name": "Blazer",
-      "picture": "images/products/hills1.jpeg",
+      "picture": "images/products/dress2.jpg",
       "old_price": 120,
       "price": 85,
     },
     {
       "name": "Red ress",
-      "picture": "images/products/men1.jpg",
+      "picture": "images/products/shoe2.jpg",
       "old_price": 100,
       "price": 50,
     }
@@ -81,7 +81,7 @@ class Single_prod extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Hero(
-          tag: prod_name,
+          tag: new Text("Hero 1"),
           child: Material(
             child: InkWell(
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
