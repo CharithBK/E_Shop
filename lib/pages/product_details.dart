@@ -270,7 +270,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
           Divider(),
           Padding(padding: const EdgeInsets.all(8.0),
-          child: new Text("Similar Products"),),
+          child: new Text("Similar Products "),),
           Container(
             height: 360.0,
             child: Similar_Products(),
