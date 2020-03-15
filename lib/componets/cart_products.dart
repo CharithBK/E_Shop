@@ -27,7 +27,7 @@ class _Cart_productsState extends State<Cart_products> {
 
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
+    return new ListView.builder( 
         itemCount: Products_on_the_cart.length,
         itemBuilder: (context, index) {
           return Single_cart_product(
@@ -60,72 +60,90 @@ class Single_cart_product extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final Size screenSize = MediaQuery.of(context).size;
-    return Card(
-      child: Row(
-        children: <Widget>[
-          new SizedBox(
-             width: (screenSize.width / 5) * 4.3,
-            child: ListTile(
-              //LEADING SECTIONS
-              leading: new Image.asset(
-                cart_prod_picture,
-                width: 80.0,
-                height: 80.0,
-              ),
+    return Card( 
+    
+      child: ListTile(
+        //LEADING SECTIONS
+        leading: new Image.asset(
+          cart_prod_picture,
+          width: 80.0,
+          height: 80.0,
+        ),
 //TITLE SECTION
-              title: new Text(cart_prod_name),
-              // SUBTITLE SECTION
-              subtitle: new Column(
-                children: <Widget>[
-                  new Row(
-                    children: <Widget>[
-                      //  size of products
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: new Text("Size:"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: new Text(
-                          cart_prod_size,
-                          style: TextStyle(color: Colors.green),
-                        ),
-                      ),
-
-                      // Product Color
-                      new Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 8.0),
-                        child: new Text("Color"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: new Text(
-                          cart_prod_color,
-                          style: TextStyle(color: Colors.green),
-                        ),
-                      ),
-                    ],
+        title: new Text(cart_prod_name),
+        // SUBTITLE SECTION
+        subtitle: new Column(
+          children: <Widget>[
+            new Row(
+              children: <Widget>[
+                //  size of products
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Text("Size:"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Text(
+                    cart_prod_size,
+                    style: TextStyle(color: Colors.green),
                   ),
+                ),
 
-                  // product price
-                  new Container(
-                    alignment: Alignment.topLeft,
-                    child: new Text(
-                      "\$${cart_prod_price}",
-                      style: TextStyle(
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green),
+                // Product Color
+                new Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 8.0),
+                  child: new Text("Color"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 1.0),
+                  child: new Text(
+                    cart_prod_color,
+                    style: TextStyle(color: Colors.green),
+                  ),
+                ),
+              ],
+            ),
+
+            // product price
+            new Container(
+              alignment: Alignment.topLeft,
+              child: new Text(
+                "\$${cart_prod_price}",
+                style: TextStyle(
+                    fontSize: 17.0,
+                    
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green),
+              ),
+            ),
+          ],
+        ),
+        trailing: new Column(
+        
+         children: <Widget>[
+                  Expanded(
+                    
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 2.0 ),
+                      child: new IconButton(icon: Icon(Icons.arrow_drop_up), onPressed: () {}),
                     ),
                   ),
+                  Expanded(
+                    child: new Padding(padding: const EdgeInsets.only(top: 5.0 ), child: new Text("$cart_prod_qty")) ,
+                  ),
+                  Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 1.0),
+                        child: new IconButton(icon: Icon(Icons.arrow_drop_down), onPressed: () {}),
+                      )
+                          ),
                 ],
-              ),
-            
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
+
+
