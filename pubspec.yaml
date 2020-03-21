@@ -4,7 +4,7 @@ description: A new Flutter application.
 dependencies:
   flutter:
     sdk: flutter
-
+  http:
   carousel_pro: ^0.0.13
 
 
@@ -56,7 +56,11 @@ flutter:
    - images/products/shoe2.jpg
    - images/products/shoe3.jpg
    - images/products/blazer3.jpg
-
+   - logo.png
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
