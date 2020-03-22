@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8df084f9-364c-4bcc-bf3d-fddaf9b7f885" name="Default" comment="update">
+    <list default="true" id="8df084f9-364c-4bcc-bf3d-fddaf9b7f885" name="Default" comment="login db">
+      <change afterPath="$PROJECT_DIR$/lib/pages/home.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/pages/login.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -110,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584808538460</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="login db">
+      <created>1584856182759</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1584856182760</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -128,6 +137,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="login db" />
+    <option name="LAST_COMMIT_MESSAGE" value="login db" />
   </component>
 </project>
