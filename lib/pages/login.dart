@@ -130,27 +130,30 @@ class _LoginState extends State<Login> {
           color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(36.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height: 155.0,
-                  child: Image.asset(
-                    "assets/logo.png",
-                    fit: BoxFit.contain,
+            child: SingleChildScrollView(
+
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 155.0,
+                    child: Image.asset(
+                      "assets/logo.png",
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-                SizedBox(height: 45.0),
-                username,
-                SizedBox(height: 25.0),
-                passwordField,
-                SizedBox(height: 35.0),
-                loginButon,
-                SizedBox(height: 15.0),
-                RegistrationButton,
-                SizedBox(height: 15.0),
-              ],
+                  SizedBox(height: 45.0),
+                  username,
+                  SizedBox(height: 25.0),
+                  passwordField,
+                  SizedBox(height: 35.0),
+                  loginButon,
+                  SizedBox(height: 15.0),
+                  RegistrationButton,
+                  SizedBox(height: 15.0),
+                ],
+              ),
             ),
           ),
         ),
