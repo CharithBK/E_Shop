@@ -17,15 +17,17 @@ class _RegistrationState extends State<Registration> {
 
   TextEditingController user = new TextEditingController();
   TextEditingController pass = new TextEditingController();
+  TextEditingController email = new TextEditingController();
+  TextEditingController nic = new TextEditingController();
 
   String msg = '';
 
   // ignore: missing_return
   void post() async {
-    http.Response result =
-        await http.get("https://etrendsapp.000webhostapp.com/getData.php");
-    var data = jsonDecode(result.body);
-    print(data.toString());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Login()),
+    );
   }
 
   Future<List> login() async {
@@ -33,6 +35,8 @@ class _RegistrationState extends State<Registration> {
         .post("https://etrendsapp.000webhostapp.com/getData.php", body: {
       "username": user.text,
       "password": pass.text,
+      "email": email.text,
+      "nic": nic.text,
     });
     var datauser = jsonDecode(response.body);
 
@@ -44,10 +48,20 @@ class _RegistrationState extends State<Registration> {
       //print(user.text);
       if (datauser['username'] == user.text) {
         if (datauser['password'] == pass.text) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Login()),
-          );
+          if (datauser['email'] == email.text) {
+            if (datauser['nic'] == nic.text) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            } else {
+              print("Invalid Email!");
+              email.text = "";
+            }
+          } else {
+            print("Invalid N I C!");
+            nic.text = "";
+          }
         } else {
           print("Invalid Password!");
           pass.text = "";
@@ -87,6 +101,28 @@ class _RegistrationState extends State<Registration> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
 
+    final Email = TextField(
+      controller: email,
+      obscureText: true,
+      style: style,
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "Email",
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
+
+    final Nic = TextField(
+      controller: nic,
+      obscureText: true,
+      style: style,
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "NIC",
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
+
     // ignore: non_constant_identifier_names
     final RegistrationButton = Material(
       elevation: 5.0,
@@ -96,10 +132,7 @@ class _RegistrationState extends State<Registration> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Login()),
-          );
+          post();
         },
         child: Text("Registration",
             textAlign: TextAlign.center,
@@ -132,6 +165,10 @@ class _RegistrationState extends State<Registration> {
                   username,
                   SizedBox(height: 25.0),
                   passwordField,
+                  SizedBox(height: 15.0),
+                  Email,
+                  SizedBox(height: 25.0),
+                  Nic,
                   SizedBox(height: 15.0),
                   RegistrationButton,
                   SizedBox(height: 15.0),
