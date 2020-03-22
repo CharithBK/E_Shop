@@ -5,6 +5,8 @@ import 'package:shopapp_tut/pages/login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
+import 'package:sweetalert/sweetalert.dart';
+
 class Registration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
@@ -31,49 +33,72 @@ class _RegistrationState extends State<Registration> {
   }
 
   Future<List> login() async {
+    print("gg");
     final response = await http
-        .post("https://etrendsapp.000webhostapp.com/getData.php", body: {
+        .post("https://etrendsapp.000webhostapp.com/submit_data.php", body: {
       "username": user.text,
       "password": pass.text,
       "email": email.text,
       "nic": nic.text,
     });
-    var datauser = jsonDecode(response.body);
 
-    if (datauser.length == 0) {
-      setState(() {
-        msg = "Login Fail";
-      });
-    } else {
-      //print(user.text);
-      if (datauser['username'] == user.text) {
-        if (datauser['password'] == pass.text) {
-          if (datauser['email'] == email.text) {
-            if (datauser['nic'] == nic.text) {
+    print("gg");
+   // var datauser = jsonDecode(response.body);
+    print(user.text);
+    print(pass.text);
+    print(email.text);
+    print(nic.text);
+    //print(user.text);
+    if ( user.text !="" ) {
+      if (pass.text !="") {
+        if (email.text !="") {
+          if (nic.text !="") {
+            SweetAlert.show(context,
+                title: "Registred",
+                subtitle: "",
+                style: SweetAlertStyle.success);
+
+            Timer(Duration(seconds: 3), () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Login()),
               );
-            } else {
-              print("Invalid Email!");
-              email.text = "";
-            }
+            });
           } else {
-            print("Invalid N I C!");
+            print("Invalid N I C");
             nic.text = "";
+            SweetAlert.show(context,
+                title: "Empty NIC",
+                subtitle: "please check your nic",
+                style: SweetAlertStyle.confirm);
           }
         } else {
-          print("Invalid Password!");
-          pass.text = "";
+          print("Empty Email ");
+          email.text = "";
+          SweetAlert.show(context,
+              title: "Empty Email",
+              subtitle: "please check your email",
+              style: SweetAlertStyle.confirm);
         }
       } else {
-        print("Invalid Username!");
-        user.text = "";
+        print("Invalid Password!");
+        pass.text = "";
+        SweetAlert.show(context,
+            title: "Empty Password",
+            subtitle: "please check your password",
+            style: SweetAlertStyle.confirm);
       }
-      setState(() {
-        //var username = datauser[0]['username'];
-      });
+    } else {
+      print("Invalid Username!");
+      user.text = "";
+      SweetAlert.show(context,
+          title: "Empty Username",
+          subtitle: "please check your username",
+          style: SweetAlertStyle.confirm);
     }
+    setState(() {
+      //var username = datauser[0]['username'];
+    });
   }
 
   //=================================================================================================================================
@@ -103,7 +128,7 @@ class _RegistrationState extends State<Registration> {
 
     final Email = TextField(
       controller: email,
-      obscureText: true,
+      obscureText: false,
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -114,7 +139,7 @@ class _RegistrationState extends State<Registration> {
 
     final Nic = TextField(
       controller: nic,
-      obscureText: true,
+      obscureText: false,
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -132,7 +157,11 @@ class _RegistrationState extends State<Registration> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          post();
+          login();
+//          Navigator.push(
+//            context,
+//            MaterialPageRoute(builder: (context) => Login()),
+//          );
         },
         child: Text("Registration",
             textAlign: TextAlign.center,

@@ -33,52 +33,63 @@ class _LoginState extends State<Login> {
 
   // ignore: missing_return
   Future<List> login() async {
-    final response = await http
-        .post("https://etrendsapp.000webhostapp.com/getData.php", body: {
-      "username": user.text,
-      "password": pass.text,
-    });
-    var datauser = jsonDecode(response.body);
+    var c = 0;
 
-    if (datauser.length == 0) {
-      setState(() {
-        msg = "Login Fail";
-      });
-    } else {
-      //print(user.text);
-      if (datauser['username'] == user.text) {
-        if (datauser['password'] == pass.text) {
-          SweetAlert.show(context,
-              title: "Login Successful",
-              subtitle: "",
-              style: SweetAlertStyle.success);
+    final response1 =
+        await http.post("https://etrendsapp.000webhostapp.com/getrows.php");
+    //print(response1.statusCode);
+    String rows = response1.body;
+    var datausers;
+    print(int.parse(rows));
 
-          Timer(Duration(seconds: 3), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
-          });
-        } else {
-          print("Invalid Password!");
-          SweetAlert.show(context,
-              title: "Password Invalid",
-              subtitle: "please check your password",
-              style: SweetAlertStyle.confirm);
-          pass.text = "";
+    while (c < int.parse(rows)) {
+      //print("gg");
+      final response = await http.post(
+          "https://etrendsapp.000webhostapp.com/getData.php",
+          body: {"count": c.toString()});
+      //print(response.statusCode);
+      datausers = json.decode(response.body);
+      if (datausers['username'] == user.text) {
+        if (datausers['password'].toString() == pass.text) {
+          break;
         }
-      } else {
-        print("Invalid Username!");
-        SweetAlert.show(context,
-            title: "Username Invalid",
-            subtitle: "please check your username",
-            style: SweetAlertStyle.confirm);
-        user.text = "";
       }
-      setState(() {
-        //var username = datauser[0]['username'];
-      });
+
+      c++;
     }
+
+    if (datausers['username'] == user.text) {
+      if (datausers['password'].toString() == pass.text) {
+        SweetAlert.show(context,
+            title: "Login Successful",
+            subtitle: "",
+            style: SweetAlertStyle.success);
+
+        Timer(Duration(seconds: 5), () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
+        });
+      } else {
+        print("Invalid Password!");
+        SweetAlert.show(context,
+            title: "Password Invalid",
+            subtitle: "please check your password",
+            style: SweetAlertStyle.confirm);
+        pass.text = "";
+      }
+    } else {
+      print("Invalid Username!");
+      SweetAlert.show(context,
+          title: "Username Invalid",
+          subtitle: "please check your username",
+          style: SweetAlertStyle.confirm);
+      user.text = "";
+    }
+    setState(() {
+      //var username = datauser[0]['username'];
+    });
   }
 
   //=================================================================================================================================
