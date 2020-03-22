@@ -6,42 +6,66 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 class Login extends StatefulWidget {
+
+
   @override
   _LoginState createState() => _LoginState();
+
+
 }
 
 class _LoginState extends State<Login> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+ //===============================================================================================================================
+
   TextEditingController user=new TextEditingController();
   TextEditingController pass=new TextEditingController();
 
   String msg='';
 
   // ignore: missing_return
-  Future<List> _login() async {
-    final response = await http.post(
-        "https://etrendsapp.000webhostapp.com/getData.php", body: {
+  void post() async {
+    http.Response result = await http.get("https://etrendsapp.000webhostapp.com/getData.php");
+    var data = jsonDecode(result.body);
+    print(data.toString());
+  }
+
+  Future<List> login() async {
+    final response = await http.post("https://etrendsapp.000webhostapp.com/getData.php", body: {
       "username": user.text,
       "password": pass.text,
     });
-
-    var datauser = json.decode(response.body);
+    var datauser = jsonDecode(response.body);
 
     if (datauser.length == 0) {
       setState(() {
         msg = "Login Fail";
       });
     } else {
-      if (datauser[0]['level'] == 'admin') {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),);
+      //print(user.text);
+      if (datauser['username'] == user.text ) {
+        if(datauser['password'] == pass.text) {
+          Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()),);
+        }else
+          {
+            print("Invalid Password!");
+            pass.text ="";
+          }
+      }else{
+        print("Invalid Username!");
+        user.text = "";
       }
       setState(() {
-        var username = datauser[0]['username'];
+        //var username = datauser[0]['username'];
       });
     }
   }
+
+  //=================================================================================================================================
   @override
   Widget build(BuildContext context) {
+    //=========================================================================
     final username = TextField(
       controller: user,
       obscureText: false,
@@ -62,6 +86,9 @@ class _LoginState extends State<Login> {
           border:
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
+
+
+
     final loginButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
@@ -69,13 +96,16 @@ class _LoginState extends State<Login> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),);},
+        onPressed: () {  login();},
         child: Text("Login",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
+
+
+
     // ignore: non_constant_identifier_names
     final RegistrationButton = Material(
       elevation: 5.0,
@@ -84,13 +114,16 @@ class _LoginState extends State<Login> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {  _login();  /*Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),); */},
+        onPressed: () {post(); /*Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),); */ },
         child: Text("Registration",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
+
+    //==================================================================================================================
+
     return Scaffold(
       body: Center(
         child: Container(
@@ -112,17 +145,11 @@ class _LoginState extends State<Login> {
                 username,
                 SizedBox(height: 25.0),
                 passwordField,
-                SizedBox(
-                  height: 35.0,
-                ),
+                SizedBox(height: 35.0),
                 loginButon,
-                SizedBox(
-                  height: 15.0,
-                ),
+                SizedBox(height: 15.0),
                 RegistrationButton,
-                SizedBox(
-                  height: 15.0,
-                ),
+                SizedBox(height: 15.0),
               ],
             ),
           ),
