@@ -21,7 +21,8 @@ class _RegistrationState extends State<Registration> {
   TextEditingController pass = new TextEditingController();
   TextEditingController email = new TextEditingController();
   TextEditingController nic = new TextEditingController();
-
+  TextEditingController cpass = new TextEditingController();
+  String GroupValue = "male";
   String msg = '';
 
   // ignore: missing_return
@@ -31,6 +32,20 @@ class _RegistrationState extends State<Registration> {
       MaterialPageRoute(builder: (context) => Login()),
     );
   }
+
+  valueChanged(e) {
+    setState(() {
+      if (e == "male") {
+        GroupValue = e;
+       print(e);
+
+      } else if (e == "felame") {
+        GroupValue = e;
+        print(e);
+      }
+    });
+  }
+
 
   Future<List> login() async {
     print("gg");
@@ -43,41 +58,58 @@ class _RegistrationState extends State<Registration> {
     });
 
     print("gg");
-   // var datauser = jsonDecode(response.body);
+    // var datauser = jsonDecode(response.body);
     print(user.text);
     print(pass.text);
     print(email.text);
     print(nic.text);
     //print(user.text);
-    if ( user.text !="" ) {
-      if (pass.text !="") {
-        if (email.text !="") {
-          if (nic.text !="") {
-            SweetAlert.show(context,
-                title: "Registred",
-                subtitle: "",
-                style: SweetAlertStyle.success);
+    if (user.text != "") {
+      if (pass.text != "") {
+        if (cpass.text != "") {
+          if (email.text != "") {
+            if (nic.text != "") {
+              if (pass.text == cpass.text) {
+                SweetAlert.show(context,
+                    title: "Registred",
+                    subtitle: "",
+                    style: SweetAlertStyle.success);
 
-            Timer(Duration(seconds: 3), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Login()),
-              );
-            });
+                Timer(Duration(seconds: 3), () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                  );
+                });
+              } else {
+                print("Password Unmatch");
+                SweetAlert.show(context,
+                    title: "Password Unmatch",
+                    subtitle: "please enter same password",
+                    style: SweetAlertStyle.error);
+              }
+            } else {
+              print("Invalid N I C");
+              nic.text = "";
+              SweetAlert.show(context,
+                  title: "Empty NIC",
+                  subtitle: "please check your nic",
+                  style: SweetAlertStyle.confirm);
+            }
           } else {
-            print("Invalid N I C");
-            nic.text = "";
+            print("Empty Email");
+            email.text = "";
             SweetAlert.show(context,
-                title: "Empty NIC",
-                subtitle: "please check your nic",
+                title: "Empty Email",
+                subtitle: "please check your email",
                 style: SweetAlertStyle.confirm);
           }
         } else {
-          print("Empty Email ");
-          email.text = "";
+          print("Empty cpassword ");
+          cpass.text = "";
           SweetAlert.show(context,
-              title: "Empty Email",
-              subtitle: "please check your email",
+              title: "Empty Confirm Password",
+              subtitle: "please check your confirm password",
               style: SweetAlertStyle.confirm);
         }
       } else {
@@ -99,6 +131,8 @@ class _RegistrationState extends State<Registration> {
     setState(() {
       //var username = datauser[0]['username'];
     });
+
+
   }
 
   //=================================================================================================================================
@@ -126,7 +160,48 @@ class _RegistrationState extends State<Registration> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
 
-    final Email = TextField(
+    final cpasswordField = TextField(
+      controller: cpass,
+      obscureText: true,
+      style: style,
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "Confirm Password",
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
+
+    final r1 = Expanded(
+      child: ListTile(
+        title: Text(
+          "Male",
+          textAlign: TextAlign.end,
+          style: TextStyle(color: Colors.black),
+        ),
+        trailing: new Radio(
+          value: "male",
+          groupValue: GroupValue,
+          onChanged: (e) => (valueChanged(e)),
+        ),
+      ),
+    );
+
+    final r2 = Expanded(
+      child: ListTile(
+        title: Text(
+          "Female",
+          textAlign: TextAlign.end,
+          style: TextStyle(color: Colors.black),
+        ),
+        trailing: new Radio(
+          value: "female",
+          groupValue: GroupValue,
+          onChanged: (e) => (valueChanged(e)),
+        ),
+      ),
+    );
+
+      final Email = TextField(
       controller: email,
       obscureText: false,
       style: style,
@@ -194,11 +269,18 @@ class _RegistrationState extends State<Registration> {
                   username,
                   SizedBox(height: 25.0),
                   passwordField,
+                  SizedBox(height: 25.0),
+                  cpasswordField,
                   SizedBox(height: 15.0),
                   Email,
                   SizedBox(height: 25.0),
                   Nic,
                   SizedBox(height: 15.0),
+                  Row(
+                    children: <Widget>[
+                    r1,r2
+                    ],
+                  ),
                   RegistrationButton,
                   SizedBox(height: 15.0),
                 ],

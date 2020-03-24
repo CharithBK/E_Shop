@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/pages/my_json_class.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/login.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/registration.dart" afterDir="false" />
@@ -135,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584887011524</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1584908637801</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1584908637801</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

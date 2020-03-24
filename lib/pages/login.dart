@@ -53,6 +53,7 @@ class _LoginState extends State<Login> {
         if (datausers['password'].toString() == pass.text) {
           break;
         }
+        break;
       }
 
       c++;
