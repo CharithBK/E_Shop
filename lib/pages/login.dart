@@ -14,6 +14,7 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
+
 class _LoginState extends State<Login> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
@@ -24,43 +25,37 @@ class _LoginState extends State<Login> {
 
   String msg = '';
 
-//  void post() async {
-//    http.Response result =
-//        await http.get("https://etrendsapp.000webhostapp.com/getData.php");
-//    var data = jsonDecode(result.body);
-//    print(data.toString());
-//  }
 
-  // ignore: missing_return
   Future<List> login() async {
-    var c = 0;
-
-    final response1 =
+    final responseRow =
         await http.post("https://etrendsapp.000webhostapp.com/getrows.php");
-    //print(response1.statusCode);
-    String rows = response1.body;
-    var datausers;
-    print(int.parse(rows));
+    var rows = json.decode(responseRow.body);
+    print(rows);
 
-    while (c < int.parse(rows)) {
-      //print("gg");
-      final response = await http.post(
-          "https://etrendsapp.000webhostapp.com/getData.php",
-          body: {"count": c.toString()});
-      //print(response.statusCode);
-      datausers = json.decode(response.body);
-      if (datausers['username'] == user.text) {
-        if (datausers['password'].toString() == pass.text) {
+    final response =
+        await http.post("https://etrendsapp.000webhostapp.com/getall.php");
+    //print(response.statusCode);
+
+    var datausers = json.decode(response.body);
+
+    int i = 0;
+    while (i != rows) {
+      if (datausers[i]['username'] == user.text) {
+        if (datausers[i]['password'].toString() == pass.text) {
           break;
         }
         break;
       }
-
-      c++;
+      i++;
+    }
+    if(i == rows){
+      i--;
     }
 
-    if (datausers['username'] == user.text) {
-      if (datausers['password'].toString() == pass.text) {
+
+    print(datausers[i]);
+    if (datausers[i]['username'] == user.text) {
+      if (datausers[i]['password'].toString() == pass.text) {
         SweetAlert.show(context,
             title: "Login Successful",
             subtitle: "",
@@ -88,9 +83,7 @@ class _LoginState extends State<Login> {
           style: SweetAlertStyle.confirm);
       user.text = "";
     }
-    setState(() {
-      //var username = datauser[0]['username'];
-    });
+
   }
 
   //=================================================================================================================================
