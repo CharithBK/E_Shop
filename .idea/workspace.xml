@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/db/brand.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/db/category.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/add_product.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/colors_util.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/db/brand.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/db/brand.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/db/category.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/db/category.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/admin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/admin.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -156,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585228948469</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add product">
+      <created>1585238777922</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1585238777922</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -177,6 +177,7 @@
     <MESSAGE value="login db" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="admin UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin UI" />
+    <MESSAGE value="add product" />
+    <option name="LAST_COMMIT_MESSAGE" value="add product" />
   </component>
 </project>

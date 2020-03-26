@@ -5,6 +5,9 @@ import 'package:shopapp_tut/pages/add_product.dart';
 import 'package:sweetalert/sweetalert.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+
+import 'home.dart';
+
 enum Page { dashboard, manage }
 
 class Admin extends StatefulWidget {
@@ -22,6 +25,9 @@ class _AdminState extends State<Admin> {
   GlobalKey<FormState> _brandFormKey = GlobalKey();
   BrandService _brandService = BrandService();
   CategoryService _categoryService = CategoryService();
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -223,8 +229,17 @@ class _AdminState extends State<Admin> {
             Divider(),
             ListTile(
               leading: Icon(Icons.library_books),
-              title: Text("brand list"),
+              title: Text("Brand list"),
               onTap: () {},
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Home Page"),
+              onTap: () { Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );},
             ),
             Divider(),
           ],
