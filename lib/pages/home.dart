@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -6,7 +7,10 @@ import 'package:carousel_pro/carousel_pro.dart';
 //my own imports
 import 'package:shopapp_tut/componets/horizontal_listview.dart';
 import 'package:shopapp_tut/componets/products.dart';
+import 'package:shopapp_tut/pages/admin.dart';
 import 'package:shopapp_tut/pages/cart.dart';
+import 'package:shopapp_tut/pages/login.dart';
+import 'package:sweetalert/sweetalert.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -143,7 +147,17 @@ class _HomePageState extends State<HomePage> {
             Divider(),
 
             InkWell(
-              onTap: () {},
+              onTap: () { SweetAlert.show(context,
+                  title: "A D M I N",
+                  subtitle: "",
+                  style: SweetAlertStyle.success);
+
+              Timer(Duration(seconds: 4), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Admin()),
+                );
+              });},
               child: ListTile(
                 title: Text('Settings'),
                 leading: Icon(Icons.settings),
@@ -151,7 +165,19 @@ class _HomePageState extends State<HomePage> {
             ),
 
             InkWell(
-              onTap: () {},
+              onTap: () {
+                SweetAlert.show(context,
+                    title: "Logout",
+                    subtitle: "",
+                    style: SweetAlertStyle.success);
+
+                Timer(Duration(seconds: 4), () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                  );
+                });
+              },
               child: ListTile(
                 title: Text('Logout'),
                 leading: Icon(Icons.backspace),

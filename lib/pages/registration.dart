@@ -22,32 +22,26 @@ class _RegistrationState extends State<Registration> {
   TextEditingController email = new TextEditingController();
   TextEditingController nic = new TextEditingController();
   TextEditingController cpass = new TextEditingController();
-  String GroupValue = "male";
+  String GroupValue = "";
+  String gender;
   String msg = '';
-
-  // ignore: missing_return
-  void post() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Login()),
-    );
-  }
 
   valueChanged(e) {
     setState(() {
       if (e == "male") {
         GroupValue = e;
-       print(e);
-
-      } else if (e == "felame") {
+        gender = e;
+        print(e);
+      } else if (e == "female") {
         GroupValue = e;
+        gender = e;
         print(e);
       }
     });
   }
 
-
-  Future<List> login() async {
+  // ignore: missing_return
+  Future<List> register() async {
     print("gg");
     final response = await http
         .post("https://etrendsapp.000webhostapp.com/submit_data.php", body: {
@@ -55,6 +49,7 @@ class _RegistrationState extends State<Registration> {
       "password": pass.text,
       "email": email.text,
       "nic": nic.text,
+      "gender": gender,
     });
 
     print("gg");
@@ -63,6 +58,7 @@ class _RegistrationState extends State<Registration> {
     print(pass.text);
     print(email.text);
     print(nic.text);
+    print(gender);
     //print(user.text);
     if (user.text != "") {
       if (pass.text != "") {
@@ -70,20 +66,35 @@ class _RegistrationState extends State<Registration> {
           if (email.text != "") {
             if (nic.text != "") {
               if (pass.text == cpass.text) {
-                SweetAlert.show(context,
-                    title: "Registred",
-                    subtitle: "",
-                    style: SweetAlertStyle.success);
+                if (gender !="") {
+                  SweetAlert.show(context,
+                      title: "Registred",
+                      subtitle: "",
+                      style: SweetAlertStyle.success);
 
-                Timer(Duration(seconds: 3), () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                  );
-                });
+                  Timer(Duration(seconds: 3), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  });
+
+                  user.text = "";
+                  pass.text = "";
+                  cpass.text = "";
+                  email.text = "";
+                  nic.text = "";
+                }
+                else {
+                  print("Select Your Gender Type");
+                  SweetAlert.show(context,
+                      title: "Select Gender",
+                      subtitle: "select your gender type",
+                      style: SweetAlertStyle.error);
+                }
               } else {
                 print("Password Unmatch");
-                SweetAlert.show(context,
+                    SweetAlert.show(context,
                     title: "Password Unmatch",
                     subtitle: "please enter same password",
                     style: SweetAlertStyle.error);
@@ -128,11 +139,6 @@ class _RegistrationState extends State<Registration> {
           subtitle: "please check your username",
           style: SweetAlertStyle.confirm);
     }
-    setState(() {
-      //var username = datauser[0]['username'];
-    });
-
-
   }
 
   //=================================================================================================================================
@@ -158,6 +164,7 @@ class _RegistrationState extends State<Registration> {
           hintText: "Password",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+
     );
 
     final cpasswordField = TextField(
@@ -201,7 +208,7 @@ class _RegistrationState extends State<Registration> {
       ),
     );
 
-      final Email = TextField(
+    final Email = TextField(
       controller: email,
       obscureText: false,
       style: style,
@@ -232,7 +239,7 @@ class _RegistrationState extends State<Registration> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          login();
+          register();
 //          Navigator.push(
 //            context,
 //            MaterialPageRoute(builder: (context) => Login()),
@@ -277,9 +284,7 @@ class _RegistrationState extends State<Registration> {
                   Nic,
                   SizedBox(height: 15.0),
                   Row(
-                    children: <Widget>[
-                    r1,r2
-                    ],
+                    children: <Widget>[r1, r2],
                   ),
                   RegistrationButton,
                   SizedBox(height: 15.0),

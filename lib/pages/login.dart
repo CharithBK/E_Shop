@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shopapp_tut/pages/admin.dart';
 import 'package:shopapp_tut/pages/home.dart';
 import 'package:shopapp_tut/pages/registration.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,6 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-
 class _LoginState extends State<Login> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
@@ -25,7 +25,6 @@ class _LoginState extends State<Login> {
 
   String msg = '';
 
-
   Future<List> login() async {
     final responseRow =
         await http.post("https://etrendsapp.000webhostapp.com/getrows.php");
@@ -33,7 +32,7 @@ class _LoginState extends State<Login> {
     print(rows);
 
     final response =
-        await http.post("https://etrendsapp.000webhostapp.com/getall.php");
+        await http.post("https://etrendsapp.000webhostapp.com/getData.php");
     //print(response.statusCode);
 
     var datausers = json.decode(response.body);
@@ -48,25 +47,41 @@ class _LoginState extends State<Login> {
       }
       i++;
     }
-    if(i == rows){
+    if (i == rows) {
       i--;
     }
-
 
     print(datausers[i]);
     if (datausers[i]['username'] == user.text) {
       if (datausers[i]['password'].toString() == pass.text) {
-        SweetAlert.show(context,
-            title: "Login Successful",
-            subtitle: "",
-            style: SweetAlertStyle.success);
+        if (datausers[i]['username'] == "admin") {
+          SweetAlert.show(context,
+              title: "Login Successful",
+              subtitle: "",
+              style: SweetAlertStyle.success);
 
-        Timer(Duration(seconds: 5), () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomePage()),
-          );
-        });
+          Timer(Duration(seconds: 2), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Admin()),
+            );
+          });
+        } else {
+          SweetAlert.show(context,
+              title: "Login Successful",
+              subtitle: "",
+              style: SweetAlertStyle.success);
+
+          Timer(Duration(seconds: 2), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+            );
+          });
+
+          user.text = "";
+          pass.text = "";
+        }
       } else {
         print("Invalid Password!");
         SweetAlert.show(context,
@@ -83,7 +98,6 @@ class _LoginState extends State<Login> {
           style: SweetAlertStyle.confirm);
       user.text = "";
     }
-
   }
 
   //=================================================================================================================================
