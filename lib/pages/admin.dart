@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shopapp_tut/db/brand.dart';
+import 'package:shopapp_tut/db/category.dart';
+import 'package:shopapp_tut/pages/add_product.dart';
+import 'package:sweetalert/sweetalert.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 enum Page { dashboard, manage }
 
 class Admin extends StatefulWidget {
@@ -15,8 +20,8 @@ class _AdminState extends State<Admin> {
   TextEditingController brandController = TextEditingController();
   GlobalKey<FormState> _categoryFormKey = GlobalKey();
   GlobalKey<FormState> _brandFormKey = GlobalKey();
-  //BrandService _brandService = BrandService();
-  //CategoryService _categoryService = CategoryService();
+  BrandService _brandService = BrandService();
+  CategoryService _categoryService = CategoryService();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class _AdminState extends State<Admin> {
                       icon: Icon(
                         Icons.sort,
                         color:
-                        _selectedPage == Page.manage ? active : notActive,
+                            _selectedPage == Page.manage ? active : notActive,
                       ),
                       label: Text('Manage'))),
             ],
@@ -52,8 +57,7 @@ class _AdminState extends State<Admin> {
           elevation: 0.0,
           backgroundColor: Colors.white,
         ),
-        body: _loadScreen()
-    );
+        body: _loadScreen());
   }
 
   Widget _loadScreen() {
@@ -100,7 +104,6 @@ class _AdminState extends State<Admin> {
                     ),
                   ),
                   Padding(
-
                     padding: const EdgeInsets.all(18.0),
                     child: Card(
                       child: ListTile(
@@ -187,7 +190,7 @@ class _AdminState extends State<Admin> {
             ListTile(
               leading: Icon(Icons.add),
               title: Text("Add product"),
-              onTap: () {},
+              onTap: () { Navigator.push(context,MaterialPageRoute(builder: (_)=> AddProduct()));},
             ),
             Divider(),
             ListTile(
@@ -239,22 +242,32 @@ class _AdminState extends State<Admin> {
         child: TextFormField(
           controller: categoryController,
           // ignore: missing_return
-          validator: (value){
-            if(value.isEmpty){
+          validator: (value) {
+            if (value.isEmpty) {
               return 'category cannot be empty';
             }
           },
-          decoration: InputDecoration(
-              hintText: "add category"
-          ),
+          decoration: InputDecoration(hintText: "add category"),
         ),
       ),
       actions: <Widget>[
-        FlatButton(onPressed: (){}, child: Text('ADD')),
-        FlatButton(onPressed: (){
-          Navigator.pop(context);
-        }, child: Text('CANCEL')),
+        FlatButton(
+            onPressed: () {
+              if (categoryController.text != "") {
+                _categoryService.createCategory(categoryController.text);
+                // print(categoryController.text);
 
+              }
+
+              Fluttertoast.showToast(msg: 'category created');
+              Navigator.pop(context);
+            },
+            child: Text('ADD')),
+        FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('CANCEL')),
       ],
     );
 
@@ -267,27 +280,35 @@ class _AdminState extends State<Admin> {
         key: _brandFormKey,
         child: TextFormField(
           controller: brandController,
-          validator: (value){
-            if(value.isEmpty){
+          // ignore: missing_return
+          validator: (value) {
+            if (value.isEmpty) {
               return 'category cannot be empty';
             }
           },
-          decoration: InputDecoration(
-              hintText: "add brand"
-          ),
+          decoration: InputDecoration(hintText: "add brand"),
         ),
       ),
       actions: <Widget>[
-        FlatButton(onPressed: (){}, child: Text('ADD')),
-        FlatButton(onPressed: (){
-          Navigator.pop(context);
-        }, child: Text('CANCEL')),
+        FlatButton(
+            onPressed: () {
+              if (brandController.text != "") {
+                _brandService.createBrand(brandController.text);
+                print(brandController.text);
+              }
 
+              Fluttertoast.showToast(msg: 'Brand created');
+              Navigator.pop(context);
+            },
+            child: Text('ADD')),
+        FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('CANCEL')),
       ],
     );
 
     showDialog(context: context, builder: (_) => alert);
   }
 }
-
-
