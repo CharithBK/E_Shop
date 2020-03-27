@@ -175,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585319267777</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="checkBox">
+      <created>1585320692913</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1585320692913</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -200,6 +207,7 @@
     <MESSAGE value="cat_brand_add data" />
     <MESSAGE value="auto_reload_c&amp;b" />
     <MESSAGE value="add_description" />
-    <option name="LAST_COMMIT_MESSAGE" value="add_description" />
+    <MESSAGE value="checkBox" />
+    <option name="LAST_COMMIT_MESSAGE" value="checkBox" />
   </component>
 </project>
