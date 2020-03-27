@@ -11,15 +11,21 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   CategoryService _categoryService = CategoryService();
   BrandService _brandService = BrandService();
+
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController productNameController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController brandController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
-//  List<DocumentSnapshot> brands = <DocumentSnapshot>[];
-//  List<DocumentSnapshot> categories = <DocumentSnapshot>[];
-//  List<DropdownMenuItem<String>> categoriesDropDown = <DropdownMenuItem<String>>[];
-//  List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
+  List<DropdownMenuItem<String>> categoriesDropDown =
+      <DropdownMenuItem<String>>[];
+  List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
+
   String _currentCategory;
   String _currentBrand;
+
   Color white = Colors.white;
   Color black = Colors.black;
   Color grey = Colors.grey;
@@ -28,17 +34,18 @@ class _AddProductState extends State<AddProduct> {
   @override
   void initState() {
     _getCategories();
-//    _getBrands();
-    // categoriesDropDown = getCategoriesDropdown();
+    _getBrands();
+    categoriesDropDown = getCategoriesDropdown();
   }
 
-  getCategoriesDropdown() {
+  List<DropdownMenuItem<String>> getCategoriesDropdown() {
     List<DropdownMenuItem<String>> items = new List();
 //    for(int i = 0; i < categories.length; i++){
 //      setState(() {
 //        categoriesDropDown.insert(0, DropdownMenuItem(child: Text(categories[i]['category']),
 //            value: categories[i]['category']));
 //      });
+    return items;
   }
 
   @override
@@ -155,6 +162,7 @@ class _AddProductState extends State<AddProduct> {
                 child: TypeAheadField(
                   textFieldConfiguration: TextFieldConfiguration(
                       autofocus: false,
+                      controller: categoryController,
                       decoration: InputDecoration(hintText: 'add category')),
                   suggestionsCallback: (pattern) async {
                     print(pattern);
@@ -164,7 +172,7 @@ class _AddProductState extends State<AddProduct> {
                   },
                   itemBuilder: (context, suggestion) {
                     return ListTile(
-                      leading: Icon(Icons.category),
+                      leading: Icon(Icons.library_add),
                       title: Text(suggestion['name']),
                     );
                   },
@@ -172,6 +180,7 @@ class _AddProductState extends State<AddProduct> {
                     setState(() {
                       print("gg");
                       _currentCategory = suggestion['name'];
+                      categoryController.text = _currentCategory;
                     });
                   },
                 ),
@@ -190,25 +199,143 @@ class _AddProductState extends State<AddProduct> {
                 child: TypeAheadField(
                   textFieldConfiguration: TextFieldConfiguration(
                       autofocus: false,
+                      controller: brandController,
                       decoration: InputDecoration(hintText: 'add brand')),
                   suggestionsCallback: (pattern) async {
                     return await _brandService.getSuggestions(pattern);
-                    
                   },
                   itemBuilder: (context, suggestion) {
                     return ListTile(
-                      leading: Icon(Icons.category),
+                      leading: Icon(Icons.library_add),
                       title: Text(suggestion['name']),
                     );
                   },
                   onSuggestionSelected: (suggestion) {
                     setState(() {
                       _currentBrand = suggestion['name'];
+                      brandController.text = _currentBrand;
                     });
                   },
                 ),
               ),
 
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: TextFormField(
+                  controller: quantityController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(hintText: 'Quantity'),
+                  // ignore: missing_return
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "You must enter the Quantity";
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: TextFormField(
+                  controller: descriptionController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(hintText: 'Product Description'),
+                  // ignore: missing_return
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "You must enter Product Description";
+                    }
+                  },
+                ),
+              ),
+              Text('---Avilable Szies---'),
+
+              Row(
+                children: <Widget>[
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('xS'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('S  '),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('M '),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('L  '),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('XL'),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('24'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('26'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('28'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('30'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('32'),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('34'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('36'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('38'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('40'),
+                  Checkbox(
+                    value: false,
+                    onChanged: null,
+                  ),
+                  Text('42'),
+                ],
+              ),
               FlatButton(
                 color: red,
                 textColor: white,
@@ -231,7 +358,20 @@ class _AddProductState extends State<AddProduct> {
 //    });
   }
 
+  _getBrands() async {
+//    List<DocumentSnapshot> data = await _categoryService.getCategories();
+//    print(data.length);
+//    setState(() {
+//      categories = data;
+//      print(categories.length);
+//    });
+  }
+
   changeSelectedCategory(String selectedCategory) {
     setState(() => _currentCategory = selectedCategory);
+  }
+
+  changeSelectedBrand(String selectedCategory) {
+    setState(() => _currentBrand = selectedCategory);
   }
 }

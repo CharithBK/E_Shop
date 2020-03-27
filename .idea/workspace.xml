@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/db/brand.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/db/brand.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/db/category.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/db/category.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/add_product.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/add_product.dart" afterDir="false" />
     </list>
@@ -163,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585243374400</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="auto_reload_c&amp;b">
+      <created>1585297212808</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1585297212808</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +192,7 @@
     <MESSAGE value="admin UI" />
     <MESSAGE value="add product" />
     <MESSAGE value="cat_brand_add data" />
-    <option name="LAST_COMMIT_MESSAGE" value="cat_brand_add data" />
+    <MESSAGE value="auto_reload_c&amp;b" />
+    <option name="LAST_COMMIT_MESSAGE" value="auto_reload_c&amp;b" />
   </component>
 </project>

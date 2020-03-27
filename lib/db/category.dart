@@ -32,4 +32,6 @@ class CategoryService {
   Future<List> getBrands() {
     //print(category);
   }
+
+
 }
