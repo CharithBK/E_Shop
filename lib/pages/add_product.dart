@@ -13,6 +13,7 @@ class _AddProductState extends State<AddProduct> {
   BrandService _brandService = BrandService();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController productNameController = TextEditingController();
+
 //  List<DocumentSnapshot> brands = <DocumentSnapshot>[];
 //  List<DocumentSnapshot> categories = <DocumentSnapshot>[];
 //  List<DropdownMenuItem<String>> categoriesDropDown = <DropdownMenuItem<String>>[];
@@ -23,21 +24,22 @@ class _AddProductState extends State<AddProduct> {
   Color black = Colors.black;
   Color grey = Colors.grey;
   Color red = Colors.red;
+
   @override
   void initState() {
     _getCategories();
 //    _getBrands();
-   // categoriesDropDown = getCategoriesDropdown();
+    // categoriesDropDown = getCategoriesDropdown();
   }
 
-  getCategoriesDropdown(){
+  getCategoriesDropdown() {
     List<DropdownMenuItem<String>> items = new List();
 //    for(int i = 0; i < categories.length; i++){
 //      setState(() {
 //        categoriesDropDown.insert(0, DropdownMenuItem(child: Text(categories[i]['category']),
 //            value: categories[i]['category']));
 //      });
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,17 +157,21 @@ class _AddProductState extends State<AddProduct> {
                       autofocus: false,
                       decoration: InputDecoration(hintText: 'add category')),
                   suggestionsCallback: (pattern) async {
+                    print(pattern);
+                    print("gggg");
+
                     return await _categoryService.getSuggestions(pattern);
                   },
                   itemBuilder: (context, suggestion) {
                     return ListTile(
                       leading: Icon(Icons.category),
-                      title: Text(suggestion['category']),
+                      title: Text(suggestion['name']),
                     );
                   },
                   onSuggestionSelected: (suggestion) {
                     setState(() {
-                      _currentCategory = suggestion['category'];
+                      print("gg");
+                      _currentCategory = suggestion['name'];
                     });
                   },
                 ),
@@ -187,16 +193,17 @@ class _AddProductState extends State<AddProduct> {
                       decoration: InputDecoration(hintText: 'add brand')),
                   suggestionsCallback: (pattern) async {
                     return await _brandService.getSuggestions(pattern);
+                    
                   },
                   itemBuilder: (context, suggestion) {
                     return ListTile(
                       leading: Icon(Icons.category),
-                      title: Text(suggestion['brand']),
+                      title: Text(suggestion['name']),
                     );
                   },
                   onSuggestionSelected: (suggestion) {
                     setState(() {
-                      _currentBrand = suggestion['brand'];
+                      _currentBrand = suggestion['name'];
                     });
                   },
                 ),
@@ -214,7 +221,8 @@ class _AddProductState extends State<AddProduct> {
       ),
     );
   }
-  _getCategories() async{
+
+  _getCategories() async {
 //    List<DocumentSnapshot> data = await _categoryService.getCategories();
 //    print(data.length);
 //    setState(() {
@@ -222,8 +230,8 @@ class _AddProductState extends State<AddProduct> {
 //      print(categories.length);
 //    });
   }
+
   changeSelectedCategory(String selectedCategory) {
     setState(() => _currentCategory = selectedCategory);
   }
-
 }
