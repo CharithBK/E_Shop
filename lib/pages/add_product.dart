@@ -19,8 +19,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController brandController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  List<DropdownMenuItem<String>> categoriesDropDown =
-      <DropdownMenuItem<String>>[];
+  List<DropdownMenuItem<String>> categoriesDropDown =<DropdownMenuItem<String>>[];
   List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
 
   String _currentCategory;
@@ -30,6 +29,8 @@ class _AddProductState extends State<AddProduct> {
   Color black = Colors.black;
   Color grey = Colors.grey;
   Color red = Colors.red;
+
+  List<String> selectedSizes = <String>[];
 
   @override
   void initState() {
@@ -252,87 +253,72 @@ class _AddProductState extends State<AddProduct> {
               Row(
                 children: <Widget>[
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
-                  Text('xS'),
+                    value: selectedSizes.contains('XS'),
+                    onChanged: (value) => changeSelectedSize('XS')),
+                  Text('XS'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('S'),
+                      onChanged: (value) => changeSelectedSize('S')),
                   Text('S  '),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('M'),
+                      onChanged: (value) => changeSelectedSize('M')),
                   Text('M '),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('L'),
+                      onChanged: (value) => changeSelectedSize('L')),
                   Text('L  '),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('XL'),
+                      onChanged: (value) => changeSelectedSize('XL')),
                   Text('XL'),
                 ],
               ),
               Row(
                 children: <Widget>[
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('24'),
+                      onChanged: (value) => changeSelectedSize('24')),
                   Text('24'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('26'),
+                      onChanged: (value) => changeSelectedSize('26')),
                   Text('26'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('28'),
+                      onChanged: (value) => changeSelectedSize('28')),
                   Text('28'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('30'),
+                      onChanged: (value) => changeSelectedSize('30')),
                   Text('30'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('32'),
+                      onChanged: (value) => changeSelectedSize('32')),
                   Text('32'),
                 ],
               ),
               Row(
                 children: <Widget>[
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('34'),
+                      onChanged: (value) => changeSelectedSize('34')),
                   Text('34'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('36'),
+                      onChanged: (value) => changeSelectedSize('36')),
                   Text('36'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('38'),
+                      onChanged: (value) => changeSelectedSize('38')),
                   Text('38'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('40'),
+                      onChanged: (value) => changeSelectedSize('40')),
                   Text('40'),
                   Checkbox(
-                    value: false,
-                    onChanged: null,
-                  ),
+                      value: selectedSizes.contains('42'),
+                      onChanged: (value) => changeSelectedSize('42')),
                   Text('42'),
                 ],
               ),
@@ -373,5 +359,19 @@ class _AddProductState extends State<AddProduct> {
 
   changeSelectedBrand(String selectedCategory) {
     setState(() => _currentBrand = selectedCategory);
+  }
+
+  void changeSelectedSize(String size) {
+    if (selectedSizes.contains(size)){
+      setState(() {
+        selectedSizes.remove(size);
+      });
+            }
+    else {
+       setState(() {
+         selectedSizes.insert(0,size);
+       });
+
+    }
   }
 }
