@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shopapp_tut/pages/product_details.dart';
 
@@ -7,46 +10,49 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
-  var product_list = [
-    {
-      "name": "Blazer",
-      //"picture": "images/products/blazer2.jpg",
-      "picture": "https://etrendsapp.000webhostapp.com/images/products/blazer3.jpg",
-      "old_price": 120,
-      "price": 85,
-    },
-//    {
-//      "name": "Red Dress",
-//      "picture": "images/products/blazer2.jpg",
-//      "old_price": 100,
-//      "price": 50,
-//    },
-//    {
-//      "name": "Blazer",
-//      "picture": "images/products/dress1.jpg",
-//      "old_price": 120,
-//      "price": 85,
-//    },
-//    {
-//      "name": "Red ress",
-//      "picture": "images/products/blazer3.jpg",
-//      "old_price": 100,
-//      "price": 50,
-//    }
-//    ,
-//    {
-//      "name": "Blazer",
-//      "picture": "images/products/dress2.jpg",
-//      "old_price": 120,
-//      "price": 85,
-//    },
-//    {
-//      "name": "Red ress",
-//      "picture": "images/products/shoe2.jpg",
-//      "old_price": 100,
-//      "price": 50,
-//    }
-  ];
+  List<Map<String, dynamic>> product_list = [];
+
+  Future<List<Map<String, dynamic>>> getItems() async {
+    final response =
+        await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
+    //print(response.statusCode);
+    var datausers = json.decode(response.body);
+    var pl;
+    for (var data in datausers) {
+      Map<String, dynamic> myObject = {
+        "name": data['name'],
+        "picture": data['image'],
+        "old_price": data['old_price'],
+        "price": data['price'],
+      };
+      product_list.add(myObject) ;
+      print(data['image']);
+    }
+    print(product_list[0]['name']);
+    print(product_list.length);
+  }
+
+  Timer timer;
+  int counter = 0;
+
+  void addValue() {
+    setState(() {
+      counter++;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getItems();
+    timer = Timer.periodic(Duration(seconds: 5), (Timer t) => addValue());
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,12 +104,22 @@ class Single_prod extends StatelessWidget {
               child: GridTile(
                   footer: Container(
                     color: Colors.white70,
-                    child: new Row(children: <Widget>[
-                      Expanded(
-                        child: Text(prod_name ,style: TextStyle(fontWeight: FontWeight.bold ,fontSize: 16.0),),
-                      ),
-                      new Text("\$${prod_price}" ,style: TextStyle(color: Colors.red , fontWeight: FontWeight.bold),)
-                    ],),
+                    child: new Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            prod_name,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16.0),
+                          ),
+                        ),
+                        new Text(
+                          "\$${prod_price}",
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
                   child: Image.network(
                     prod_pricture,

@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shopapp_tut/pages/admin.dart';
 import 'package:shopapp_tut/pages/home.dart';
 import 'package:shopapp_tut/pages/registration.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-
 import 'package:shopapp_tut/pages/registration.dart' as prefix0;
 import 'package:sweetalert/sweetalert.dart';
 
