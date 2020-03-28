@@ -24,15 +24,15 @@ class _LoginState extends State<Login> {
   String msg = '';
 
   Future<List> login() async {
+    //====================read login db line by line==========================
     final responseRow =
         await http.post("https://etrendsapp.000webhostapp.com/getrows.php");
     var rows = json.decode(responseRow.body);
     print(rows);
-
+   //=====================get user & pwd======================================
     final response =
         await http.post("https://etrendsapp.000webhostapp.com/getData.php");
     //print(response.statusCode);
-
     var datausers = json.decode(response.body);
 
     int i = 0;
@@ -48,7 +48,7 @@ class _LoginState extends State<Login> {
     if (i == rows) {
       i--;
     }
-
+  //======================== admin============================================
     print(datausers[i]);
     if (datausers[i]['username'] == user.text) {
       if (datausers[i]['password'].toString() == pass.text) {
@@ -65,6 +65,7 @@ class _LoginState extends State<Login> {
             );
           });
         } else {
+  //==============================User=======================================
           SweetAlert.show(context,
               title: "Login Successful",
               subtitle: "",
