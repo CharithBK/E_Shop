@@ -7,6 +7,7 @@ import 'package:shopapp_tut/db/category.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopapp_tut/db/product.dart';
 
+
 import 'admin.dart';
 
 class AddProduct extends StatefulWidget {
@@ -26,6 +27,8 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController brandController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController oldpriceController = TextEditingController();
+  TextEditingController conditionController = TextEditingController();
 
   List<DropdownMenuItem<String>> categoriesDropDown =<DropdownMenuItem<String>>[];
   List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
@@ -41,6 +44,7 @@ class _AddProductState extends State<AddProduct> {
   List<String> selectedSizes = <String>[];
 
   File _image1;
+  var img1;
   File _image2;
   File _image3;
 
@@ -167,7 +171,7 @@ class _AddProductState extends State<AddProduct> {
                   textFieldConfiguration: TextFieldConfiguration(
                       autofocus: false,
                       controller: categoryController,
-                      decoration: InputDecoration(labelText: 'category' ,hintText: 'add category')),
+                      decoration: InputDecoration(labelText: 'Category' ,hintText: 'add category')),
                   suggestionsCallback: (pattern) async {
                     print(pattern);
                     print("gggg");
@@ -204,7 +208,11 @@ class _AddProductState extends State<AddProduct> {
                   textFieldConfiguration: TextFieldConfiguration(
                       autofocus: false,
                       controller: brandController,
-                      decoration: InputDecoration(labelText: 'brand' ,hintText: 'add brand')),
+                      decoration: InputDecoration(labelText: 'Brand' ,hintText: 'add brand') ,
+                    // ignore: missing_return
+
+                  ),
+
                   suggestionsCallback: (pattern) async {
                     return await _brandService.getSuggestions(pattern);
                   },
@@ -215,11 +223,27 @@ class _AddProductState extends State<AddProduct> {
                     );
                   },
                   onSuggestionSelected: (suggestion) {
+                    // ignore: missing_return
                     setState(() {
+
                       _currentBrand = suggestion['name'];
-                      brandController.text = _currentBrand;
+                      print(_currentBrand);
+                      if(_currentBrand != null) {
+                        brandController.text = _currentBrand;
+                      }
+                      else {
+                        Fluttertoast.showToast(msg: 'select the brand');
+                      }
+
                     });
                   },
+                  // ignore: missing_return
+//                  validator: (value) {
+//                    if (value.isEmpty) {
+//                      return 'Please select a city';
+//                    }
+//                  },
+//                  onSaved: (value) => this._currentBrand = value,
                 ),
               ),
 
@@ -256,8 +280,36 @@ class _AddProductState extends State<AddProduct> {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
-                  controller: priceController,
+                  controller: conditionController,
                   keyboardType: TextInputType.text,
+                  decoration: InputDecoration( labelText: 'Condition', hintText: 'condition'),
+                  // ignore: missing_return
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "You must enter Product Condition";
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: TextFormField(
+                  controller: oldpriceController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Product Old Price', hintText: ' Old Price'),
+                  // ignore: missing_return
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "You must enter Product Old Price";
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: TextFormField(
+                  controller: priceController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'ProductPrice', hintText: ' Price'),
                   // ignore: missing_return
                   validator: (value) {
@@ -379,9 +431,15 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void _selectImage(Future<File> pickImage ,int imageNumber) async{
-    File tempImg = await pickImage;
+    //File tempImg = await pickImage;
+    var tempImg = await pickImage;
+    print("oo");
+    print(tempImg);
     switch(imageNumber){
-      case 1: setState(() => _image1 = tempImg);
+      case 1: setState(() {
+        _image1 = tempImg;
+        img1 = tempImg;
+      });
       break;
       case 2: setState(() => _image2 = tempImg);
       break;
@@ -426,8 +484,10 @@ class _AddProductState extends State<AddProduct> {
 
   void validateAndUpload() {
     if(_formKey.currentState.validate()){
-      if(_image1 != null && _image2 != null && _image3 != null){
+      if(_image1 != null || _image2 != null || _image3 != null){
+        String gg = "XL";
         if(selectedSizes.isNotEmpty){
+          _productService.uploadProduct(productNameController.text,categoryController.text,brandController.text,quantityController.text,descriptionController.text,conditionController.text,oldpriceController.text,priceController.text,gg,img1);
 //          String imageUrl;
 //          final String picture = "${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
 //            StorageUploadTask task = storage.ref

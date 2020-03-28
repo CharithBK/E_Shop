@@ -10,41 +10,42 @@ class _ProductsState extends State<Products> {
   var product_list = [
     {
       "name": "Blazer",
-      "picture": "images/products/blazer1.jpeg",
+      //"picture": "images/products/blazer2.jpg",
+      "picture": "https://etrendsapp.000webhostapp.com/images/products/blazer3.jpg",
       "old_price": 120,
       "price": 85,
     },
-    {
-      "name": "Red Dress",
-      "picture": "images/products/blazer2.jpg",
-      "old_price": 100,
-      "price": 50,
-    },
-    {
-      "name": "Blazer",
-      "picture": "images/products/dress1.jpg",
-      "old_price": 120,
-      "price": 85,
-    },
-    {
-      "name": "Red ress",
-      "picture": "images/products/blazer3.jpg",
-      "old_price": 100,
-      "price": 50,
-    }
-    ,
-    {
-      "name": "Blazer",
-      "picture": "images/products/dress2.jpg",
-      "old_price": 120,
-      "price": 85,
-    },
-    {
-      "name": "Red ress",
-      "picture": "images/products/shoe2.jpg",
-      "old_price": 100,
-      "price": 50,
-    }
+//    {
+//      "name": "Red Dress",
+//      "picture": "images/products/blazer2.jpg",
+//      "old_price": 100,
+//      "price": 50,
+//    },
+//    {
+//      "name": "Blazer",
+//      "picture": "images/products/dress1.jpg",
+//      "old_price": 120,
+//      "price": 85,
+//    },
+//    {
+//      "name": "Red ress",
+//      "picture": "images/products/blazer3.jpg",
+//      "old_price": 100,
+//      "price": 50,
+//    }
+//    ,
+//    {
+//      "name": "Blazer",
+//      "picture": "images/products/dress2.jpg",
+//      "old_price": 120,
+//      "price": 85,
+//    },
+//    {
+//      "name": "Red ress",
+//      "picture": "images/products/shoe2.jpg",
+//      "old_price": 100,
+//      "price": 50,
+//    }
   ];
 
   @override
@@ -104,7 +105,7 @@ class Single_prod extends StatelessWidget {
                       new Text("\$${prod_price}" ,style: TextStyle(color: Colors.red , fontWeight: FontWeight.bold),)
                     ],),
                   ),
-                  child: Image.asset(
+                  child: Image.network(
                     prod_pricture,
                     fit: BoxFit.cover,
                   )),

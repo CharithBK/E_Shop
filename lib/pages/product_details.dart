@@ -54,8 +54,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: GridTile(
               child: Container(
                 color: Colors.white,
-                child: Image.asset(widget.product_detail_picture),
-              ),
+                child: Image.network(widget.product_detail_picture),
+      ),
               footer: new Container(
                   color: Colors.white70,
                   child: ListTile(
@@ -292,28 +292,28 @@ class _Similar_ProductsState extends State<Similar_Products> {
   var product_list = [
     {
       "name": "Blazer",
-      "picture": "images/products/dress1.jpg",
+      "picture": "https://etrendsapp.000webhostapp.com/images/products/blazer2.jpg",
       "old_price": 120,
       "price": 85,
     },
-    {
-      "name": "Red ress",
-      "picture": "images/products/blazer3.jpg",
-      "old_price": 100,
-      "price": 50,
-    },
-    {
-      "name": "Blazer",
-      "picture": "images/products/dress2.jpg",
-      "old_price": 120,
-      "price": 85,
-    },
-    {
-      "name": "Red ress",
-      "picture": "images/products/shoe2.jpg",
-      "old_price": 100,
-      "price": 50,
-    }
+//    {
+//      "name": "Red ress",
+//      "picture": "images/products/blazer3.jpg",
+//      "old_price": 100,
+//      "price": 50,
+//    },
+//    {
+//      "name": "Blazer",
+//      "picture": "images/products/dress2.jpg",
+//      "old_price": 120,
+//      "price": 85,
+//    },
+//    {
+//      "name": "Red ress",
+//      "picture": "images/products/shoe2.jpg",
+//      "old_price": 100,
+//      "price": 50,
+//    }
   ];
 
   @override
@@ -380,12 +380,14 @@ class Similar_Single_prod extends StatelessWidget {
                       ],
                     ),
                   ),
-                  child: Image.asset(
+
+                  child: Image.network(
                     prod_pricture,
                     fit: BoxFit.cover,
                   )),
             ),
           )),
+
     );
   }
 }
