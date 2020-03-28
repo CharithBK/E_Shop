@@ -1,9 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shopapp_tut/db/brand.dart';
 import 'package:shopapp_tut/db/category.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopapp_tut/db/product.dart';
+
+import 'admin.dart';
 
 class AddProduct extends StatefulWidget {
   @override
@@ -13,6 +17,7 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   CategoryService _categoryService = CategoryService();
   BrandService _brandService = BrandService();
+  ProductService _productService = ProductService();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController productNameController = TextEditingController();
@@ -20,6 +25,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController categoryController = TextEditingController();
   TextEditingController brandController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   List<DropdownMenuItem<String>> categoriesDropDown =<DropdownMenuItem<String>>[];
   List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
@@ -59,10 +65,18 @@ class _AddProductState extends State<AddProduct> {
       appBar: AppBar(
         elevation: 0.1,
         backgroundColor: white,
-        leading: Icon(
-          Icons.close,
-          color: black,
-        ),
+        leading: new IconButton(
+            icon: Icon(
+              Icons.close,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Admin()),
+              );
+            }),
+
         title: Text(
           "add product",
           style: TextStyle(color: black),
@@ -116,8 +130,7 @@ class _AddProductState extends State<AddProduct> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'enter a product name with 10 characters at maximum',
+                child: Text('',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: red, fontSize: 12),
                 ),
@@ -127,12 +140,13 @@ class _AddProductState extends State<AddProduct> {
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
                   controller: productNameController,
-                  decoration: InputDecoration(hintText: 'Product name'),
+                  decoration: InputDecoration( labelText: 'Product name', hintText: 'name'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'You must enter the product name';
-                    } else if (value.length > 10) {
+                    }
+                    else if (value.length > 10) {
                       return 'Product name cant have more than 10 letters';
                     }
                   },
@@ -141,11 +155,11 @@ class _AddProductState extends State<AddProduct> {
 
 //              select category
 
-              Visibility(
-                visible: _currentCategory != null || _currentCategory == '',
-                child: Text(_currentCategory ?? "null",
-                    style: TextStyle(color: red)),
-              ),
+//              Visibility(
+//                visible: _currentCategory != null || _currentCategory == '',
+//                child: Text(_currentCategory ?? "null",
+//                    style: TextStyle(color: red)),
+//              ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -153,7 +167,7 @@ class _AddProductState extends State<AddProduct> {
                   textFieldConfiguration: TextFieldConfiguration(
                       autofocus: false,
                       controller: categoryController,
-                      decoration: InputDecoration(hintText: 'add category')),
+                      decoration: InputDecoration(labelText: 'category' ,hintText: 'add category')),
                   suggestionsCallback: (pattern) async {
                     print(pattern);
                     print("gggg");
@@ -178,11 +192,11 @@ class _AddProductState extends State<AddProduct> {
 
 //            select brand
 
-              Visibility(
-                visible: _currentBrand != null || _currentBrand == '',
-                child:
-                    Text(_currentBrand ?? "null", style: TextStyle(color: red)),
-              ),
+//              Visibility(
+//                visible: _currentBrand != null || _currentBrand == '',
+//                child:
+//                    Text(_currentBrand ?? "null", style: TextStyle(color: red)),
+//              ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -190,7 +204,7 @@ class _AddProductState extends State<AddProduct> {
                   textFieldConfiguration: TextFieldConfiguration(
                       autofocus: false,
                       controller: brandController,
-                      decoration: InputDecoration(hintText: 'add brand')),
+                      decoration: InputDecoration(labelText: 'brand' ,hintText: 'add brand')),
                   suggestionsCallback: (pattern) async {
                     return await _brandService.getSuggestions(pattern);
                   },
@@ -213,8 +227,10 @@ class _AddProductState extends State<AddProduct> {
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
                   controller: quantityController,
+                  //initialValue: '1',
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(hintText: 'Quantity'),
+                  decoration: InputDecoration(
+                      labelText: 'Quantity' , hintText: 'qty'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
@@ -228,11 +244,25 @@ class _AddProductState extends State<AddProduct> {
                 child: TextFormField(
                   controller: descriptionController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(hintText: 'Product Description'),
+                  decoration: InputDecoration( labelText: 'Product Description', hintText: ' Description'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
                       return "You must enter Product Description";
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: TextFormField(
+                  controller: priceController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(labelText: 'ProductPrice', hintText: ' Price'),
+                  // ignore: missing_return
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "You must enter Product Price";
                     }
                   },
                 ),
@@ -315,7 +345,9 @@ class _AddProductState extends State<AddProduct> {
                 color: red,
                 textColor: white,
                 child: Text('add product'),
-                onPressed: () {},
+                onPressed: () {
+                  validateAndUpload();
+                },
               )
             ],
           ),
@@ -389,6 +421,23 @@ class _AddProductState extends State<AddProduct> {
       );
     }else{
       return Image.file(_image3, fit: BoxFit.fill, width: double.infinity,);
+    }
+  }
+
+  void validateAndUpload() {
+    if(_formKey.currentState.validate()){
+      if(_image1 != null && _image2 != null && _image3 != null){
+        if(selectedSizes.isNotEmpty){
+//          String imageUrl;
+//          final String picture = "${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
+//            StorageUploadTask task = storage.ref
+          Fluttertoast.showToast(msg: 'all done');
+        }else{
+          Fluttertoast.showToast(msg: 'select atleast one size');
+        }
+      }else{
+        Fluttertoast.showToast(msg: 'all the images must be provided');
+      }
     }
   }
 }

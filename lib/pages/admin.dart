@@ -5,12 +5,12 @@ import 'package:shopapp_tut/pages/add_product.dart';
 import 'package:sweetalert/sweetalert.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 import 'home.dart';
 
 enum Page { dashboard, manage }
 
 class Admin extends StatefulWidget {
+
   @override
   _AdminState createState() => _AdminState();
 }
@@ -25,9 +25,6 @@ class _AdminState extends State<Admin> {
   GlobalKey<FormState> _brandFormKey = GlobalKey();
   BrandService _brandService = BrandService();
   CategoryService _categoryService = CategoryService();
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +193,10 @@ class _AdminState extends State<Admin> {
             ListTile(
               leading: Icon(Icons.add),
               title: Text("Add product"),
-              onTap: () { Navigator.push(context,MaterialPageRoute(builder: (_)=> AddProduct()));},
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => AddProduct()));
+              },
             ),
             Divider(),
             ListTile(
@@ -236,10 +236,12 @@ class _AdminState extends State<Admin> {
             ListTile(
               leading: Icon(Icons.home),
               title: Text("Home Page"),
-              onTap: () { Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
             ),
             Divider(),
           ],
@@ -271,11 +273,12 @@ class _AdminState extends State<Admin> {
               if (categoryController.text != "") {
                 _categoryService.createCategory(categoryController.text);
                 // print(categoryController.text);
-
+                Fluttertoast.showToast(msg: 'category created');
+                Navigator.pop(context);
+              } else {
+                Fluttertoast.showToast(msg: 'category not created');
+                Navigator.pop(context);
               }
-
-              Fluttertoast.showToast(msg: 'category created');
-              Navigator.pop(context);
             },
             child: Text('ADD')),
         FlatButton(
@@ -310,10 +313,12 @@ class _AdminState extends State<Admin> {
               if (brandController.text != "") {
                 _brandService.createBrand(brandController.text);
                 print(brandController.text);
+                Fluttertoast.showToast(msg: 'Brand created');
+                Navigator.pop(context);
+              } else {
+                Fluttertoast.showToast(msg: 'Brand not created');
+                Navigator.pop(context);
               }
-
-              Fluttertoast.showToast(msg: 'Brand created');
-              Navigator.pop(context);
             },
             child: Text('ADD')),
         FlatButton(
