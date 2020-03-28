@@ -12,7 +12,9 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   List<Map<String, dynamic>> product_list = [];
 
+  // ignore: missing_return
   Future<List<Map<String, dynamic>>> getItems() async {
+
     final response =
         await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
     //print(response.statusCode);
@@ -24,12 +26,23 @@ class _ProductsState extends State<Products> {
         "picture": data['image'],
         "old_price": data['old_price'],
         "price": data['price'],
+        "category": data['category'],
+        "brand": data['brand'],
+        "details": data['description'],
+        "condition": data['type'],
       };
       product_list.add(myObject) ;
       print(data['image']);
-    }
+      print(data['category']);
+      print(data['brand']);
+      print(data['old_price']);
+      print(data['description']);
+      print(data['type']);
+
+          }
     print(product_list[0]['name']);
     print(product_list.length);
+
   }
 
   Timer timer;
@@ -68,7 +81,12 @@ class _ProductsState extends State<Products> {
               prod_pricture: product_list[index]['picture'],
               prod_old_price: product_list[index]['old_price'],
               prod_price: product_list[index]['price'],
+              prod_category: product_list[index]['category'],
+              prod_brand: product_list[index]['brand'],
+              prod_description: product_list[index]['details'],
+              prod_type: product_list[index]['condition'],
             ),
+
           );
         });
   }
@@ -79,12 +97,20 @@ class Single_prod extends StatelessWidget {
   final prod_pricture;
   final prod_old_price;
   final prod_price;
+  final prod_category;
+  final prod_brand;
+  final prod_description;
+  final prod_type;
 
   Single_prod({
     this.prod_name,
     this.prod_pricture,
     this.prod_old_price,
     this.prod_price,
+    this.prod_category,
+    this.prod_brand,
+    this.prod_description,
+    this.prod_type
   });
 
   @override
@@ -100,6 +126,10 @@ class Single_prod extends StatelessWidget {
                         product_detail_new_price: prod_price,
                         product_detail_old_price: prod_old_price,
                         product_detail_picture: prod_pricture,
+                        product_detail_category: prod_category,
+                        product_detail_brand: prod_brand,
+                        product_detail_description: prod_description,
+                        product_detail_type: prod_type,
                       ))),
               child: GridTile(
                   footer: Container(

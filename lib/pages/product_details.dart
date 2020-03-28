@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shopapp_tut/main.dart';
 
@@ -8,12 +11,20 @@ class ProductDetails extends StatefulWidget {
   final product_detail_new_price;
   final product_detail_old_price;
   final product_detail_picture;
+  final product_detail_category;
+  final product_detail_brand;
+  final product_detail_description;
+  final product_detail_type;
 
   ProductDetails(
       {this.product_detail_name,
       this.product_detail_new_price,
       this.product_detail_old_price,
-      this.product_detail_picture});
+      this.product_detail_picture,
+      this.product_detail_category,
+      this.product_detail_brand,
+      this.product_detail_description,
+      this.product_detail_type});
 
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
@@ -55,7 +66,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: Container(
                 color: Colors.white,
                 child: Image.network(widget.product_detail_picture),
-      ),
+              ),
               footer: new Container(
                   color: Colors.white70,
                   child: ListTile(
@@ -225,9 +236,12 @@ class _ProductDetailsState extends State<ProductDetails> {
           Divider(),
           new ListTile(
             title: new Text("Product Details"),
-            subtitle: new Text(
-                "Jun Takahashi and his GIRA (Gyakusou International Running Association) club are back with the Nike x Gyakusou T-Shirt. It revisits '70s Nike graphics for inspiration while nodding to the GIRA crew's runs in Yoyogi Park."),
+            subtitle: Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 5.0, 5.0, 5.0),
+              child: new Text(widget.product_detail_description),
+            ),
           ),
+
           Divider(),
           new Row(
             children: <Widget>[
@@ -252,11 +266,23 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Padding(
                 padding: EdgeInsets.all(5.0),
-                child: new Text("Nike"),
+                child: new Text(widget.product_detail_brand),
               )
             ],
           ),
-
+          new Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+                child: new Text("Product category",
+                    style: TextStyle(color: Colors.grey)),
+              ),
+              Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text(widget.product_detail_category),
+              )
+            ],
+          ),
           new Row(
             children: <Widget>[
               Padding(
@@ -266,13 +292,15 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Padding(
                 padding: EdgeInsets.all(5.0),
-                child: new Text("BRAND NEW"),
+                child: new Text(widget.product_detail_type),
               )
             ],
           ),
           Divider(),
-          Padding(padding: const EdgeInsets.all(8.0),
-          child: new Text("Similar Products "),),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: new Text("Similar Products "),
+          ),
           Container(
             height: 360.0,
             child: Similar_Products(),
@@ -289,33 +317,62 @@ class Similar_Products extends StatefulWidget {
 }
 
 class _Similar_ProductsState extends State<Similar_Products> {
-  var product_list = [
-    {
-      "name": "Blazer",
-      "picture": "https://etrendsapp.000webhostapp.com/images/products/blazer2.jpg",
-      "old_price": 120,
-      "price": 85,
-    },
-//    {
-//      "name": "Red ress",
-//      "picture": "images/products/blazer3.jpg",
-//      "old_price": 100,
-//      "price": 50,
-//    },
-//    {
-//      "name": "Blazer",
-//      "picture": "images/products/dress2.jpg",
-//      "old_price": 120,
-//      "price": 85,
-//    },
-//    {
-//      "name": "Red ress",
-//      "picture": "images/products/shoe2.jpg",
-//      "old_price": 100,
-//      "price": 50,
-//    }
-  ];
+  List<Map<String, dynamic>> product_list = [];
 
+  // ignore: missing_return
+  Future<List<Map<String, dynamic>>> getItems() async {
+
+    final response =
+    await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
+    //print(response.statusCode);
+    var datausers = json.decode(response.body);
+    var pl;
+    for (var data in datausers) {
+      Map<String, dynamic> myObject = {
+        "name": data['name'],
+        "picture": data['image'],
+        "old_price": data['old_price'],
+        "price": data['price'],
+        "category": data['category'],
+        "brand": data['brand'],
+        "details": data['description'],
+        "condition": data['type'],
+      };
+      product_list.add(myObject) ;
+      print(data['image']);
+      print(data['category']);
+      print(data['brand']);
+      print(data['old_price']);
+      print(data['description']);
+      print(data['type']);
+
+    }
+    print(product_list[0]['name']);
+    print(product_list.length);
+
+  }
+
+  Timer timer;
+  int counter = 0;
+
+  void addValue() {
+    setState(() {
+      counter++;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getItems();
+    timer = Timer.periodic(Duration(seconds: 5), (Timer t) => addValue());
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -328,6 +385,10 @@ class _Similar_ProductsState extends State<Similar_Products> {
             prod_pricture: product_list[index]['picture'],
             prod_old_price: product_list[index]['old_price'],
             prod_price: product_list[index]['price'],
+            prod_category: product_list[index]['category'],
+            prod_brand: product_list[index]['brand'],
+            prod_description: product_list[index]['details'],
+            prod_type: product_list[index]['condition'],
           );
         });
   }
@@ -338,13 +399,20 @@ class Similar_Single_prod extends StatelessWidget {
   final prod_pricture;
   final prod_old_price;
   final prod_price;
+  final prod_category;
+  final prod_brand;
+  final prod_description;
+  final prod_type;
 
-  Similar_Single_prod({
-    this.prod_name,
-    this.prod_pricture,
-    this.prod_old_price,
-    this.prod_price,
-  });
+  Similar_Single_prod(
+      {this.prod_name,
+      this.prod_pricture,
+      this.prod_old_price,
+      this.prod_price,
+      this.prod_category,
+      this.prod_brand,
+      this.prod_description,
+      this.prod_type});
 
   @override
   Widget build(BuildContext context) {
@@ -359,6 +427,10 @@ class Similar_Single_prod extends StatelessWidget {
                         product_detail_new_price: prod_price,
                         product_detail_old_price: prod_old_price,
                         product_detail_picture: prod_pricture,
+                        product_detail_category: prod_category,
+                        product_detail_brand: prod_brand,
+                        product_detail_description: prod_description,
+                        product_detail_type: prod_type,
                       ))),
               child: GridTile(
                   footer: Container(
@@ -380,14 +452,12 @@ class Similar_Single_prod extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   child: Image.network(
                     prod_pricture,
                     fit: BoxFit.cover,
                   )),
             ),
           )),
-
     );
   }
 }

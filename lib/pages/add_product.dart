@@ -30,6 +30,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController oldpriceController = TextEditingController();
   TextEditingController conditionController = TextEditingController();
 
+
   List<DropdownMenuItem<String>> categoriesDropDown =<DropdownMenuItem<String>>[];
   List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
 
@@ -107,28 +108,28 @@ class _AddProductState extends State<AddProduct> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: OutlineButton(
-                        borderSide: BorderSide(
-                            color: grey.withOpacity(0.5), width: 2.5),
-                        onPressed: () {  _selectImage(ImagePicker.pickImage(source: ImageSource.gallery),2);},
-                        child: _displayChild2(),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: OutlineButton(
-                        borderSide: BorderSide(
-                            color: grey.withOpacity(0.5), width: 2.5),
-                        onPressed: () {  _selectImage(ImagePicker.pickImage(source: ImageSource.gallery),3);},
-                        child: _displayChild3(),
-                      ),
-                    ),
-                  ),
+//                  Expanded(
+//                    child: Padding(
+//                      padding: const EdgeInsets.all(8.0),
+//                      child: OutlineButton(
+//                        borderSide: BorderSide(
+//                            color: grey.withOpacity(0.5), width: 2.5),
+//                        onPressed: () {  _selectImage(ImagePicker.pickImage(source: ImageSource.gallery),2);},
+//                        child: _displayChild2(),
+//                      ),
+//                    ),
+//                  ),
+//                  Expanded(
+//                    child: Padding(
+//                      padding: const EdgeInsets.all(8.0),
+//                      child: OutlineButton(
+//                        borderSide: BorderSide(
+//                            color: grey.withOpacity(0.5), width: 2.5),
+//                        onPressed: () {  _selectImage(ImagePicker.pickImage(source: ImageSource.gallery),3);},
+//                        child: _displayChild3(),
+//                      ),
+//                    ),
+//                  ),
                 ],
               ),
 
@@ -173,8 +174,8 @@ class _AddProductState extends State<AddProduct> {
                       controller: categoryController,
                       decoration: InputDecoration(labelText: 'Category' ,hintText: 'add category')),
                   suggestionsCallback: (pattern) async {
-                    print(pattern);
-                    print("gggg");
+                    //print(pattern);
+                    //print("gggg");
 
                     return await _categoryService.getSuggestions(pattern);
                   },
@@ -186,7 +187,7 @@ class _AddProductState extends State<AddProduct> {
                   },
                   onSuggestionSelected: (suggestion) {
                     setState(() {
-                      print("gg");
+                      //print("gg");
                       _currentCategory = suggestion['name'];
                       categoryController.text = _currentCategory;
                     });
@@ -391,8 +392,11 @@ class _AddProductState extends State<AddProduct> {
                       value: selectedSizes.contains('42'),
                       onChanged: (value) => changeSelectedSize('42')),
                   Text('42'),
+
                 ],
+
               ),
+
               FlatButton(
                 color: red,
                 textColor: white,
@@ -417,14 +421,19 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void changeSelectedSize(String size) {
+    //print(selectedSizes);
     if (selectedSizes.contains(size)){
       setState(() {
         selectedSizes.remove(size);
+
       });
             }
     else {
        setState(() {
-         selectedSizes.insert(0,size);
+         //selectedSizes.insert(0,size);
+         selectedSizes.add(size);
+         print(selectedSizes);
+         //print(size);
        });
 
     }
@@ -433,8 +442,8 @@ class _AddProductState extends State<AddProduct> {
   void _selectImage(Future<File> pickImage ,int imageNumber) async{
     //File tempImg = await pickImage;
     var tempImg = await pickImage;
-    print("oo");
-    print(tempImg);
+    //print("oo");
+    //print(tempImg);
     switch(imageNumber){
       case 1: setState(() {
         _image1 = tempImg;
@@ -459,38 +468,37 @@ class _AddProductState extends State<AddProduct> {
       return Image.file(_image1, fit: BoxFit.fill, width: double.infinity,);
     }
   }
-
-  Widget _displayChild2() {
-    if(_image2 == null){
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(14, 70, 14, 70),
-        child: new Icon(Icons.add, color: grey,),
-      );
-    }else{
-      return Image.file(_image2, fit: BoxFit.fill, width: double.infinity,);
-    }
-  }
-
-  Widget _displayChild3() {
-    if(_image3 == null){
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(14, 70, 14, 70),
-        child: new Icon(Icons.add, color: grey,),
-      );
-    }else{
-      return Image.file(_image3, fit: BoxFit.fill, width: double.infinity,);
-    }
-  }
+//
+//  Widget _displayChild2() {
+//    if(_image2 == null){
+//      return Padding(
+//        padding: const EdgeInsets.fromLTRB(14, 70, 14, 70),
+//        child: new Icon(Icons.add, color: grey,),
+//      );
+//    }else{
+//      return Image.file(_image2, fit: BoxFit.fill, width: double.infinity,);
+//    }
+//  }
+//
+//  Widget _displayChild3() {
+//    if(_image3 == null){
+//      return Padding(
+//        padding: const EdgeInsets.fromLTRB(14, 70, 14, 70),
+//        child: new Icon(Icons.add, color: grey,),
+//      );
+//    }else{
+//      return Image.file(_image3, fit: BoxFit.fill, width: double.infinity,);
+//    }
+//  }
 
   void validateAndUpload() {
-    if(_formKey.currentState.validate()){
-      if(_image1 != null || _image2 != null || _image3 != null){
-        String gg = "XL";
+
+        if(_formKey.currentState.validate()){
+      if(_image1 != null){
+        //String gg = "XL";
         if(selectedSizes.isNotEmpty){
-          _productService.uploadProduct(productNameController.text,categoryController.text,brandController.text,quantityController.text,descriptionController.text,conditionController.text,oldpriceController.text,priceController.text,gg,img1);
-//          String imageUrl;
-//          final String picture = "${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
-//            StorageUploadTask task = storage.ref
+          String size = selectedSizes[0];
+          _productService.uploadProduct(productNameController.text,categoryController.text,brandController.text,quantityController.text,descriptionController.text,conditionController.text,oldpriceController.text,priceController.text,size,img1);
           Fluttertoast.showToast(msg: 'all done');
         }else{
           Fluttertoast.showToast(msg: 'select atleast one size');
