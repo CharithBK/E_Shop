@@ -497,8 +497,8 @@ class _AddProductState extends State<AddProduct> {
       if(_image1 != null){
         //String gg = "XL";
         if(selectedSizes.isNotEmpty){
-          String size = selectedSizes[0];
-          _productService.uploadProduct(productNameController.text,categoryController.text,brandController.text,quantityController.text,descriptionController.text,conditionController.text,oldpriceController.text,priceController.text,size,img1);
+          //String size = selectedSizes[0];
+          _productService.uploadProduct(productNameController.text,categoryController.text,brandController.text,quantityController.text,descriptionController.text,conditionController.text,oldpriceController.text,priceController.text,selectedSizes,img1);
           Fluttertoast.showToast(msg: 'all done');
         }else{
           Fluttertoast.showToast(msg: 'select atleast one size');

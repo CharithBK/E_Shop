@@ -16,22 +16,34 @@ class ProductDetails extends StatefulWidget {
   final product_detail_brand;
   final product_detail_description;
   final product_detail_type;
+  final product_detail_size;
 
+//  example
+//      .split(' ')                       // split the text into an array
+//      .map((String text) => Text(text)) // put the text inside a widget
+//      .toList()
   ProductDetails(
-      {this.product_detail_name,
+      {
+        this.product_detail_name,
       this.product_detail_new_price,
       this.product_detail_old_price,
       this.product_detail_picture,
       this.product_detail_category,
       this.product_detail_brand,
       this.product_detail_description,
-      this.product_detail_type});
+      this.product_detail_type,
+      this.product_detail_size
+      }
+      );
+
 
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  String dropdownValue = null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,72 +116,64 @@ class _ProductDetailsState extends State<ProductDetails> {
           Row(
             children: <Widget>[
               //btnSize=============================
-
               Expanded(
-                child: MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return new AlertDialog(
-                            title: new Text("Size"),
-                            content: new Text("Choose the size"),
-                            actions: <Widget>[
-                              new MaterialButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(context);
-                                },
-                                child: new Text(
-                                  "Close",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  color: Colors.white,
-                  textColor: Colors.grey,
-                  elevation: 0.2,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: new Text("Size")),
-                      Expanded(child: new Icon(Icons.arrow_drop_down)),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    hint: Text("Size"),
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 16,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.black),
+                    underline: Container(
+                      height: 4,
+                      color: Colors.lightGreen,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+                    items: <String>['XS', 'S', 'M', 'L', 'XL', '2XL']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                 ),
               ),
+
               //btnColor=============================
 
               Expanded(
-                child: MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return new AlertDialog(
-                            title: new Text("Color"),
-                            content: new Text("Choose the color"),
-                            actions: <Widget>[
-                              new MaterialButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(context);
-                                },
-                                child: new Text("Close",
-                                    style: TextStyle(color: Colors.black)),
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  color: Colors.white,
-                  textColor: Colors.grey,
-                  elevation: 0.2,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: new Text("Color")),
-                      Expanded(child: new Icon(Icons.arrow_drop_down)),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    hint: Text("Color"),
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 16,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.black),
+                    underline: Container(
+                      height: 4,
+                      color: Colors.lightGreen,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+                    items: <String>['One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                 ),
               ),
@@ -177,34 +181,31 @@ class _ProductDetailsState extends State<ProductDetails> {
               //btnQty=============================
 
               Expanded(
-                child: MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return new AlertDialog(
-                            title: new Text("Quantity"),
-                            content: new Text("Choose the quantity"),
-                            actions: <Widget>[
-                              new MaterialButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(context);
-                                },
-                                child: new Text("Close",
-                                    style: TextStyle(color: Colors.black)),
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  color: Colors.white,
-                  textColor: Colors.grey,
-                  elevation: 0.2,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: new Text("Qty")),
-                      Expanded(child: new Icon(Icons.arrow_drop_down)),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    hint: Text("Quantity"),
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 16,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.black),
+                    underline: Container(
+                      height: 4,
+                      color: Colors.lightGreen,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+                    items: <String>['One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                 ),
               ),
@@ -230,7 +231,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Icons.add_shopping_cart,
                     color: Colors.black,
                   ),
-                  onPressed: () {}),
+                  onPressed: () { Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => new Cart())); }),
               new IconButton(
                   icon: Icon(
                     Icons.favorite_border,
@@ -327,9 +329,8 @@ class _Similar_ProductsState extends State<Similar_Products> {
 
   // ignore: missing_return
   Future<List<Map<String, dynamic>>> getItems() async {
-
     final response =
-    await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
+        await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
     //print(response.statusCode);
     var datausers = json.decode(response.body);
     var pl;
@@ -343,19 +344,19 @@ class _Similar_ProductsState extends State<Similar_Products> {
         "brand": data['brand'],
         "details": data['description'],
         "condition": data['type'],
+        "sizes": data['sizes'],
       };
-      product_list.add(myObject) ;
+      product_list.add(myObject);
       print(data['image']);
       print(data['category']);
       print(data['brand']);
       print(data['old_price']);
       print(data['description']);
       print(data['type']);
-
+      print(data['sizes']);
     }
     print(product_list[0]['name']);
     print(product_list.length);
-
   }
 
   Timer timer;
@@ -379,6 +380,7 @@ class _Similar_ProductsState extends State<Similar_Products> {
     timer?.cancel();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -395,6 +397,7 @@ class _Similar_ProductsState extends State<Similar_Products> {
             prod_brand: product_list[index]['brand'],
             prod_description: product_list[index]['details'],
             prod_type: product_list[index]['condition'],
+            prod_size: product_list[index]['sizes'],
           );
         });
   }
@@ -409,6 +412,7 @@ class Similar_Single_prod extends StatelessWidget {
   final prod_brand;
   final prod_description;
   final prod_type;
+  final prod_size;
 
   Similar_Single_prod(
       {this.prod_name,
@@ -418,7 +422,8 @@ class Similar_Single_prod extends StatelessWidget {
       this.prod_category,
       this.prod_brand,
       this.prod_description,
-      this.prod_type});
+      this.prod_type,
+      this.prod_size});
 
   @override
   Widget build(BuildContext context) {
@@ -437,6 +442,7 @@ class Similar_Single_prod extends StatelessWidget {
                         product_detail_brand: prod_brand,
                         product_detail_description: prod_description,
                         product_detail_type: prod_type,
+                        product_detail_size: prod_size,
                       ))),
               child: GridTile(
                   footer: Container(
