@@ -34,9 +34,12 @@ class _CartState extends State<Cart> {
               title: new Text("Total:"),
               subtitle: new Text("\$230"),
             )),
-            Expanded(child: new MaterialButton( onPressed: () {},
-            child:new Text("Check out" ,style: TextStyle(color: Colors.white),),
-            color: Colors.red,),
+            Expanded(child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new MaterialButton( onPressed: () {},
+              child:new Text("Check out" ,style: TextStyle(color: Colors.white),),
+              color: Colors.red,),
+            ),
             )
           ],
         ),
