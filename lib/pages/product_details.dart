@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shopapp_tut/main.dart';
 
+import 'cart.dart';
 import 'home.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -55,7 +56,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Icons.shopping_cart,
                 color: Colors.white,
               ),
-              onPressed: () {})
+              onPressed: () {
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => new Cart()));
+                }
+              })
         ],
       ),
       body: new ListView(

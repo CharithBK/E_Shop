@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="">
+    <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="product Upload to the Database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/componets/products.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/componets/products.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/add_product.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/add_product.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/componets/cart_products.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/componets/cart_products.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/product_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/product_details.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -219,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585407532320</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="product Upload to the Database">
+      <created>1585420307948</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1585420307949</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
