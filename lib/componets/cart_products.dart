@@ -13,9 +13,8 @@ class _Cart_productsState extends State<Cart_products> {
 
   // ignore: missing_return
   Future<List<Map<String, dynamic>>> getItems() async {
-
     final response =
-    await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
+        await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
     //print(response.statusCode);
     var datausers = json.decode(response.body);
     var pl;
@@ -32,7 +31,7 @@ class _Cart_productsState extends State<Cart_products> {
         "size": data['sizes'],
         "qty": data['qty'],
       };
-      Products_on_the_cart.add(myObject) ;
+      Products_on_the_cart.add(myObject);
       print(data['image']);
       print(data['category']);
       print(data['brand']);
@@ -41,11 +40,9 @@ class _Cart_productsState extends State<Cart_products> {
       print(data['type']);
       print(data['sizes']);
       print(data['qty']);
-
     }
     print(Products_on_the_cart[0]['name']);
     print(Products_on_the_cart.length);
-
   }
 
   Timer timer;
@@ -70,10 +67,9 @@ class _Cart_productsState extends State<Cart_products> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder( 
+    return new ListView.builder(
         itemCount: Products_on_the_cart.length,
         itemBuilder: (context, index) {
           return Single_cart_product(
@@ -105,26 +101,25 @@ class Single_cart_product extends StatelessWidget {
   final prod_qty;
 
   Single_cart_product(
-      { this.prod_name,
-        this.prod_pricture,
-        this.prod_old_price,
-        this.prod_price,
-        this.prod_category,
-        this.prod_brand,
-        this.prod_description,
-        this.prod_type,
+      {this.prod_name,
+      this.prod_pricture,
+      this.prod_old_price,
+      this.prod_price,
+      this.prod_category,
+      this.prod_brand,
+      this.prod_description,
+      this.prod_type,
       this.prod_size,
       this.prod_qty});
 
   @override
   Widget build(BuildContext context) {
-
     final Size screenSize = MediaQuery.of(context).size;
-    return Card( 
-    
+    return Card(
       child: ListTile(
         //LEADING SECTIONS
-        leading: new Image.network(prod_pricture,
+        leading: new Image.network(
+          prod_pricture,
           width: 60.0,
           height: 60.0,
         ),
@@ -170,7 +165,6 @@ class Single_cart_product extends StatelessWidget {
                 "\$${prod_price}",
                 style: TextStyle(
                     fontSize: 17.0,
-                    
                     fontWeight: FontWeight.bold,
                     color: Colors.green),
               ),
@@ -178,29 +172,28 @@ class Single_cart_product extends StatelessWidget {
           ],
         ),
         trailing: new Column(
-        
-         children: <Widget>[
-                  Expanded(
-                    
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 2.0 ),
-                      child: new IconButton(icon: Icon(Icons.arrow_drop_up), onPressed: () {}),
-                    ),
-                  ),
-                  Expanded(
-                    child: new Padding(padding: const EdgeInsets.only(top: 5.0 ), child: new Text("$prod_qty")) ,
-                  ),
-                  Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 1.0),
-                        child: new IconButton(icon: Icon(Icons.arrow_drop_down), onPressed: () {}),
-                      )
-                          ),
-                ],
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 2.0),
+                child: new IconButton(
+                    icon: Icon(Icons.arrow_drop_up), onPressed: () {}),
+              ),
+            ),
+            Expanded(
+              child: new Padding(
+                  padding: const EdgeInsets.only(top: 5.0),
+                  child: new Text("$prod_qty")),
+            ),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.only(bottom: 1.0),
+              child: new IconButton(
+                  icon: Icon(Icons.arrow_drop_down), onPressed: () {}),
+            )),
+          ],
         ),
       ),
     );
   }
 }
-
-
