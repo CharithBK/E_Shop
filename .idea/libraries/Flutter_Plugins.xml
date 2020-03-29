@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
     <CLASSES>
-      <root url="file://C:/Program Files/src/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-2.2.11" />
-      <root url="file://C:/Program Files/src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.4.12+1" />
-      <root url="file://C:/Program Files/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_keyboard_visibility-0.7.0" />
+      <root url="file://E:/scr/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.4.12+1" />
+      <root url="file://E:/scr/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-2.2.11" />
+      <root url="file://E:/scr/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_keyboard_visibility-0.7.0" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

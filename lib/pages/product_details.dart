@@ -23,8 +23,7 @@ class ProductDetails extends StatefulWidget {
 //      .map((String text) => Text(text)) // put the text inside a widget
 //      .toList()
   ProductDetails(
-      {
-        this.product_detail_name,
+      {this.product_detail_name,
       this.product_detail_new_price,
       this.product_detail_old_price,
       this.product_detail_picture,
@@ -32,17 +31,18 @@ class ProductDetails extends StatefulWidget {
       this.product_detail_brand,
       this.product_detail_description,
       this.product_detail_type,
-      this.product_detail_size
-      }
-      );
-
+      this.product_detail_size});
 
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  String dropdownValue = null;
+  String dropdownValue1;
+  String dropdownValue2;
+  String dropdownValue3;
+  List<DropdownMenuItem<String>> lst;
+  double subTot = 0.00;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +106,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                               "\$${widget.product_detail_new_price}",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.red)))
+                                  color: Colors.red))),
+                      Expanded(
+                        child: new Text("\$$subTot",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red)),
+                      )
                     ]),
                   )),
             ),
@@ -120,39 +126,56 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                    value: dropdownValue,
-                    hint: Text("Size"),
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 16,
-                    elevation: 16,
-                    style: TextStyle(color: Colors.black),
-                    underline: Container(
-                      height: 4,
-                      color: Colors.lightGreen,
-                    ),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                    },
-                    items: <String>['XS', 'S', 'M', 'L', 'XL', '2XL']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
+                      value: dropdownValue1,
+                      hint: Text("Size"),
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 16,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black),
+                      underline: Container(
+                        height: 4,
+                        color: Colors.lightGreen,
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          dropdownValue1 = newValue;
+                        });
+                        //print(dropdownValue1);
+                        //print(widget.product_detail_size);
+
+                        //print(widget.product_detail_size.split(",")[0]);
+                        //list.addAll(widget.product_detail_size.split(","));
+
+                       //for (var dt in widget.product_detail_size.split(",")) {
+                         // lst.add(dt);
+                         // print(dt);
+                       // }
+
+                       //print(lst);
+                      },
+                      items: <String>[
+                        'XS',
+                        'S',
+                        'M',
+                        'L',
+                        'XL',
+                        'XXL',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList()),
                 ),
               ),
 
               //btnColor=============================
-
+//
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                    value: dropdownValue,
+                    value: dropdownValue2,
                     hint: Text("Color"),
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 16,
@@ -164,11 +187,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     onChanged: (String newValue) {
                       setState(() {
-                        dropdownValue = newValue;
+                        dropdownValue2 = newValue;
                       });
                     },
-                    items: <String>['One', 'Two', 'Free', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
+                    items: <String>[
+                      'White',
+                      'Black',
+                      'Red',
+                      'Blue',
+                      'Green',
+                      'Orange',
+                      'Pink',
+                      'Yellow',
+                    ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -184,7 +215,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                    value: dropdownValue,
+                    value: dropdownValue3,
                     hint: Text("Quantity"),
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 16,
@@ -196,11 +227,29 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     onChanged: (String newValue) {
                       setState(() {
-                        dropdownValue = newValue;
+                        dropdownValue3 = newValue;
+                        print(widget.product_detail_new_price);
+                        print(dropdownValue3);
+
+                        var nprice =
+                            double.tryParse(widget.product_detail_new_price);
+                        var qty = double.tryParse(dropdownValue3);
+                        subTot = (nprice * qty);
+                        print(subTot);
                       });
                     },
-                    items: <String>['One', 'Two', 'Free', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
+                    items: <String>[
+                      '1',
+                      '2',
+                      '3',
+                      '4',
+                      '5',
+                      '6',
+                      '7',
+                      '8',
+                      '9',
+                      '10',
+                    ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -231,8 +280,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Icons.add_shopping_cart,
                     color: Colors.black,
                   ),
-                  onPressed: () { Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => new Cart())); }),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => new Cart()));
+                  }),
               new IconButton(
                   icon: Icon(
                     Icons.favorite_border,
@@ -356,6 +407,7 @@ class _Similar_ProductsState extends State<Similar_Products> {
       print(data['sizes']);
     }
     print(product_list[0]['name']);
+    print(product_list[2]['sizes']);
     print(product_list.length);
   }
 
@@ -414,16 +466,17 @@ class Similar_Single_prod extends StatelessWidget {
   final prod_type;
   final prod_size;
 
-  Similar_Single_prod(
-      {this.prod_name,
-      this.prod_pricture,
-      this.prod_old_price,
-      this.prod_price,
-      this.prod_category,
-      this.prod_brand,
-      this.prod_description,
-      this.prod_type,
-      this.prod_size});
+  Similar_Single_prod({
+    this.prod_name,
+    this.prod_pricture,
+    this.prod_old_price,
+    this.prod_price,
+    this.prod_category,
+    this.prod_brand,
+    this.prod_description,
+    this.prod_type,
+    this.prod_size,
+  });
 
   @override
   Widget build(BuildContext context) {

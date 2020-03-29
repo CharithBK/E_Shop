@@ -9,11 +9,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/db/product.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/db/product.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/add_product.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/add_product.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/componets/products.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/componets/products.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/product_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/product_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +18,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="a54ccbba7d24" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
