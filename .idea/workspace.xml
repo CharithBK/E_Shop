@@ -4,13 +4,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="product Upload to the Database">
+    <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="addToCart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/componets/products.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/componets/products.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/add_product.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/add_product.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/admin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/admin.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/login.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/product_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/product_details.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -253,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585480586597</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="addToCart">
+      <created>1585574126960</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1585574126960</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -281,7 +283,8 @@
     <MESSAGE value="checkBox" />
     <MESSAGE value="set_Image" />
     <MESSAGE value="product Upload to the Database" />
-    <option name="LAST_COMMIT_MESSAGE" value="product Upload to the Database" />
+    <MESSAGE value="addToCart" />
+    <option name="LAST_COMMIT_MESSAGE" value="addToCart" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

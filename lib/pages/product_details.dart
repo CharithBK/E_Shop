@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shopapp_tut/main.dart';
@@ -33,24 +34,20 @@ class ProductDetails extends StatefulWidget {
       this.product_detail_description,
       this.product_detail_type,
       this.product_detail_size,
-        this.uname
-      });
-
-
+      this.uname});
 
   @override
   _ProductDetailsState createState() => _ProductDetailsState(uname);
-
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-
   final uname;
+
   _ProductDetailsState(this.uname);
 
-  String dropdownValue1;
-  String dropdownValue2;
-  String dropdownValue3;
+  String dropdownSize;
+  String dropdownColors;
+  String dropdownQty;
   List<DropdownMenuItem<String>> lst;
   double subTot = 0.00;
 
@@ -118,8 +115,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.red))),
                       Expanded(
-                          child: new Text(
-                              "Total:",
+                          child: new Text("Total:",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black45))),
@@ -142,7 +138,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                      value: dropdownValue1,
+                      value: dropdownSize,
                       hint: Text("Size"),
                       icon: Icon(Icons.arrow_downward),
                       iconSize: 16,
@@ -154,7 +150,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       onChanged: (String newValue) {
                         setState(() {
-                          dropdownValue1 = newValue;
+                          dropdownSize = newValue;
                         });
                         //print(dropdownValue1);
                         //print(widget.product_detail_size);
@@ -162,12 +158,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                         //print(widget.product_detail_size.split(",")[0]);
                         //list.addAll(widget.product_detail_size.split(","));
 
-                       //for (var dt in widget.product_detail_size.split(",")) {
-                         // lst.add(dt);
-                         // print(dt);
-                       // }
+                        //for (var dt in widget.product_detail_size.split(",")) {
+                        // lst.add(dt);
+                        // print(dt);
+                        // }
 
-                       //print(lst);
+                        //print(lst);
                       },
                       items: <String>[
                         'XS',
@@ -191,7 +187,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                    value: dropdownValue2,
+                    value: dropdownColors,
                     hint: Text("Color"),
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 16,
@@ -203,7 +199,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     onChanged: (String newValue) {
                       setState(() {
-                        dropdownValue2 = newValue;
+                        dropdownColors = newValue;
                       });
                     },
                     items: <String>[
@@ -231,7 +227,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                    value: dropdownValue3,
+                    value: dropdownQty,
                     hint: Text("Quantity"),
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 16,
@@ -243,13 +239,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     onChanged: (String newValue) {
                       setState(() {
-                        dropdownValue3 = newValue;
+                        dropdownQty = newValue;
                         print(widget.product_detail_new_price);
-                        print(dropdownValue3);
+                        print(dropdownQty);
 
                         var nprice =
                             double.tryParse(widget.product_detail_new_price);
-                        var qty = double.tryParse(dropdownValue3);
+                        var qty = double.tryParse(dropdownQty);
                         subTot = (nprice * qty);
                         print(subTot);
                       });
@@ -283,9 +279,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
               Expanded(
                 child: MaterialButton(
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                   color: Colors.green,
                   textColor: Colors.white,
                   elevation: 0.2,
@@ -299,12 +293,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    print(uname);
-                    print(dropdownValue1);
-                    print(dropdownValue2);
-                    print(dropdownValue3);
-                    print(widget.product_detail_name);
-                    print(subTot);
+//                    print(uname);
+//                    print(dropdownSize);
+//                    print(dropdownColors);
+//                    print(dropdownQty);
+//                    print(widget.product_detail_name);
+//                    print(subTot);
+                    addtoCart();
+
 //                    Navigator.push(context,
 //                        MaterialPageRoute(builder: (context) => new Cart()));
                   }),
@@ -391,6 +387,29 @@ class _ProductDetailsState extends State<ProductDetails> {
         ],
       ),
     );
+  }
+
+  Future addtoCart() async {
+   // String SubTotal = subTot.toString();
+    print("gg");
+    print(uname);
+    print(dropdownSize);
+    print(dropdownColors);
+    print(dropdownQty);
+    print(widget.product_detail_name);
+    print(subTot);
+    final response = await http
+        .post("https://etrendsapp.000webhostapp.com/add_cart.php", body: {
+      "name": uname,
+      "itemname": widget.product_detail_name,
+      "size": dropdownSize,
+      "qty": dropdownQty,
+      "colors": dropdownColors,
+      "tot": subTot.toString(),
+    });
+    Fluttertoast.showToast(msg: 'Added To Cart!');
+    print("gg");
+    print(response.body);
   }
 }
 
