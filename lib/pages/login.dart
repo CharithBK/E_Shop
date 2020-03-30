@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
             );
           });
 
-          user.text = "";
+          //user.text = "";
           pass.text = "";
         }
       } else {

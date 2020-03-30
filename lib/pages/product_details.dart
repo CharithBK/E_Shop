@@ -382,7 +382,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
           Container(
             height: 360.0,
-            child: Similar_Products(),
+            child: Similar_Products(uname),
           ),
         ],
       ),
@@ -414,11 +414,17 @@ class _ProductDetailsState extends State<ProductDetails> {
 }
 
 class Similar_Products extends StatefulWidget {
+  final uname;
+  Similar_Products(this.uname);
   @override
-  _Similar_ProductsState createState() => _Similar_ProductsState();
+  _Similar_ProductsState createState() => _Similar_ProductsState(uname);
 }
 
 class _Similar_ProductsState extends State<Similar_Products> {
+
+  final uname;
+  _Similar_ProductsState(this.uname);
+
   List<Map<String, dynamic>> product_list = [];
 
   // ignore: missing_return
@@ -493,6 +499,7 @@ class _Similar_ProductsState extends State<Similar_Products> {
             prod_description: product_list[index]['details'],
             prod_type: product_list[index]['condition'],
             prod_size: product_list[index]['sizes'],
+            uname: uname,
           );
         });
   }
@@ -508,6 +515,7 @@ class Similar_Single_prod extends StatelessWidget {
   final prod_description;
   final prod_type;
   final prod_size;
+  final uname;
 
   Similar_Single_prod({
     this.prod_name,
@@ -519,6 +527,7 @@ class Similar_Single_prod extends StatelessWidget {
     this.prod_description,
     this.prod_type,
     this.prod_size,
+    this.uname,
   });
 
   @override
@@ -539,6 +548,7 @@ class Similar_Single_prod extends StatelessWidget {
                         product_detail_description: prod_description,
                         product_detail_type: prod_type,
                         product_detail_size: prod_size,
+                        uname:uname,
                       ))),
               child: GridTile(
                   footer: Container(

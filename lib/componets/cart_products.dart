@@ -14,34 +14,29 @@ class _Cart_productsState extends State<Cart_products> {
   // ignore: missing_return
   Future<List<Map<String, dynamic>>> getItems() async {
     final response =
-        await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
+        await http.post("https://etrendsapp.000webhostapp.com/getCart.php");
     //print(response.statusCode);
     var datausers = json.decode(response.body);
     var pl;
     for (var data in datausers) {
       Map<String, dynamic> myObject = {
-        "name": data['name'],
+        "name": data['itemname'],
         "picture": data['image'],
-        "old_price": data['old_price'],
         "price": data['price'],
-        "category": data['category'],
-        "brand": data['brand'],
-        "details": data['description'],
-        "condition": data['type'],
-        "size": data['sizes'],
+        "size": data['size'],
         "qty": data['qty'],
+        "color": data['colors'],
+        "tot": data['total'],
       };
       Products_on_the_cart.add(myObject);
+      print(data['itemname']);
       print(data['image']);
-      print(data['category']);
-      print(data['brand']);
-      print(data['old_price']);
-      print(data['description']);
-      print(data['type']);
-      print(data['sizes']);
+      print(data['price']);
+      print(data['size']);
       print(data['qty']);
+      print(data['colors']);
+      print(data['total']);
     }
-    print(Products_on_the_cart[0]['name']);
     print(Products_on_the_cart.length);
   }
 
@@ -75,14 +70,11 @@ class _Cart_productsState extends State<Cart_products> {
           return Single_cart_product(
             prod_name: Products_on_the_cart[index]['name'],
             prod_pricture: Products_on_the_cart[index]['picture'],
-            prod_old_price: Products_on_the_cart[index]['old_price'],
             prod_price: Products_on_the_cart[index]['price'],
-            prod_category: Products_on_the_cart[index]['category'],
-            prod_brand: Products_on_the_cart[index]['brand'],
-            prod_description: Products_on_the_cart[index]['details'],
-            prod_type: Products_on_the_cart[index]['condition'],
             prod_size: Products_on_the_cart[index]['size'],
             prod_qty: Products_on_the_cart[index]['qty'],
+            prod_color: Products_on_the_cart[index]['color'],
+            prod_tot: Products_on_the_cart[index]['tot'],
           );
         });
   }
@@ -91,26 +83,21 @@ class _Cart_productsState extends State<Cart_products> {
 class Single_cart_product extends StatelessWidget {
   final prod_name;
   final prod_pricture;
-  final prod_old_price;
   final prod_price;
-  final prod_category;
-  final prod_brand;
-  final prod_description;
-  final prod_type;
   final prod_size;
   final prod_qty;
+  final prod_color;
+  final prod_tot;
 
-  Single_cart_product(
-      {this.prod_name,
-      this.prod_pricture,
-      this.prod_old_price,
-      this.prod_price,
-      this.prod_category,
-      this.prod_brand,
-      this.prod_description,
-      this.prod_type,
-      this.prod_size,
-      this.prod_qty});
+  Single_cart_product({
+    this.prod_name,
+    this.prod_pricture,
+    this.prod_price,
+    this.prod_color,
+    this.prod_tot,
+    this.prod_size,
+    this.prod_qty,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +138,7 @@ class Single_cart_product extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 1.0),
                   child: new Text(
-                    "red",
+                    prod_color,
                     style: TextStyle(color: Colors.green),
                   ),
                 ),
