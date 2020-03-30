@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:shopapp_tut/pages/product_details.dart';
 
 class Products extends StatefulWidget {
+  final uname;
+  Products(this.uname);
   @override
-  _ProductsState createState() => _ProductsState();
+  _ProductsState createState() => _ProductsState(uname);
 }
 
 class _ProductsState extends State<Products> {
+  final uname;
+  _ProductsState(this.uname);
   List<Map<String, dynamic>> product_list = [];
 
   // ignore: missing_return
@@ -88,6 +92,7 @@ class _ProductsState extends State<Products> {
               prod_description: product_list[index]['details'],
               prod_type: product_list[index]['condition'],
               prod_size: product_list[index]['sizes'],
+              uname: uname,
             ),
 
           );
@@ -105,6 +110,7 @@ class Single_prod extends StatelessWidget {
   final prod_description;
   final prod_type;
   final prod_size;
+  final uname;
   Single_prod({
     this.prod_name,
     this.prod_pricture,
@@ -115,6 +121,7 @@ class Single_prod extends StatelessWidget {
     this.prod_description,
     this.prod_type,
     this.prod_size,
+    this.uname
   });
 
   @override
@@ -135,6 +142,7 @@ class Single_prod extends StatelessWidget {
                         product_detail_description: prod_description,
                         product_detail_type: prod_type,
                         product_detail_size: prod_size,
+                        uname: uname,
                       ))),
               child: GridTile(
                   footer: Container(

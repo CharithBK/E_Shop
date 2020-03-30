@@ -13,11 +13,17 @@ import 'package:shopapp_tut/pages/login.dart';
 import 'package:sweetalert/sweetalert.dart';
 
 class HomePage extends StatefulWidget {
+  final uname;
+  HomePage(this.uname);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(uname);
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final uname;
+  _HomePageState(this.uname);
   get http => null;
 
   @override
@@ -155,7 +161,7 @@ class _HomePageState extends State<HomePage> {
               Timer(Duration(seconds: 4), () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Admin()),
+                  MaterialPageRoute(builder: (context) => Admin(uname)),
                 );
               });},
               child: ListTile(
@@ -197,7 +203,14 @@ class _HomePageState extends State<HomePage> {
             child: Container(
                 alignment: Alignment.centerLeft, child: new Text('Categories')),
           ),
-
+//          FlatButton(
+//            color: Colors.red,
+//            textColor: Colors.white,
+//            child: Text('add product'),
+//            onPressed: () {
+//              print(uname);
+//            },
+//          ),
           //Horizontal list view begins here
           HorizontalList(),
 
@@ -210,7 +223,7 @@ class _HomePageState extends State<HomePage> {
           ),
 
           //grid view
-          Flexible(child: Products()),
+          Flexible(child: Products(uname)),
         ],
       ),
     );

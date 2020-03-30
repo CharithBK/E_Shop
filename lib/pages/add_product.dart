@@ -11,11 +11,17 @@ import 'package:shopapp_tut/db/product.dart';
 import 'admin.dart';
 
 class AddProduct extends StatefulWidget {
+  final uname;
+  AddProduct(this.uname);
   @override
-  _AddProductState createState() => _AddProductState();
+  _AddProductState createState() => _AddProductState(uname);
 }
 
 class _AddProductState extends State<AddProduct> {
+
+  final uname;
+  _AddProductState(this.uname);
+
   CategoryService _categoryService = CategoryService();
   BrandService _brandService = BrandService();
   ProductService _productService = ProductService();
@@ -78,7 +84,7 @@ class _AddProductState extends State<AddProduct> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Admin()),
+                MaterialPageRoute(builder: (context) => Admin(uname)),
               );
             }),
 

@@ -17,6 +17,7 @@ class ProductDetails extends StatefulWidget {
   final product_detail_description;
   final product_detail_type;
   final product_detail_size;
+  final uname;
 
 //  example
 //      .split(' ')                       // split the text into an array
@@ -31,13 +32,22 @@ class ProductDetails extends StatefulWidget {
       this.product_detail_brand,
       this.product_detail_description,
       this.product_detail_type,
-      this.product_detail_size});
+      this.product_detail_size,
+        this.uname
+      });
+
+
 
   @override
-  _ProductDetailsState createState() => _ProductDetailsState();
+  _ProductDetailsState createState() => _ProductDetailsState(uname);
+
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+
+  final uname;
+  _ProductDetailsState(this.uname);
+
   String dropdownValue1;
   String dropdownValue2;
   String dropdownValue3;
@@ -53,7 +63,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         title: InkWell(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => new HomePage()));
+                  MaterialPageRoute(builder: (context) => new HomePage(uname)));
             },
             child: Text('ⓉⓇⒺⓃⒹⓈ')),
         actions: <Widget>[
@@ -107,6 +117,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.red))),
+                      Expanded(
+                          child: new Text(
+                              "Total:",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black45))),
                       Expanded(
                         child: new Text("\$$subTot",
                             style: TextStyle(
@@ -267,7 +283,9 @@ class _ProductDetailsState extends State<ProductDetails> {
 
               Expanded(
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   color: Colors.green,
                   textColor: Colors.white,
                   elevation: 0.2,
@@ -281,8 +299,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => new Cart()));
+                    print(uname);
+                    print(dropdownValue1);
+                    print(dropdownValue2);
+                    print(dropdownValue3);
+                    print(widget.product_detail_name);
+                    print(subTot);
+//                    Navigator.push(context,
+//                        MaterialPageRoute(builder: (context) => new Cart()));
                   }),
               new IconButton(
                   icon: Icon(

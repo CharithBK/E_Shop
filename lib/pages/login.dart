@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shopapp_tut/pages/admin.dart';
 import 'package:shopapp_tut/pages/home.dart';
+import 'package:shopapp_tut/pages/product_details.dart';
 import 'package:shopapp_tut/pages/registration.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -57,11 +58,11 @@ class _LoginState extends State<Login> {
               title: "Login Successful",
               subtitle: "",
               style: SweetAlertStyle.success);
-
+          String username2 = user.text;
           Timer(Duration(seconds: 2), () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Admin()),
+              MaterialPageRoute(builder: (context) => Admin(username2)),
             );
           });
         } else {
@@ -70,11 +71,11 @@ class _LoginState extends State<Login> {
               title: "Login Successful",
               subtitle: "",
               style: SweetAlertStyle.success);
-
+          String username = user.text;
           Timer(Duration(seconds: 2), () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => HomePage(username)),
             );
           });
 

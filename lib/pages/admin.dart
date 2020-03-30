@@ -10,12 +10,18 @@ import 'home.dart';
 enum Page { dashboard, manage }
 
 class Admin extends StatefulWidget {
+  final uname;
+  Admin(this.uname);
 
   @override
-  _AdminState createState() => _AdminState();
+  _AdminState createState() => _AdminState(uname);
 }
 
 class _AdminState extends State<Admin> {
+
+  final uname;
+  _AdminState(this.uname);
+
   Page _selectedPage = Page.dashboard;
   MaterialColor active = Colors.red;
   MaterialColor notActive = Colors.grey;
@@ -195,7 +201,7 @@ class _AdminState extends State<Admin> {
               title: Text("Add product"),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => AddProduct()));
+                    context, MaterialPageRoute(builder: (_) => AddProduct(uname)));
               },
             ),
             Divider(),
@@ -239,7 +245,7 @@ class _AdminState extends State<Admin> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => HomePage(uname)),
                 );
               },
             ),
