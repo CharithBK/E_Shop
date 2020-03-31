@@ -31,6 +31,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String dropdownCat;
+    String dropdownBrands;
     Widget image_carousel = new Container(
       height: 200.0,
       child: new Carousel(
@@ -62,7 +64,9 @@ class _HomePageState extends State<HomePage> {
                 Icons.search,
                 color: Colors.white,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                Fluttertoast.showToast(msg: 'Search');
+              }),
           new IconButton(
               icon: Icon(
                 Icons.shopping_cart,
@@ -210,7 +214,7 @@ class _HomePageState extends State<HomePage> {
           new Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(
-                alignment: Alignment.centerLeft, child: new Text('Categories')),
+                alignment: Alignment.centerLeft, child: new Text('')),
           ),
 //          FlatButton(
 //            color: Colors.red,
@@ -222,6 +226,81 @@ class _HomePageState extends State<HomePage> {
 //          ),
           //Horizontal list view begins here
           HorizontalList(),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: DropdownButton<String>(
+                  value: dropdownCat,
+                  hint: Text("Category"),
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 16,
+                  elevation: 16,
+                  style: TextStyle(color: Colors.black),
+                  underline: Container(
+                    height: 4,
+                    color: Colors.lightGreen,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownCat = newValue;
+                    });
+                  },
+                  items: <String>[
+                    'White',
+                    'Black',
+                    'Red',
+                    'Blue',
+                    'Green',
+                    'Orange',
+                    'Pink',
+                    'Yellow',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+
+              SizedBox(width: 9.0),
+
+              Expanded(
+                child: DropdownButton<String>(
+                  value: dropdownBrands,
+                  hint: Text("Brand"),
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 16,
+                  elevation: 16,
+                  style: TextStyle(color: Colors.black),
+                  underline: Container(
+                    height: 4,
+                    color: Colors.lightGreen,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownBrands = newValue;
+                    });
+                  },
+                  items: <String>[
+                    'White',
+                    'Black',
+                    'Red',
+                    'Blue',
+                    'Green',
+                    'Orange',
+                    'Pink',
+                    'Yellow',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
 
           //padding widget
           new Padding(

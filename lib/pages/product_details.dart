@@ -66,6 +66,12 @@ class _ProductDetailsState extends State<ProductDetails> {
         actions: <Widget>[
           new IconButton(
               icon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              onPressed: () {}),
+          new IconButton(
+              icon: Icon(
                 Icons.shopping_cart,
                 color: Colors.white,
               ),
