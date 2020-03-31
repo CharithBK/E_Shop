@@ -98,7 +98,7 @@ class _AdminState extends State<Admin> {
                     crossAxisCount: 2),
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Card(
                       child: ListTile(
                           title: FlatButton.icon(
@@ -113,7 +113,7 @@ class _AdminState extends State<Admin> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Card(
                       child: ListTile(
                           title: FlatButton.icon(
@@ -128,7 +128,7 @@ class _AdminState extends State<Admin> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(22.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Card(
                       child: ListTile(
                           title: FlatButton.icon(
@@ -143,7 +143,7 @@ class _AdminState extends State<Admin> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(22.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Card(
                       child: ListTile(
                           title: FlatButton.icon(
@@ -158,7 +158,7 @@ class _AdminState extends State<Admin> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(22.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Card(
                       child: ListTile(
                           title: FlatButton.icon(
@@ -173,7 +173,7 @@ class _AdminState extends State<Admin> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(22.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Card(
                       child: ListTile(
                           title: FlatButton.icon(

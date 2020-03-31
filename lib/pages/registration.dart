@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:math';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shopapp_tut/pages/login.dart';
@@ -24,6 +25,8 @@ class _RegistrationState extends State<Registration> {
   TextEditingController nic = new TextEditingController();
   TextEditingController cpass = new TextEditingController();
   TextEditingController address = new TextEditingController();
+
+  // ignore: non_constant_identifier_names
   String GroupValue = "male";
   String gender;
 
@@ -51,57 +54,69 @@ class _RegistrationState extends State<Registration> {
     print(pass.text);
     print(email.text);
     print(nic.text);
-    print(gender);
-    print(address);
+    print(e);
+    print(address.text);
     //print(user.text);
     if (user.text != "") {
       if (pass.text != "") {
         if (cpass.text != "") {
           if (email.text != "") {
-            if (nic.text != "") {
-              if (address.text != "") {
-                if (gender != "") {
-                  if ( pass.text == cpass.text) {
-                    print("gg");
-                    final response = await http.post(
-                        "https://etrendsapp.000webhostapp.com/submit_data.php",
-                        body: {
-                          "username": user.text,
-                          "password": pass.text,
-                          "email": email.text,
-                          "nic": nic.text,
-                          "gender": gender,
-                          "address": address.text,
-                        });
-                    Fluttertoast.showToast(msg: 'Registered');
+            var e = email.text;
+            bool emailValid = RegExp(
+                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                .hasMatch(e);
+            if (emailValid) {
+              //print(emailValid);
+              //  Fluttertoast.showToast(msg: "Email "+emailValid.toString());
+              if (nic.text != "") {
+                if (address.text != "") {
+                  if (gender != "") {
+                    if (pass.text == cpass.text) {
+                      print("gg");
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                    );
+                      // assert(EmailValidator.validate(email.text));
+                      final response = await http.post(
+                          "https://etrendsapp.000webhostapp.com/submit_data.php",
+                          body: {
+                            "username": user.text,
+                            "password": pass.text,
+                            "email": email.text,
+                            "nic": nic.text,
+                            "gender": gender,
+                            "address": address.text,
+                          });
+                      Fluttertoast.showToast(msg: 'Registered');
 
-                    user.text = "";
-                    pass.text = "";
-                    cpass.text = "";
-                    email.text = "";
-                    nic.text = "";
-                    address.text="";
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+
+                      user.text = "";
+                      pass.text = "";
+                      cpass.text = "";
+                      email.text = "";
+                      nic.text = "";
+                      address.text = "";
+                    } else {
+                      print("Empty Address");
+                      Fluttertoast.showToast(msg: 'Password Unmatch');
+                    }
                   } else {
-                    print("Empty Address");
-                    Fluttertoast.showToast(msg: 'Password Unmatch');
+                    print("Select Your Gender Type");
+                    Fluttertoast.showToast(msg: 'Select Gender');
                   }
                 } else {
-                  print("Select Your Gender Type");
-                  Fluttertoast.showToast(msg: 'Select Gender');
+                  print("Empty Address");
+                  Fluttertoast.showToast(msg: 'Empty Address');
                 }
               } else {
-                print("Password Unmatch");
-                Fluttertoast.showToast(msg: 'Empty Address');
+                print("Invalid N I C");
+                nic.text = "";
+                Fluttertoast.showToast(msg: 'Empty NIC');
               }
             } else {
-              print("Invalid N I C");
-              nic.text = "";
-              Fluttertoast.showToast(msg: 'Empty NIC');
+              Fluttertoast.showToast(msg: "Email " + emailValid.toString());
             }
           } else {
             print("Empty Email");
