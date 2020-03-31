@@ -28,11 +28,11 @@ class _HomePageState extends State<HomePage> {
   _HomePageState(this.uname);
 
   get http => null;
-
+  String dropdownCat;
+  String dropdownBrands;
   @override
   Widget build(BuildContext context) {
-    String dropdownCat;
-    String dropdownBrands;
+
     Widget image_carousel = new Container(
       height: 200.0,
       child: new Carousel(

@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/product_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/product_details.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -303,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585657919445</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="item_search">
+      <created>1585661238747</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1585661238747</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -334,6 +339,7 @@
     <MESSAGE value="addToCart" />
     <MESSAGE value="validation" />
     <MESSAGE value="registration_validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="registration_validation" />
+    <MESSAGE value="item_search" />
+    <option name="LAST_COMMIT_MESSAGE" value="item_search" />
   </component>
 </project>
