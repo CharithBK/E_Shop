@@ -6,21 +6,33 @@ import 'package:shopapp_tut/pages/product_details.dart';
 
 class Products extends StatefulWidget {
   final uname;
-  Products(this.uname);
+  final cat;
+  final brand;
+  Products(this.uname,
+      this.cat,
+      this.brand);
   @override
-  _ProductsState createState() => _ProductsState(uname);
+  _ProductsState createState() => _ProductsState(uname,cat,brand);
 }
 
 class _ProductsState extends State<Products> {
   final uname;
-  _ProductsState(this.uname);
+  final cat;
+  final brand;
+  _ProductsState(this.uname,
+      this.cat,
+      this.brand);
   List<Map<String, dynamic>> product_list = [];
 
   // ignore: missing_return
   Future<List<Map<String, dynamic>>> getItems() async {
-
+    print(cat);
+    print(brand);
     final response =
-        await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
+        await http.post("https://etrendsapp.000webhostapp.com/getItems.php" , body: {
+          "cat": cat,
+          "brand": brand,
+        });
     //print(response.statusCode);
     var datausers = json.decode(response.body);
     var pl;
@@ -35,6 +47,8 @@ class _ProductsState extends State<Products> {
         "details": data['description'],
         "condition": data['type'],
         "sizes": data['sizes'],
+
+
       };
       product_list.add(myObject) ;
       print(data['image']);
@@ -44,6 +58,8 @@ class _ProductsState extends State<Products> {
       print(data['description']);
       print(data['type']);
       print(data['sizes']);
+      print(response.body);
+      print(brand);
 
           }
     print(product_list[0]['name']);

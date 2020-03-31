@@ -7,19 +7,20 @@ import 'package:shopapp_tut/db/category.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopapp_tut/db/product.dart';
 
-
 import 'admin.dart';
 
 class AddProduct extends StatefulWidget {
   final uname;
+
   AddProduct(this.uname);
+
   @override
   _AddProductState createState() => _AddProductState(uname);
 }
 
 class _AddProductState extends State<AddProduct> {
-
   final uname;
+
   _AddProductState(this.uname);
 
   CategoryService _categoryService = CategoryService();
@@ -36,8 +37,8 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController oldpriceController = TextEditingController();
   TextEditingController conditionController = TextEditingController();
 
-
-  List<DropdownMenuItem<String>> categoriesDropDown =<DropdownMenuItem<String>>[];
+  List<DropdownMenuItem<String>> categoriesDropDown =
+      <DropdownMenuItem<String>>[];
   List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
 
   String _currentCategory;
@@ -57,7 +58,7 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void initState() {
-       categoriesDropDown = getCategoriesDropdown();
+    categoriesDropDown = getCategoriesDropdown();
   }
 
   List<DropdownMenuItem<String>> getCategoriesDropdown() {
@@ -87,7 +88,6 @@ class _AddProductState extends State<AddProduct> {
                 MaterialPageRoute(builder: (context) => Admin(uname)),
               );
             }),
-
         title: Text(
           "add product",
           style: TextStyle(color: black),
@@ -107,8 +107,10 @@ class _AddProductState extends State<AddProduct> {
                         borderSide: BorderSide(
                             color: grey.withOpacity(0.5), width: 2.5),
                         onPressed: () {
-
-                          _selectImage(ImagePicker.pickImage(source: ImageSource.gallery),1);
+                          _selectImage(
+                              ImagePicker.pickImage(
+                                  source: ImageSource.gallery),
+                              1);
                         },
                         child: _displayChild1(),
                       ),
@@ -141,7 +143,8 @@ class _AddProductState extends State<AddProduct> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('',
+                child: Text(
+                  '',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: red, fontSize: 12),
                 ),
@@ -151,13 +154,13 @@ class _AddProductState extends State<AddProduct> {
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
                   controller: productNameController,
-                  decoration: InputDecoration( labelText: 'Product name', hintText: 'name'),
+                  decoration: InputDecoration(
+                      labelText: 'Product name', hintText: 'name'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'You must enter the product name';
-                    }
-                    else if (value.length > 10) {
+                    } else if (value.length > 10) {
                       return 'Product name cant have more than 10 letters';
                     }
                   },
@@ -178,7 +181,8 @@ class _AddProductState extends State<AddProduct> {
                   textFieldConfiguration: TextFieldConfiguration(
                       autofocus: false,
                       controller: categoryController,
-                      decoration: InputDecoration(labelText: 'Category' ,hintText: 'add category')),
+                      decoration: InputDecoration(
+                          labelText: 'Category', hintText: 'add category')),
                   suggestionsCallback: (pattern) async {
                     //print(pattern);
                     //print("gggg");
@@ -213,11 +217,11 @@ class _AddProductState extends State<AddProduct> {
                 padding: const EdgeInsets.all(8.0),
                 child: TypeAheadField(
                   textFieldConfiguration: TextFieldConfiguration(
-                      autofocus: false,
-                      controller: brandController,
-                      decoration: InputDecoration(labelText: 'Brand' ,hintText: 'add brand') ,
+                    autofocus: false,
+                    controller: brandController,
+                    decoration: InputDecoration(
+                        labelText: 'Brand', hintText: 'add brand'),
                     // ignore: missing_return
-
                   ),
 
                   suggestionsCallback: (pattern) async {
@@ -232,16 +236,13 @@ class _AddProductState extends State<AddProduct> {
                   onSuggestionSelected: (suggestion) {
                     // ignore: missing_return
                     setState(() {
-
                       _currentBrand = suggestion['name'];
                       print(_currentBrand);
-                      if(_currentBrand != null) {
+                      if (_currentBrand != null) {
                         brandController.text = _currentBrand;
-                      }
-                      else {
+                      } else {
                         Fluttertoast.showToast(msg: 'select the brand');
                       }
-
                     });
                   },
                   // ignore: missing_return
@@ -260,8 +261,8 @@ class _AddProductState extends State<AddProduct> {
                   controller: quantityController,
                   //initialValue: '1',
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      labelText: 'Quantity' , hintText: 'qty'),
+                  decoration:
+                      InputDecoration(labelText: 'Quantity', hintText: 'qty'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
@@ -275,7 +276,9 @@ class _AddProductState extends State<AddProduct> {
                 child: TextFormField(
                   controller: descriptionController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration( labelText: 'Product Description', hintText: ' Description'),
+                  decoration: InputDecoration(
+                      labelText: 'Product Description',
+                      hintText: ' Description'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
@@ -289,7 +292,8 @@ class _AddProductState extends State<AddProduct> {
                 child: TextFormField(
                   controller: conditionController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration( labelText: 'Condition', hintText: 'condition'),
+                  decoration: InputDecoration(
+                      labelText: 'Condition', hintText: 'condition'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
@@ -303,7 +307,8 @@ class _AddProductState extends State<AddProduct> {
                 child: TextFormField(
                   controller: oldpriceController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Product Old Price', hintText: ' Old Price'),
+                  decoration: InputDecoration(
+                      labelText: 'Product Old Price', hintText: ' Old Price'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
@@ -317,7 +322,8 @@ class _AddProductState extends State<AddProduct> {
                 child: TextFormField(
                   controller: priceController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'ProductPrice', hintText: ' Price'),
+                  decoration: InputDecoration(
+                      labelText: 'ProductPrice', hintText: ' Price'),
                   // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
@@ -331,8 +337,8 @@ class _AddProductState extends State<AddProduct> {
               Row(
                 children: <Widget>[
                   Checkbox(
-                    value: selectedSizes.contains('XS'),
-                    onChanged: (value) => changeSelectedSize('XS')),
+                      value: selectedSizes.contains('XS'),
+                      onChanged: (value) => changeSelectedSize('XS')),
                   Text('XS'),
                   Checkbox(
                       value: selectedSizes.contains('S'),
@@ -398,9 +404,7 @@ class _AddProductState extends State<AddProduct> {
                       value: selectedSizes.contains('42'),
                       onChanged: (value) => changeSelectedSize('42')),
                   Text('42'),
-
                 ],
-
               ),
 
               FlatButton(
@@ -428,52 +432,59 @@ class _AddProductState extends State<AddProduct> {
 
   void changeSelectedSize(String size) {
     //print(selectedSizes);
-    if (selectedSizes.contains(size)){
+    if (selectedSizes.contains(size)) {
       setState(() {
         selectedSizes.remove(size);
-
       });
-            }
-    else {
-       setState(() {
-         //selectedSizes.insert(0,size);
-         selectedSizes.add(size);
-         print(selectedSizes);
-         //print(size);
-       });
-
+    } else {
+      setState(() {
+        //selectedSizes.insert(0,size);
+        selectedSizes.add(size);
+        print(selectedSizes);
+        //print(size);
+      });
     }
   }
 
-  void _selectImage(Future<File> pickImage ,int imageNumber) async{
+  void _selectImage(Future<File> pickImage, int imageNumber) async {
     //File tempImg = await pickImage;
     var tempImg = await pickImage;
     //print("oo");
     //print(tempImg);
-    switch(imageNumber){
-      case 1: setState(() {
-        _image1 = tempImg;
-        img1 = tempImg;
-      });
-      break;
-      case 2: setState(() => _image2 = tempImg);
-      break;
-      case 3: setState(() => _image3 = tempImg);
-      break;
+    switch (imageNumber) {
+      case 1:
+        setState(() {
+          _image1 = tempImg;
+          img1 = tempImg;
+        });
+        break;
+      case 2:
+        setState(() => _image2 = tempImg);
+        break;
+      case 3:
+        setState(() => _image3 = tempImg);
+        break;
     }
-
   }
 
   Widget _displayChild1() {
-    if(_image1 == null){
+    if (_image1 == null) {
       return Padding(
         padding: const EdgeInsets.fromLTRB(14, 70, 14, 70),
-        child: new Icon(Icons.add, color: grey,),
+        child: new Icon(
+          Icons.add,
+          color: grey,
+        ),
       );
-    }else{
-      return Image.file(_image1, fit: BoxFit.fill, width: double.infinity,);
+    } else {
+      return Image.file(
+        _image1,
+        fit: BoxFit.fill,
+        width: double.infinity,
+      );
     }
   }
+
 //
 //  Widget _displayChild2() {
 //    if(_image2 == null){
@@ -498,18 +509,27 @@ class _AddProductState extends State<AddProduct> {
 //  }
 
   void validateAndUpload() {
-
-        if(_formKey.currentState.validate()){
-      if(_image1 != null){
+    if (_formKey.currentState.validate()) {
+      if (_image1 != null) {
         //String gg = "XL";
-        if(selectedSizes.isNotEmpty){
+        if (selectedSizes.isNotEmpty) {
           //String size = selectedSizes[0];
-          _productService.uploadProduct(productNameController.text,categoryController.text,brandController.text,quantityController.text,descriptionController.text,conditionController.text,oldpriceController.text,priceController.text,selectedSizes,img1);
+          _productService.uploadProduct(
+              productNameController.text,
+              categoryController.text,
+              brandController.text,
+              quantityController.text,
+              descriptionController.text,
+              conditionController.text,
+              oldpriceController.text,
+              priceController.text,
+              selectedSizes,
+              img1);
           Fluttertoast.showToast(msg: 'all done');
-        }else{
+        } else {
           Fluttertoast.showToast(msg: 'select atleast one size');
         }
-      }else{
+      } else {
         Fluttertoast.showToast(msg: 'all the images must be provided');
       }
     }
