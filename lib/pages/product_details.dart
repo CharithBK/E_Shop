@@ -66,12 +66,6 @@ class _ProductDetailsState extends State<ProductDetails> {
         actions: <Widget>[
           new IconButton(
               icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {}),
-          new IconButton(
-              icon: Icon(
                 Icons.shopping_cart,
                 color: Colors.white,
               ),
@@ -243,7 +237,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                         print(widget.product_detail_new_price);
                         print(dropdownQty);
 
-                        var nprice =double.tryParse(widget.product_detail_new_price);
+                        var nprice =
+                            double.tryParse(widget.product_detail_new_price);
                         var qty = double.tryParse(dropdownQty);
                         subTot = (nprice * qty);
                         print(subTot);
@@ -277,12 +272,23 @@ class _ProductDetailsState extends State<ProductDetails> {
               //btn=============================
 
               Expanded(
-                child: MaterialButton(
-                  onPressed: () {},
-                  color: Colors.green,
-                  textColor: Colors.white,
-                  elevation: 0.2,
-                  child: new Text("Buy now"),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MaterialButton(
+                    onPressed: () {
+                      print("gg");
+                      print(uname);
+                      print(dropdownSize);
+                      print(dropdownColors);
+                      print(dropdownQty);
+                      print(widget.product_detail_name);
+                      print(subTot);
+                    },
+                    color: Colors.green,
+                    textColor: Colors.white,
+                    elevation: 0.2,
+                    child: new Text("Buy now"),
+                  ),
                 ),
               ),
 
@@ -292,16 +298,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-//                    print(uname);
-//                    print(dropdownSize);
-//                    print(dropdownColors);
-//                    print(dropdownQty);
-//                    print(widget.product_detail_name);
-//                    print(subTot);
                     addtoCart();
-
-//                    Navigator.push(context,
-//                        MaterialPageRoute(builder: (context) => new Cart()));
                   }),
               new IconButton(
                   icon: Icon(
@@ -389,39 +386,52 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   Future addtoCart() async {
-   // String SubTotal = subTot.toString();
-    print("gg");
-    print(uname);
-    print(dropdownSize);
-    print(dropdownColors);
-    print(dropdownQty);
-    print(widget.product_detail_name);
-    print(subTot);
-    final response = await http
-        .post("https://etrendsapp.000webhostapp.com/add_cart.php", body: {
-      "name": uname,
-      "itemname": widget.product_detail_name,
-      "size": dropdownSize,
-      "qty": dropdownQty,
-      "colors": dropdownColors,
-      "tot": subTot.toString(),
-    });
-    Fluttertoast.showToast(msg: 'Added To Cart!');
-    print("gg");
-    print(response.body);
+    if (dropdownSize != null) {
+      if (dropdownColors != null) {
+        if (dropdownQty != null) {
+          print("gg");
+          print(uname);
+          print(dropdownSize);
+          print(dropdownColors);
+          print(dropdownQty);
+          print(widget.product_detail_name);
+          print(subTot);
+          final response = await http
+              .post("https://etrendsapp.000webhostapp.com/add_cart.php", body: {
+            "name": uname,
+            "itemname": widget.product_detail_name,
+            "size": dropdownSize,
+            "qty": dropdownQty,
+            "colors": dropdownColors,
+            "tot": subTot.toString(),
+          });
+          Fluttertoast.showToast(msg: 'Added To Cart!');
+          print("gg");
+          print(response.body);
+        } else {
+          Fluttertoast.showToast(msg: 'Select a quantity');
+        }
+      } else {
+        Fluttertoast.showToast(msg: 'Select a color');
+      }
+    } else {
+      Fluttertoast.showToast(msg: 'Select a size');
+    }
   }
 }
 
 class Similar_Products extends StatefulWidget {
   final uname;
+
   Similar_Products(this.uname);
+
   @override
   _Similar_ProductsState createState() => _Similar_ProductsState(uname);
 }
 
 class _Similar_ProductsState extends State<Similar_Products> {
-
   final uname;
+
   _Similar_ProductsState(this.uname);
 
   List<Map<String, dynamic>> product_list = [];
@@ -547,7 +557,7 @@ class Similar_Single_prod extends StatelessWidget {
                         product_detail_description: prod_description,
                         product_detail_type: prod_type,
                         product_detail_size: prod_size,
-                        uname:uname,
+                        uname: uname,
                       ))),
               child: GridTile(
                   footer: Container(

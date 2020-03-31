@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shopapp_tut/pages/login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -23,7 +24,7 @@ class _RegistrationState extends State<Registration> {
   TextEditingController nic = new TextEditingController();
   TextEditingController cpass = new TextEditingController();
   String GroupValue = "";
-  String gender;
+  String gender = "male";
   String msg = '';
 
   valueChanged(e) {
@@ -66,38 +67,34 @@ class _RegistrationState extends State<Registration> {
           if (email.text != "") {
             if (nic.text != "") {
               if (pass.text == cpass.text) {
-                if (gender !="") {
-                  SweetAlert.show(context,
-                      title: "Registred",
-                      subtitle: "",
-                      style: SweetAlertStyle.success);
+                if (gender != "") {
+                  Fluttertoast.showToast(msg: 'Registered');
 
-                  Timer(Duration(seconds: 3), () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                    );
-                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                  );
 
                   user.text = "";
                   pass.text = "";
                   cpass.text = "";
                   email.text = "";
                   nic.text = "";
-                }
-                else {
+                } else {
                   print("Select Your Gender Type");
                   SweetAlert.show(context,
                       title: "Select Gender",
                       subtitle: "select your gender type",
                       style: SweetAlertStyle.error);
+                  Fluttertoast.showToast(msg: 'Registered');
                 }
               } else {
                 print("Password Unmatch");
-                    SweetAlert.show(context,
+                SweetAlert.show(context,
                     title: "Password Unmatch",
                     subtitle: "please enter same password",
                     style: SweetAlertStyle.error);
+                Fluttertoast.showToast(msg: 'Registered');
               }
             } else {
               print("Invalid N I C");
@@ -106,38 +103,27 @@ class _RegistrationState extends State<Registration> {
                   title: "Empty NIC",
                   subtitle: "please check your nic",
                   style: SweetAlertStyle.confirm);
+              Fluttertoast.showToast(msg: 'Registered');
             }
           } else {
             print("Empty Email");
             email.text = "";
-            SweetAlert.show(context,
-                title: "Empty Email",
-                subtitle: "please check your email",
-                style: SweetAlertStyle.confirm);
+            Fluttertoast.showToast(msg: 'Empty Email');
           }
         } else {
           print("Empty cpassword ");
           cpass.text = "";
-          SweetAlert.show(context,
-              title: "Empty Confirm Password",
-              subtitle: "please check your confirm password",
-              style: SweetAlertStyle.confirm);
+          Fluttertoast.showToast(msg: 'Empty Confirm Password');
         }
       } else {
         print("Invalid Password!");
         pass.text = "";
-        SweetAlert.show(context,
-            title: "Empty Password",
-            subtitle: "please check your password",
-            style: SweetAlertStyle.confirm);
+        Fluttertoast.showToast(msg: 'Empty Password');
       }
     } else {
       print("Invalid Username!");
       user.text = "";
-      SweetAlert.show(context,
-          title: "Empty Username",
-          subtitle: "please check your username",
-          style: SweetAlertStyle.confirm);
+      Fluttertoast.showToast(msg: 'Empty Username');
     }
   }
 
@@ -164,7 +150,6 @@ class _RegistrationState extends State<Registration> {
           hintText: "Password",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-
     );
 
     final cpasswordField = TextField(

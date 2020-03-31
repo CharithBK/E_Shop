@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shopapp_tut/pages/admin.dart';
 import 'package:shopapp_tut/pages/home.dart';
 import 'package:shopapp_tut/pages/product_details.dart';
@@ -30,7 +31,7 @@ class _LoginState extends State<Login> {
         await http.post("https://etrendsapp.000webhostapp.com/getrows.php");
     var rows = json.decode(responseRow.body);
     print(rows);
-   //=====================get user & pwd======================================
+    //=====================get user & pwd======================================
     final response =
         await http.post("https://etrendsapp.000webhostapp.com/getData.php");
     //print(response.statusCode);
@@ -49,53 +50,42 @@ class _LoginState extends State<Login> {
     if (i == rows) {
       i--;
     }
-  //======================== admin============================================
+    //======================== admin============================================
     print(datausers[i]);
     if (datausers[i]['username'] == user.text) {
       if (datausers[i]['password'].toString() == pass.text) {
         if (datausers[i]['username'] == "admin") {
-          SweetAlert.show(context,
-              title: "Login Successful",
-              subtitle: "",
-              style: SweetAlertStyle.success);
+          Fluttertoast.showToast(msg: 'Admin');
           String username2 = user.text;
-          Timer(Duration(seconds: 2), () {
+
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Admin(username2)),
             );
-          });
+
         } else {
-  //==============================User=======================================
-          SweetAlert.show(context,
-              title: "Login Successful",
-              subtitle: "",
-              style: SweetAlertStyle.success);
+          //==============================User=======================================
+
+          Fluttertoast.showToast(msg: 'Login Successful');
           String username = user.text;
-          Timer(Duration(seconds: 2), () {
+
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => HomePage(username)),
             );
-          });
+
 
           //user.text = "";
           pass.text = "";
         }
       } else {
         print("Invalid Password!");
-        SweetAlert.show(context,
-            title: "Password Invalid",
-            subtitle: "please check your password",
-            style: SweetAlertStyle.confirm);
+        Fluttertoast.showToast(msg: 'Password Invalid');
         pass.text = "";
       }
     } else {
       print("Invalid Username!");
-      SweetAlert.show(context,
-          title: "Username Invalid",
-          subtitle: "please check your username",
-          style: SweetAlertStyle.confirm);
+      Fluttertoast.showToast(msg: 'Username Invalid');
       user.text = "";
     }
   }

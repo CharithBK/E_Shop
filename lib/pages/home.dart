@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //my own imports
 import 'package:shopapp_tut/componets/horizontal_listview.dart';
@@ -14,6 +15,7 @@ import 'package:sweetalert/sweetalert.dart';
 
 class HomePage extends StatefulWidget {
   final uname;
+
   HomePage(this.uname);
 
   @override
@@ -21,9 +23,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final uname;
+
   _HomePageState(this.uname);
+
   get http => null;
 
   @override
@@ -93,7 +96,13 @@ class _HomePageState extends State<HomePage> {
 //            body
 
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Fluttertoast.showToast(msg: 'HomePage');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => new HomePage(uname)));
+              },
               child: ListTile(
                 title: Text('Home Page'),
                 leading: Icon(
@@ -104,7 +113,9 @@ class _HomePageState extends State<HomePage> {
             ),
 
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Fluttertoast.showToast(msg: 'My account');
+              },
               child: ListTile(
                 title: Text('My account'),
                 leading: Icon(
@@ -115,7 +126,9 @@ class _HomePageState extends State<HomePage> {
             ),
 
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Fluttertoast.showToast(msg: 'My Orderst');
+              },
               child: ListTile(
                 title: Text('My Orders'),
                 leading: Icon(
@@ -127,6 +140,7 @@ class _HomePageState extends State<HomePage> {
 
             InkWell(
               onTap: () {
+                Fluttertoast.showToast(msg: 'Categoris');
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => new Cart(uname)));
               },
@@ -140,7 +154,9 @@ class _HomePageState extends State<HomePage> {
             ),
 
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Fluttertoast.showToast(msg: 'Favourites');
+              },
               child: ListTile(
                 title: Text('Favourites'),
                 leading: Icon(
@@ -153,17 +169,14 @@ class _HomePageState extends State<HomePage> {
             Divider(),
 
             InkWell(
-              onTap: () { SweetAlert.show(context,
-                  title: "A D M I N",
-                  subtitle: "",
-                  style: SweetAlertStyle.success);
+              onTap: () {
+                Fluttertoast.showToast(msg: 'Admin');
 
-              Timer(Duration(seconds: 4), () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Admin(uname)),
                 );
-              });},
+              },
               child: ListTile(
                 title: Text('Settings'),
                 leading: Icon(Icons.settings),
@@ -172,12 +185,8 @@ class _HomePageState extends State<HomePage> {
 
             InkWell(
               onTap: () {
-                SweetAlert.show(context,
-                    title: "Logout",
-                    subtitle: "",
-                    style: SweetAlertStyle.success);
-
-                Timer(Duration(seconds: 4), () {
+                Fluttertoast.showToast(msg: 'Logout');
+                Timer(Duration(seconds: 2), () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Login()),

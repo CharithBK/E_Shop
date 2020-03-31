@@ -67,14 +67,6 @@ class _CartState extends State<Cart> {
         elevation: 0.1,
         backgroundColor: Colors.green,
         title: Text('Cart'),
-        actions: <Widget>[
-          new IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {}),
-        ],
       ),
       body: new Cart_products(uname),
       bottomNavigationBar: new Container(
