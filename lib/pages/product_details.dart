@@ -78,7 +78,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               onPressed: () {
                 {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => new Cart()));
+                      MaterialPageRoute(builder: (context) => new Cart(uname)));
                 }
               })
         ],
@@ -243,8 +243,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         print(widget.product_detail_new_price);
                         print(dropdownQty);
 
-                        var nprice =
-                            double.tryParse(widget.product_detail_new_price);
+                        var nprice =double.tryParse(widget.product_detail_new_price);
                         var qty = double.tryParse(dropdownQty);
                         subTot = (nprice * qty);
                         print(subTot);

@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => new Cart()));
+                    MaterialPageRoute(builder: (context) => new Cart(uname)));
               })
         ],
       ),
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
             InkWell(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => new Cart()));
+                    MaterialPageRoute(builder: (context) => new Cart(uname)));
               },
               child: ListTile(
                 title: Text('Categoris'),
