@@ -23,8 +23,10 @@ class _RegistrationState extends State<Registration> {
   TextEditingController email = new TextEditingController();
   TextEditingController nic = new TextEditingController();
   TextEditingController cpass = new TextEditingController();
-  String GroupValue = "";
-  String gender = "male";
+  TextEditingController address = new TextEditingController();
+  String GroupValue = "male";
+  String gender;
+
   String msg = '';
 
   valueChanged(e) {
@@ -44,66 +46,62 @@ class _RegistrationState extends State<Registration> {
   // ignore: missing_return
   Future<List> register() async {
     print("gg");
-    final response = await http
-        .post("https://etrendsapp.000webhostapp.com/submit_data.php", body: {
-      "username": user.text,
-      "password": pass.text,
-      "email": email.text,
-      "nic": nic.text,
-      "gender": gender,
-    });
-
-    print("gg");
     // var datauser = jsonDecode(response.body);
     print(user.text);
     print(pass.text);
     print(email.text);
     print(nic.text);
     print(gender);
+    print(address);
     //print(user.text);
     if (user.text != "") {
       if (pass.text != "") {
         if (cpass.text != "") {
           if (email.text != "") {
             if (nic.text != "") {
-              if (pass.text == cpass.text) {
+              if (address.text != "") {
                 if (gender != "") {
-                  Fluttertoast.showToast(msg: 'Registered');
+                  if ( pass.text == cpass.text) {
+                    print("gg");
+                    final response = await http.post(
+                        "https://etrendsapp.000webhostapp.com/submit_data.php",
+                        body: {
+                          "username": user.text,
+                          "password": pass.text,
+                          "email": email.text,
+                          "nic": nic.text,
+                          "gender": gender,
+                          "address": address.text,
+                        });
+                    Fluttertoast.showToast(msg: 'Registered');
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                  );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
 
-                  user.text = "";
-                  pass.text = "";
-                  cpass.text = "";
-                  email.text = "";
-                  nic.text = "";
+                    user.text = "";
+                    pass.text = "";
+                    cpass.text = "";
+                    email.text = "";
+                    nic.text = "";
+                    address.text="";
+                  } else {
+                    print("Empty Address");
+                    Fluttertoast.showToast(msg: 'Password Unmatch');
+                  }
                 } else {
                   print("Select Your Gender Type");
-                  SweetAlert.show(context,
-                      title: "Select Gender",
-                      subtitle: "select your gender type",
-                      style: SweetAlertStyle.error);
-                  Fluttertoast.showToast(msg: 'Registered');
+                  Fluttertoast.showToast(msg: 'Select Gender');
                 }
               } else {
                 print("Password Unmatch");
-                SweetAlert.show(context,
-                    title: "Password Unmatch",
-                    subtitle: "please enter same password",
-                    style: SweetAlertStyle.error);
-                Fluttertoast.showToast(msg: 'Registered');
+                Fluttertoast.showToast(msg: 'Empty Address');
               }
             } else {
               print("Invalid N I C");
               nic.text = "";
-              SweetAlert.show(context,
-                  title: "Empty NIC",
-                  subtitle: "please check your nic",
-                  style: SweetAlertStyle.confirm);
-              Fluttertoast.showToast(msg: 'Registered');
+              Fluttertoast.showToast(msg: 'Empty NIC');
             }
           } else {
             print("Empty Email");
@@ -214,6 +212,16 @@ class _RegistrationState extends State<Registration> {
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
+    final add = TextField(
+      controller: address,
+      obscureText: false,
+      style: style,
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "Address",
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
 
     // ignore: non_constant_identifier_names
     final RegistrationButton = Material(
@@ -225,10 +233,6 @@ class _RegistrationState extends State<Registration> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
           register();
-//          Navigator.push(
-//            context,
-//            MaterialPageRoute(builder: (context) => Login()),
-//          );
         },
         child: Text("Registration",
             textAlign: TextAlign.center,
@@ -267,6 +271,8 @@ class _RegistrationState extends State<Registration> {
                   Email,
                   SizedBox(height: 25.0),
                   Nic,
+                  SizedBox(height: 15.0),
+                  add,
                   SizedBox(height: 15.0),
                   Row(
                     children: <Widget>[r1, r2],
