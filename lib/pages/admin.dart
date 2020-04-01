@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopapp_tut/db/brand.dart';
 import 'package:shopapp_tut/db/category.dart';
+import 'package:shopapp_tut/db/colors.dart';
 import 'package:shopapp_tut/pages/add_product.dart';
 import 'package:sweetalert/sweetalert.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,10 +28,13 @@ class _AdminState extends State<Admin> {
   MaterialColor notActive = Colors.grey;
   TextEditingController categoryController = TextEditingController();
   TextEditingController brandController = TextEditingController();
+  TextEditingController colorController = TextEditingController();
   GlobalKey<FormState> _categoryFormKey = GlobalKey();
   GlobalKey<FormState> _brandFormKey = GlobalKey();
+  GlobalKey<FormState> _colorsFormKey = GlobalKey();
   BrandService _brandService = BrandService();
   CategoryService _categoryService = CategoryService();
+  ColorsService _colorsService = ColorsService();
 
   @override
   Widget build(BuildContext context) {
@@ -220,13 +224,15 @@ class _AdminState extends State<Admin> {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.category),
-              title: Text("Category list"),
-              onTap: () {},
+              leading: Icon(Icons.add_circle),
+              title: Text("Add colors"),
+              onTap: () {
+                _colorsAlert();
+              },
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.add_circle_outline),
+              leading: Icon(Icons.add_circle),
               title: Text("Add brand"),
               onTap: () {
                 _brandAlert();
@@ -257,6 +263,48 @@ class _AdminState extends State<Admin> {
         return Container();
     }
   }
+
+
+  void _colorsAlert() {
+    var alert = new AlertDialog(
+      content: Form(
+        key: _colorsFormKey,
+        child: TextFormField(
+          controller: colorController,
+          // ignore: missing_return
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'colors cannot be empty';
+            }
+          },
+          decoration: InputDecoration(hintText: "add color"),
+        ),
+      ),
+      actions: <Widget>[
+        FlatButton(
+            onPressed: () {
+              if (colorController.text != "") {
+               _colorsService.createColors(colorController.text);
+                // print(categoryController.text);
+                Fluttertoast.showToast(msg: 'color created');
+                Navigator.pop(context);
+              } else {
+                Fluttertoast.showToast(msg: 'color not created');
+                Navigator.pop(context);
+              }
+            },
+            child: Text('ADD')),
+        FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('CANCEL')),
+      ],
+    );
+
+    showDialog(context: context, builder: (_) => alert);
+  }
+
 
   void _categoryAlert() {
     var alert = new AlertDialog(

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shopapp_tut/db/brand.dart';
 import 'package:shopapp_tut/db/category.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopapp_tut/db/colors.dart';
 import 'package:shopapp_tut/db/product.dart';
 
 import 'admin.dart';
@@ -26,23 +27,26 @@ class _AddProductState extends State<AddProduct> {
   CategoryService _categoryService = CategoryService();
   BrandService _brandService = BrandService();
   ProductService _productService = ProductService();
+  ColorsService _colorsService = ColorsService();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController productNameController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController brandController = TextEditingController();
+  TextEditingController colorController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController oldpriceController = TextEditingController();
   TextEditingController conditionController = TextEditingController();
 
-  List<DropdownMenuItem<String>> categoriesDropDown =
-      <DropdownMenuItem<String>>[];
-  List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
+//  List<DropdownMenuItem<String>> categoriesDropDown =<DropdownMenuItem<String>>[];
+//  List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
+//  List<DropdownMenuItem<String>> colorsDropDown = <DropdownMenuItem<String>>[];
 
   String _currentCategory;
   String _currentBrand;
+  String _currentColor;
 
   Color white = Colors.white;
   Color black = Colors.black;
@@ -58,7 +62,7 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void initState() {
-    categoriesDropDown = getCategoriesDropdown();
+   // categoriesDropDown = getCategoriesDropdown();
   }
 
   List<DropdownMenuItem<String>> getCategoriesDropdown() {
@@ -167,14 +171,6 @@ class _AddProductState extends State<AddProduct> {
                 ),
               ),
 
-//              select category
-
-//              Visibility(
-//                visible: _currentCategory != null || _currentCategory == '',
-//                child: Text(_currentCategory ?? "null",
-//                    style: TextStyle(color: red)),
-//              ),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TypeAheadField(
@@ -184,8 +180,6 @@ class _AddProductState extends State<AddProduct> {
                       decoration: InputDecoration(
                           labelText: 'Category', hintText: 'add category')),
                   suggestionsCallback: (pattern) async {
-                    //print(pattern);
-                    //print("gggg");
 
                     return await _categoryService.getSuggestions(pattern);
                   },
@@ -197,21 +191,13 @@ class _AddProductState extends State<AddProduct> {
                   },
                   onSuggestionSelected: (suggestion) {
                     setState(() {
-                      //print("gg");
+
                       _currentCategory = suggestion['name'];
                       categoryController.text = _currentCategory;
                     });
                   },
                 ),
               ),
-
-//            select brand
-
-//              Visibility(
-//                visible: _currentBrand != null || _currentBrand == '',
-//                child:
-//                    Text(_currentBrand ?? "null", style: TextStyle(color: red)),
-//              ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -245,13 +231,34 @@ class _AddProductState extends State<AddProduct> {
                       }
                     });
                   },
-                  // ignore: missing_return
-//                  validator: (value) {
-//                    if (value.isEmpty) {
-//                      return 'Please select a city';
-//                    }
-//                  },
-//                  onSaved: (value) => this._currentBrand = value,
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TypeAheadField(
+                  textFieldConfiguration: TextFieldConfiguration(
+                      autofocus: false,
+                      controller: colorController,
+                      decoration: InputDecoration(
+                          labelText: 'Color', hintText: 'add color')),
+                  suggestionsCallback: (pattern) async {
+
+                    return await _colorsService.getSuggestions(pattern);
+                  },
+                  itemBuilder: (context, suggestion) {
+                    return ListTile(
+                      leading: Icon(Icons.library_add),
+                      title: Text(suggestion['name']),
+                    );
+                  },
+                  onSuggestionSelected: (suggestion) {
+                    setState(() {
+                     print(_currentColor);
+                      _currentColor = suggestion['name'];
+                      colorController.text = _currentColor;
+                    });
+                  },
                 ),
               ),
 

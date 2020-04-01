@@ -46,9 +46,10 @@ class _ProductDetailsState extends State<ProductDetails> {
   _ProductDetailsState(this.uname);
 
   String dropdownSize;
+  String dropdownSize2;
   String dropdownColors;
   String dropdownQty;
-  List<DropdownMenuItem<String>> lst;
+  List<DropdownMenuItem<String>> list;
   double subTot = 0.00;
 
   @override
@@ -183,6 +184,34 @@ class _ProductDetailsState extends State<ProductDetails> {
 
               //btnColor=============================
 //
+
+              //print(lst);
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton<String>(
+                      value: dropdownSize2,
+                      hint: Text("Size"),
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 16,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black),
+                      underline: Container(
+                        height: 4,
+                        color: Colors.lightGreen,
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          //print(dropdownValue1);
+                          //print(widget.product_detail_size);
+
+                          dropdownSize2 = newValue;
+                        });
+                      },
+                      items: list),
+                ),
+              ),
+
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -272,6 +301,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ],
           ),
+
 //btn2======================
           Row(
             children: <Widget>[
@@ -289,6 +319,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                       print(dropdownQty);
                       print(widget.product_detail_name);
                       print(subTot);
+
+//                      list.addAll(widget.product_detail_size.split(","));
+//
+//                      for (var dt in widget.product_detail_size.split(",")) {
+//                        list.add(dt);
+//                        print(dt);
+//                      } //print(dropdownValue1);
+//                      //print(widget.product_detail_size);
+//
+//                      print(widget.product_detail_size.split(",")[0]);
+//                      list.addAll(widget.product_detail_size.split(","));
+//
+//                      for (var dt in widget.product_detail_size.split(",")) {
+//                        list.add(dt);
+//                        print(dt);
+//                      }
                     },
                     color: Colors.green,
                     textColor: Colors.white,
@@ -391,6 +437,14 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
+  DropdownMenuItem<String> getDropDownWidget(Map<String, dynamic> map) {
+    print(widget.product_detail_size.split(","));
+    return DropdownMenuItem<String>(
+      value: map['size'],
+      child: Text(map['size']),
+    );
+  }
+
   Future addtoCart() async {
     if (dropdownSize != null) {
       if (dropdownColors != null) {
@@ -444,8 +498,8 @@ class _Similar_ProductsState extends State<Similar_Products> {
 
   // ignore: missing_return
   Future<List<Map<String, dynamic>>> getItems() async {
-    final response =
-        await http.post("https://etrendsapp.000webhostapp.com/getItems.php");
+    final response = await http
+        .post("https://etrendsapp.000webhostapp.com/getSimilarItems.php");
     //print(response.statusCode);
     var datausers = json.decode(response.body);
     var pl;

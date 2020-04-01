@@ -256,6 +256,7 @@ class _HomePageState extends State<HomePage> {
                       onChanged: (String newValue) {
                         setState(() {
                           dropdownCat = newValue;
+                          Products(uname,dropdownCat,dropdownBrands);
                         });
                         return dropdownCat;
                       },
@@ -292,7 +293,8 @@ class _HomePageState extends State<HomePage> {
                       onChanged: (String newValue) {
                         setState(() {
                           dropdownBrands = newValue;
-                          print(dropdownBrands);
+                          Products(uname,dropdownCat,dropdownBrands);
+                          //print(dropdownBrands);
                         });
                         return dropdownBrands;
                       },
@@ -327,7 +329,7 @@ class _HomePageState extends State<HomePage> {
           ),
 
           //grid view
-          Flexible(child: Products(uname, "", "")),
+          Flexible(child: Products(uname,dropdownCat,dropdownBrands)),
         ],
       ),
     );

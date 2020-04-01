@@ -11,6 +11,7 @@ class Products extends StatefulWidget {
   Products(this.uname,
       this.cat,
       this.brand);
+
   @override
   _ProductsState createState() => _ProductsState(uname,cat,brand);
 }
@@ -22,16 +23,26 @@ class _ProductsState extends State<Products> {
   _ProductsState(this.uname,
       this.cat,
       this.brand);
+
+
   List<Map<String, dynamic>> product_list = [];
 
   // ignore: missing_return
   Future<List<Map<String, dynamic>>> getItems() async {
     print(cat);
     print(brand);
+    String tempCat = cat;
+    String tempBrand = brand;
+    if(cat == null){
+      tempCat = "";
+    }
+    if(brand == null){
+      tempBrand = "";
+    }
     final response =
         await http.post("https://etrendsapp.000webhostapp.com/getItems.php" , body: {
-          "cat": cat,
-          "brand": brand,
+          "cat": tempCat,
+          "brand": tempBrand,
         });
     //print(response.statusCode);
     var datausers = json.decode(response.body);
@@ -47,7 +58,6 @@ class _ProductsState extends State<Products> {
         "details": data['description'],
         "condition": data['type'],
         "sizes": data['sizes'],
-
 
       };
       product_list.add(myObject) ;
@@ -88,7 +98,7 @@ class _ProductsState extends State<Products> {
     timer?.cancel();
     super.dispose();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
