@@ -532,7 +532,7 @@ class _AddProductState extends State<AddProduct> {
               priceController.text,
               selectedSizes,
               img1);
-          Fluttertoast.showToast(msg: 'all done');
+          Fluttertoast.showToast(msg: 'New Product Added');
         } else {
           Fluttertoast.showToast(msg: 'select atleast one size');
         }

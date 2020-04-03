@@ -185,32 +185,32 @@ class _ProductDetailsState extends State<ProductDetails> {
               //btnColor=============================
 //
 
-              //print(lst);
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButton<String>(
-                      value: dropdownSize2,
-                      hint: Text("Size"),
-                      icon: Icon(Icons.arrow_downward),
-                      iconSize: 16,
-                      elevation: 16,
-                      style: TextStyle(color: Colors.black),
-                      underline: Container(
-                        height: 4,
-                        color: Colors.lightGreen,
-                      ),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          //print(dropdownValue1);
-                          //print(widget.product_detail_size);
-
-                          dropdownSize2 = newValue;
-                        });
-                      },
-                      items: list),
-                ),
-              ),
+//              //print(lst);
+//              Expanded(
+//                child: Padding(
+//                  padding: const EdgeInsets.all(8.0),
+//                  child: DropdownButton<String>(
+//                      value: dropdownSize2,
+//                      hint: Text("Size"),
+//                      icon: Icon(Icons.arrow_downward),
+//                      iconSize: 16,
+//                      elevation: 16,
+//                      style: TextStyle(color: Colors.black),
+//                      underline: Container(
+//                        height: 4,
+//                        color: Colors.lightGreen,
+//                      ),
+//                      onChanged: (String newValue) {
+//                        setState(() {
+//                          //print(dropdownValue1);
+//                          //print(widget.product_detail_size);
+//
+//                          dropdownSize2 = newValue;
+//                        });
+//                      },
+//                      items: list),
+//                ),
+//              ),
 
               Expanded(
                 child: Padding(

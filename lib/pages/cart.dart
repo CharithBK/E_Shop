@@ -86,7 +86,7 @@ class _CartState extends State<Cart> {
                     print(SubTotal);
                   },
                   child: new Text(
-                    "Check out",
+                    "Buy Now",
                     style: TextStyle(color: Colors.white),
                   ),
                   color: Colors.red,

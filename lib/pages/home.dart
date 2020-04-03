@@ -13,6 +13,8 @@ import 'package:shopapp_tut/pages/cart.dart';
 import 'package:shopapp_tut/pages/login.dart';
 import 'package:sweetalert/sweetalert.dart';
 
+import 'myAccount.dart';
+
 class HomePage extends StatefulWidget {
   final uname;
 
@@ -128,6 +130,8 @@ class _HomePageState extends State<HomePage> {
 
             InkWell(
               onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => new MyAccount(uname)));
                 Fluttertoast.showToast(msg: 'My account');
               },
               child: ListTile(
