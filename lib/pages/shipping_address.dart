@@ -40,7 +40,7 @@ class _SAddressState extends State<SAddress> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(5.0),
-                  child: new Text("S H I P P I N G    D E T A I L S" ,),
+                  child: new Text("S H I P P I N G    D E T A I L S" ),
                 ),
 
                 SizedBox(height: 35.0),
