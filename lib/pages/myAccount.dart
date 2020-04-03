@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shopapp_tut/pages/profile.dart';
+import 'package:shopapp_tut/pages/shipping_address.dart';
 
 import 'home.dart';
+import 'my_cardDetails.dart';
 
 class MyAccount extends StatefulWidget {
   final uname;
@@ -57,7 +59,7 @@ class _MyAccountState extends State<MyAccount> {
              Navigator.push(
                  context,
                  MaterialPageRoute(
-                     builder: (context) => new HomePage(uname)));
+                     builder: (context) => new SAddress(uname)));
            },
            child: ListTile(
              title: Text('Shipping Address'),
@@ -74,7 +76,7 @@ class _MyAccountState extends State<MyAccount> {
              Navigator.push(
                  context,
                  MaterialPageRoute(
-                     builder: (context) => new HomePage(uname)));
+                     builder: (context) => new MycardDetails(uname)));
            },
            child: ListTile(
              title: Text('My Credit/Debit Cards'),

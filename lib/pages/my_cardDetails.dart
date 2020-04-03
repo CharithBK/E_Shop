@@ -3,19 +3,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'home.dart';
 
-class Profile extends StatefulWidget {
+class MycardDetails extends StatefulWidget {
   final uname;
 
-  Profile(this.uname);
+  MycardDetails(this.uname);
+
   @override
-  _ProfileState createState() => _ProfileState(uname);
+  _MycardDetailsState createState() => _MycardDetailsState(uname);
 }
 
-class _ProfileState extends State<Profile> {
-
+class _MycardDetailsState extends State<MycardDetails> {
   final uname;
-  String dropdownGender;
-  _ProfileState(this.uname);
+  _MycardDetailsState(this.uname);
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(5.0),
-                  child: new Text("U S E R      P R O F I L E" ,),
+                  child: new Text("C A R D     D E T A I L S" ,),
                 ),
 
                 SizedBox(height: 45.0),
@@ -48,99 +47,59 @@ class _ProfileState extends State<Profile> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("User ID :",
+                      child: new Text("User Name :",
                           style: TextStyle(color: Colors.grey)),
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.0),
-                      child: new Text("01"),
+                      child: new Text(uname),
+                    )
+                  ],
+                ),
+                SizedBox(height: 30.0),
+                new Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+                      child: new Text("Card Number :",
+                          style: TextStyle(color: Colors.grey)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: new Text("6545 8765 4454 9009"),
                     )
                   ],
                 ),
 
-                SizedBox(height: 45.0),
+                SizedBox(height: 30.0),
                 new Row(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Contact Name :",
+                      child: new Text("Card Date :",
                           style: TextStyle(color: Colors.grey)),
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.0),
-                      child: new Text("Test Perera"),
+                      child: new Text("08/22"),
                     )
                   ],
                 ),
-                SizedBox(height: 45.0),
+                SizedBox(height: 30.0),
                 new Row(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Email  :",
+                      child: new Text("Security Code :",
                           style: TextStyle(color: Colors.grey)),
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.0),
-                      child: new Text("test123@gmail.com"),
+                      child: new Text("169"),
                     )
                   ],
                 ),
 
-                SizedBox(height: 45.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Gender :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    DropdownButton<String>(
-                      value: dropdownGender,
-                      hint: Text("Select Gender"),
-                      icon: Icon(Icons.arrow_downward),
-                      iconSize: 16,
-                      elevation: 16,
-                      style: TextStyle(color: Colors.black),
-                      underline: Container(
-                        height: 4,
-                        color: Colors.lightGreen,
-                      ),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropdownGender = newValue;
-                          print(dropdownGender);
-                          //print(dropdownBrands);
-                        });
-                        return dropdownGender;
-                      },
-                      items: <String>[
-                        'Male',
-                        'Female',
-
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 45.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("B'Day :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("1995/10/10"),
-                    )
-                  ],
-                ),
                 SizedBox(height: 35.0),
                 new Row(
                   children: <Widget>[
