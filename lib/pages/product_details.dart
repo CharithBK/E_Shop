@@ -295,7 +295,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   padding: const EdgeInsets.all(8.0),
                   child: MaterialButton(
                     onPressed: () {
-                      print("gg");
+                      print("Order Done");
                       print(uname);
                       print(dropdownSize);
                       print(dropdownColors);

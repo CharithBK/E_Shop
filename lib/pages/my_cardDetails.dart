@@ -15,7 +15,12 @@ class MycardDetails extends StatefulWidget {
 class _MycardDetailsState extends State<MycardDetails> {
   final uname;
   _MycardDetailsState(this.uname);
+  bool _isEnabled = false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController userCardNumberController = TextEditingController();
+  TextEditingController userCardDateController = TextEditingController();
+  TextEditingController userSecurityCodeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,61 +48,71 @@ class _MycardDetailsState extends State<MycardDetails> {
                 ),
 
                 SizedBox(height: 45.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("User Name :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text(uname),
-                    )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    enabled: _isEnabled,
+                    controller: userNameController,
+                    decoration: InputDecoration(
+                        labelText: 'User Name ', hintText: 'name'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'User  Name Empty *';
+                      }
+                    },
+                  ),
                 ),
-                SizedBox(height: 30.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Card Number :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("6545 8765 4454 9009"),
-                    )
-                  ],
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    enabled: _isEnabled,
+                    keyboardType: TextInputType.number,
+                    controller: userCardNumberController,
+                    decoration: InputDecoration(
+                        labelText: 'Card Number ', hintText: 'card number'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'User  Card Number Empty *';
+                      }
+                    },
+                  ),
                 ),
 
-                SizedBox(height: 30.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Card Date :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("08/22"),
-                    )
-                  ],
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    enabled: _isEnabled,
+                    controller: userCardDateController,
+                    decoration: InputDecoration(
+                        labelText: 'Card Date ', hintText: 'card date'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'User  Card Date Empty *';
+                      }
+                    },
+                  ),
                 ),
-                SizedBox(height: 30.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Security Code :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("169"),
-                    )
-                  ],
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    enabled: _isEnabled,
+                    keyboardType: TextInputType.number,
+                    controller: userSecurityCodeController,
+                    decoration: InputDecoration(
+                        labelText: 'Security Code ', hintText: 'security code'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'User  Security Code Empty *';
+                      }
+                    },
+                  ),
                 ),
 
                 SizedBox(height: 35.0),
@@ -107,8 +122,14 @@ class _MycardDetailsState extends State<MycardDetails> {
                       padding: const EdgeInsets.all(8.0),
                       child: new MaterialButton(
                         onPressed: () {
-                          print("Save");
-                          Fluttertoast.showToast(msg: 'Details Saved');
+
+                          if (_formKey.currentState.validate()) {
+
+                              print("Save");
+                              Fluttertoast.showToast(msg: 'Details Saved');
+
+                          }
+
                         },
                         child: new Text(
                           "Save",
@@ -122,8 +143,16 @@ class _MycardDetailsState extends State<MycardDetails> {
                       padding: const EdgeInsets.all(8.0),
                       child: new MaterialButton(
                         onPressed: () {
-                          Fluttertoast.showToast(msg: 'You can edit details');
-                          print("Edit");
+                          setState(() {
+                            _isEnabled = !_isEnabled;
+                            if(_isEnabled == true) {
+                              Fluttertoast.showToast(msg: 'Edit On');
+                            }
+                            else {
+                              Fluttertoast.showToast(msg: 'Edit Off');
+                            }
+
+                          });
                         },
                         child: new Text(
                           "Edit Mode",

@@ -2,21 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'home.dart';
+
 class SAddress extends StatefulWidget {
   final uname;
 
   SAddress(this.uname);
+
   @override
   _SAddressState createState() => _SAddressState(uname);
 }
 
 class _SAddressState extends State<SAddress> {
-
   final uname;
-  String dropdownCat;
+  String dropdownCurrency;
   String dropdownCountry;
+  bool _isEnabled = false;
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController userNumberController = TextEditingController();
+  TextEditingController userAddressController = TextEditingController();
+  TextEditingController userProvinceController = TextEditingController();
+  TextEditingController userCityController = TextEditingController();
+  TextEditingController userPostController = TextEditingController();
+
   _SAddressState(this.uname);
+
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,94 +51,103 @@ class _SAddressState extends State<SAddress> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(5.0),
-                  child: new Text("S H I P P I N G    D E T A I L S" ),
+                  child: new Text("S H I P P I N G    D E T A I L S"),
                 ),
-
-                SizedBox(height: 35.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("User Name :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text(uname),
-                    )
-                  ],
+                SizedBox(height: 45.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    controller: userNameController,
+                    enabled: _isEnabled,
+                    decoration: InputDecoration(
+                        labelText: 'User Name ', hintText: 'name'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'You must enter the product name *';
+                      }
+                    },
+                  ),
                 ),
-
-                SizedBox(height: 30.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Contact Number :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("011-2234755"),
-                    )
-                  ],
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    controller: userNumberController,
+                    enabled: _isEnabled,
+                    decoration: InputDecoration(
+                        labelText: 'Contact Number ', hintText: 'mobile'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'You must enter the contact number *';
+                      }
+                    },
+                  ),
                 ),
-                SizedBox(height: 30.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Home Address  :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("24/41 Gunapala Mawatha, Kaduwela."),
-                    )
-                  ],
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    controller: userAddressController,
+                    enabled: _isEnabled,
+                    decoration: InputDecoration(
+                        labelText: 'Home Address ', hintText: 'address'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'You must enter the home addres *';
+                      }
+                    },
+                  ),
                 ),
-
-                SizedBox(height: 30.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("Province :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("Colombo"),
-                    )
-                  ],
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    controller: userProvinceController,
+                    enabled: _isEnabled,
+                    decoration: InputDecoration(
+                        labelText: 'Province ', hintText: 'province'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'You must enter the province *';
+                      }
+                    },
+                  ),
                 ),
-                SizedBox(height: 30.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("City :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("Kaduwela"),
-                    )
-                  ],
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    controller: userCityController,
+                    enabled: _isEnabled,
+                    decoration:
+                        InputDecoration(labelText: 'City ', hintText: 'city'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'You must enter the city *';
+                      }
+                    },
+                  ),
                 ),
-                SizedBox(height: 30.0),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                      child: new Text("City :",
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: new Text("Kaduwela"),
-                    )
-                  ],
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextFormField(
+                    controller: userPostController,
+                    enabled: _isEnabled,
+                    decoration: InputDecoration(
+                        labelText: 'Postal Code ', hintText: 'post code'),
+                    // ignore: missing_return
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'You must enter the postal code *';
+                      }
+                    },
+                  ),
                 ),
                 SizedBox(height: 20.0),
                 Column(
@@ -135,7 +155,8 @@ class _SAddressState extends State<SAddress> {
                     new Row(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+                          padding:
+                              const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
                           child: new Text("Ship to / Country :",
                               style: TextStyle(color: Colors.grey)),
                         ),
@@ -176,16 +197,16 @@ class _SAddressState extends State<SAddress> {
                         ),
                       ],
                     ),
-
                     new Row(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+                          padding:
+                              const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
                           child: new Text("Currency               :",
                               style: TextStyle(color: Colors.grey)),
                         ),
                         DropdownButton<String>(
-                          value: dropdownCat,
+                          value: dropdownCurrency,
                           hint: Text("Select Currency"),
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 16,
@@ -197,11 +218,11 @@ class _SAddressState extends State<SAddress> {
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              dropdownCat = newValue;
-                              print(dropdownCat);
+                              dropdownCurrency = newValue;
+                              print(dropdownCurrency);
                               //print(dropdownBrands);
                             });
-                            return dropdownCat;
+                            return dropdownCurrency;
                           },
                           items: <String>[
                             'USD',
@@ -220,8 +241,6 @@ class _SAddressState extends State<SAddress> {
                     ),
                   ],
                 ),
-
-
                 SizedBox(height: 30.0),
                 new Row(
                   children: <Widget>[
@@ -229,8 +248,19 @@ class _SAddressState extends State<SAddress> {
                       padding: const EdgeInsets.all(8.0),
                       child: new MaterialButton(
                         onPressed: () {
-                          print("Save");
-                          Fluttertoast.showToast(msg: 'Details Saved');
+                          if (_formKey.currentState.validate()) {
+                            if (dropdownCountry != null) {
+                              if (dropdownCurrency != null) {
+                                print("Save");
+                                Fluttertoast.showToast(msg: 'Details Saved');
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: 'Select a currency');
+                              }
+                            } else {
+                              Fluttertoast.showToast(msg: 'Select a country ');
+                            }
+                          }
                         },
                         child: new Text(
                           "Save",
@@ -244,7 +274,15 @@ class _SAddressState extends State<SAddress> {
                       padding: const EdgeInsets.all(8.0),
                       child: new MaterialButton(
                         onPressed: () {
-                          Fluttertoast.showToast(msg: 'You can edit details');
+                          setState(() {
+                            _isEnabled = !_isEnabled;
+                            if (_isEnabled == true) {
+                              Fluttertoast.showToast(msg: 'Edit On');
+                            } else {
+                              Fluttertoast.showToast(msg: 'Edit Off');
+                            }
+                          });
+
                           print("Edit");
                         },
                         child: new Text(
@@ -261,7 +299,6 @@ class _SAddressState extends State<SAddress> {
           ),
         ),
       ),
-
     );
   }
 }
