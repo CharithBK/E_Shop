@@ -418,7 +418,6 @@ class _ProductDetailsState extends State<ProductDetails> {
     if (dropdownSize != null) {
       if (dropdownColors != null) {
         if (dropdownQty != null) {
-          print("gg");
           print(uname);
           print(dropdownSize);
           print(dropdownColors);

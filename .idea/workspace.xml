@@ -9,7 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="my_cardDetails">
+    <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/lib/pages/product_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/product_details.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -371,7 +371,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586017834120</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="my_cardDetails">
+      <created>1586017941618</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1586017941618</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
