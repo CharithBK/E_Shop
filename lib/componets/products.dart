@@ -58,6 +58,7 @@ class _ProductsState extends State<Products> {
         "details": data['description'],
         "condition": data['type'],
         "sizes": data['sizes'],
+        "colors": data['colors'],
 
       };
       product_list.add(myObject) ;
@@ -68,6 +69,7 @@ class _ProductsState extends State<Products> {
       print(data['description']);
       print(data['type']);
       print(data['sizes']);
+      print(data['colors']);
       print(response.body);
       print(brand);
 
@@ -118,6 +120,7 @@ class _ProductsState extends State<Products> {
               prod_description: product_list[index]['details'],
               prod_type: product_list[index]['condition'],
               prod_size: product_list[index]['sizes'],
+              prod_color: product_list[index]['colors'],
               uname: uname,
             ),
 
@@ -136,6 +139,7 @@ class Single_prod extends StatelessWidget {
   final prod_description;
   final prod_type;
   final prod_size;
+  final prod_color;
   final uname;
   Single_prod({
     this.prod_name,
@@ -147,7 +151,7 @@ class Single_prod extends StatelessWidget {
     this.prod_description,
     this.prod_type,
     this.prod_size,
-    this.uname
+    this.uname, this.prod_color
   });
 
   @override
@@ -168,6 +172,7 @@ class Single_prod extends StatelessWidget {
                         product_detail_description: prod_description,
                         product_detail_type: prod_type,
                         product_detail_size: prod_size,
+                        product_detail_colors: prod_color,
                         uname: uname,
                       ))),
               child: GridTile(

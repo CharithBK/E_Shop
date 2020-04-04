@@ -18,6 +18,7 @@ class ProductDetails extends StatefulWidget {
   final product_detail_description;
   final product_detail_type;
   final product_detail_size;
+  final product_detail_colors;
   final uname;
 
 //  example
@@ -34,27 +35,27 @@ class ProductDetails extends StatefulWidget {
       this.product_detail_description,
       this.product_detail_type,
       this.product_detail_size,
-      this.uname});
+      this.uname, this.product_detail_colors});
 
   @override
-  _ProductDetailsState createState() => _ProductDetailsState(uname,product_detail_size);
+  _ProductDetailsState createState() => _ProductDetailsState(uname,product_detail_size,product_detail_colors);
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
   final uname;
   final product_detail_size;
-
-  _ProductDetailsState(this.uname ,this.product_detail_size);
+  final product_detail_colors;
+  _ProductDetailsState(this.uname ,this.product_detail_size,this.product_detail_colors);
 
   String dropdownSize;
-  String dropdownSize2;
   String dropdownColors;
   String dropdownQty;
 
 
   double subTot = 0.00;
    List data = List();
-   void dbCall(String product_detail_size) {
+  List data1 = List();
+   void dbSizeCall(String product_detail_size) {
      setState(() {
        for (var dt in product_detail_size.split(",")) {
          data.add(dt.toString());
@@ -65,11 +66,21 @@ class _ProductDetailsState extends State<ProductDetails> {
      });
    }
 
-
+  void dbColorCall(String product_detail_colors) {
+    setState(() {
+      for (var dt in product_detail_colors.split(",")) {
+        data1.add(dt.toString());
+        print(dt);
+      }
+      print(data1);
+      print("++++++++++++++++++++++++");
+    });
+  }
   @override
   void initState() {
     super.initState();
-    this.dbCall(product_detail_size);
+    this.dbSizeCall(product_detail_size);
+    this.dbColorCall(product_detail_colors);
 //    print(product_detail_size);
 //    print("gg");
 
@@ -195,7 +206,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                    value: dropdownColors,
+
                     hint: Text("Color"),
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 16,
@@ -205,27 +216,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                       height: 4,
                       color: Colors.lightGreen,
                     ),
-                    onChanged: (String newValue) {
+                    onChanged: (newVal) {
                       setState(() {
-                        dropdownColors = newValue;
+                        dropdownColors = newVal;
                       });
                     },
-                    items: <String>[
-                      'White',
-                      'Black',
-                      'Red',
-                      'Blue',
-                      'Green',
-                      'Orange',
-                      'Pink',
-                      'Yellow',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
+                    items: data1.map((item) {
+                      return new DropdownMenuItem(
+                        child: new Text(item),
+                        value: item.toString(),
                       );
                     }).toList(),
+                    value: dropdownColors,
                   ),
+
                 ),
               ),
 
