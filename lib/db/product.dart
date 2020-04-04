@@ -24,7 +24,9 @@ class ProductService {
       String condition,
       String oldprice,
       String price,
+
       List<String> sizes,
+      List<String> colors,
       var img) async {
     String fileName = basename(img.path);
     print(fileName);
@@ -53,11 +55,15 @@ class ProductService {
     print(condition);
     print(oldprice);
     print(sizes);
+    print(colors);
     print(price);
+
 
     String selectServicesText = sizes.reduce((value, element) => value + ',' + element);
     print(selectServicesText);
 
+    String selectcolors = colors.reduce((value, element) => value + ',' + element);
+    print(selectcolors);
 
     final response = await http
         .post("https://etrendsapp.000webhostapp.com/add_product.php", body: {
@@ -70,6 +76,7 @@ class ProductService {
       "old_price": oldprice,
       "price": price,
       "sizes": selectServicesText,
+      "colors": selectcolors,
       "image": fileName,
     });
     print(response.body);

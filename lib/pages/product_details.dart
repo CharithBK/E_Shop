@@ -37,20 +37,44 @@ class ProductDetails extends StatefulWidget {
       this.uname});
 
   @override
-  _ProductDetailsState createState() => _ProductDetailsState(uname);
+  _ProductDetailsState createState() => _ProductDetailsState(uname,product_detail_size);
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
   final uname;
+  final product_detail_size;
 
-  _ProductDetailsState(this.uname);
+  _ProductDetailsState(this.uname ,this.product_detail_size);
 
   String dropdownSize;
   String dropdownSize2;
   String dropdownColors;
   String dropdownQty;
-  List<DropdownMenuItem<String>> list;
+
+
   double subTot = 0.00;
+   List data = List();
+   void dbCall(String product_detail_size) {
+     setState(() {
+       for (var dt in product_detail_size.split(",")) {
+         data.add(dt.toString());
+         print(dt);
+       }
+       print(data);
+       print("++++++++++++++++++++++++");
+     });
+   }
+
+
+  @override
+  void initState() {
+    super.initState();
+    this.dbCall(product_detail_size);
+//    print(product_detail_size);
+//    print("gg");
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +163,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                      value: dropdownSize,
+
                       hint: Text("Size"),
                       icon: Icon(Icons.arrow_downward),
                       iconSize: 16,
@@ -149,68 +173,23 @@ class _ProductDetailsState extends State<ProductDetails> {
                         height: 4,
                         color: Colors.lightGreen,
                       ),
-                      onChanged: (String newValue) {
+                      onChanged: (newVal) {
                         setState(() {
-                          dropdownSize = newValue;
+                          dropdownSize = newVal;
                         });
-                        //print(dropdownValue1);
-                        //print(widget.product_detail_size);
-
-                        //print(widget.product_detail_size.split(",")[0]);
-                        //list.addAll(widget.product_detail_size.split(","));
-
-                        //for (var dt in widget.product_detail_size.split(",")) {
-                        // lst.add(dt);
-                        // print(dt);
-                        // }
-
-                        //print(lst);
                       },
-                      items: <String>[
-                        'XS',
-                        'S',
-                        'M',
-                        'L',
-                        'XL',
-                        'XXL',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
+                      items: data.map((item) {
+                        return new DropdownMenuItem(
+                          child: new Text(item),
+                          value: item.toString(),
                         );
-                      }).toList()),
+                      }).toList(),
+                    value: dropdownSize,
+                  ),
+
                 ),
               ),
 
-              //btnColor=============================
-//
-
-//              //print(lst);
-//              Expanded(
-//                child: Padding(
-//                  padding: const EdgeInsets.all(8.0),
-//                  child: DropdownButton<String>(
-//                      value: dropdownSize2,
-//                      hint: Text("Size"),
-//                      icon: Icon(Icons.arrow_downward),
-//                      iconSize: 16,
-//                      elevation: 16,
-//                      style: TextStyle(color: Colors.black),
-//                      underline: Container(
-//                        height: 4,
-//                        color: Colors.lightGreen,
-//                      ),
-//                      onChanged: (String newValue) {
-//                        setState(() {
-//                          //print(dropdownValue1);
-//                          //print(widget.product_detail_size);
-//
-//                          dropdownSize2 = newValue;
-//                        });
-//                      },
-//                      items: list),
-//                ),
-//              ),
 
               Expanded(
                 child: Padding(
@@ -320,21 +299,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       print(widget.product_detail_name);
                       print(subTot);
 
-//                      list.addAll(widget.product_detail_size.split(","));
-//
-//                      for (var dt in widget.product_detail_size.split(",")) {
-//                        list.add(dt);
-//                        print(dt);
-//                      } //print(dropdownValue1);
-//                      //print(widget.product_detail_size);
-//
-//                      print(widget.product_detail_size.split(",")[0]);
-//                      list.addAll(widget.product_detail_size.split(","));
-//
-//                      for (var dt in widget.product_detail_size.split(",")) {
-//                        list.add(dt);
-//                        print(dt);
-//                      }
+
                     },
                     color: Colors.green,
                     textColor: Colors.white,
@@ -437,13 +402,13 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  DropdownMenuItem<String> getDropDownWidget(Map<String, dynamic> map) {
-    print(widget.product_detail_size.split(","));
-    return DropdownMenuItem<String>(
-      value: map['size'],
-      child: Text(map['size']),
-    );
-  }
+//  DropdownMenuItem<String> getDropDownWidget(Map<String, dynamic> map) {
+//    print(widget.product_detail_size.split(","));
+//    return DropdownMenuItem<String>(
+//      value: map['size'],
+//      child: Text(map['size']),
+//    );
+//  }
 
   Future addtoCart() async {
     if (dropdownSize != null) {
@@ -491,7 +456,7 @@ class Similar_Products extends StatefulWidget {
 
 class _Similar_ProductsState extends State<Similar_Products> {
   final uname;
-
+  List data = List();
   _Similar_ProductsState(this.uname);
 
   List<Map<String, dynamic>> product_list = [];
@@ -516,17 +481,26 @@ class _Similar_ProductsState extends State<Similar_Products> {
         "sizes": data['sizes'],
       };
       product_list.add(myObject);
-      print(data['image']);
-      print(data['category']);
-      print(data['brand']);
-      print(data['old_price']);
-      print(data['description']);
-      print(data['type']);
-      print(data['sizes']);
+//      print(data['image']);
+//      print(data['category']);
+//      print(data['brand']);
+//      print(data['old_price']);
+//      print(data['description']);
+//      print(data['type']);
+//      print(data['sizes']);
     }
-    print(product_list[0]['name']);
-    print(product_list[2]['sizes']);
-    print(product_list.length);
+//    print(product_list[0]['name']);
+//    print(product_list[2]['sizes']);
+//    print(product_list.length);
+
+    setState(() {
+      // data = datausers;
+      for (var dt in datausers[3]['sizes'].split(",")) {
+        data.add(dt.toString());
+       // print(dt);
+      }
+     // print(data);
+    });
   }
 
   Timer timer;
@@ -541,7 +515,7 @@ class _Similar_ProductsState extends State<Similar_Products> {
   @override
   void initState() {
     super.initState();
-    getItems();
+    this.getItems();
     timer = Timer.periodic(Duration(seconds: 5), (Timer t) => addValue());
   }
 

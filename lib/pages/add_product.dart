@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shopapp_tut/db/brand.dart';
 import 'package:shopapp_tut/db/category.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shopapp_tut/db/colors.dart';
+
 import 'package:shopapp_tut/db/product.dart';
 
 import 'admin.dart';
@@ -27,14 +27,14 @@ class _AddProductState extends State<AddProduct> {
   CategoryService _categoryService = CategoryService();
   BrandService _brandService = BrandService();
   ProductService _productService = ProductService();
-  ColorsService _colorsService = ColorsService();
+  //ColorsService _colorsService = ColorsService();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController productNameController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController brandController = TextEditingController();
-  TextEditingController colorController = TextEditingController();
+  //TextEditingController colorController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController oldpriceController = TextEditingController();
@@ -46,7 +46,7 @@ class _AddProductState extends State<AddProduct> {
 
   String _currentCategory;
   String _currentBrand;
-  String _currentColor;
+  //String _currentColor;
 
   Color white = Colors.white;
   Color black = Colors.black;
@@ -54,6 +54,7 @@ class _AddProductState extends State<AddProduct> {
   Color red = Colors.red;
 
   List<String> selectedSizes = <String>[];
+  List<String> selectedColors = <String>[];
 
   File _image1;
   var img1;
@@ -62,7 +63,7 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void initState() {
-   // categoriesDropDown = getCategoriesDropdown();
+    // categoriesDropDown = getCategoriesDropdown();
   }
 
   List<DropdownMenuItem<String>> getCategoriesDropdown() {
@@ -144,7 +145,6 @@ class _AddProductState extends State<AddProduct> {
 //                  ),
                 ],
               ),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -153,7 +153,6 @@ class _AddProductState extends State<AddProduct> {
                   style: TextStyle(color: red, fontSize: 12),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
@@ -170,7 +169,6 @@ class _AddProductState extends State<AddProduct> {
                   },
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TypeAheadField(
@@ -180,7 +178,6 @@ class _AddProductState extends State<AddProduct> {
                       decoration: InputDecoration(
                           labelText: 'Category', hintText: 'add category')),
                   suggestionsCallback: (pattern) async {
-
                     return await _categoryService.getSuggestions(pattern);
                   },
                   itemBuilder: (context, suggestion) {
@@ -191,14 +188,12 @@ class _AddProductState extends State<AddProduct> {
                   },
                   onSuggestionSelected: (suggestion) {
                     setState(() {
-
                       _currentCategory = suggestion['name'];
                       categoryController.text = _currentCategory;
                     });
                   },
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TypeAheadField(
@@ -209,7 +204,6 @@ class _AddProductState extends State<AddProduct> {
                         labelText: 'Brand', hintText: 'add brand'),
                     // ignore: missing_return
                   ),
-
                   suggestionsCallback: (pattern) async {
                     return await _brandService.getSuggestions(pattern);
                   },
@@ -233,35 +227,32 @@ class _AddProductState extends State<AddProduct> {
                   },
                 ),
               ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TypeAheadField(
-                  textFieldConfiguration: TextFieldConfiguration(
-                      autofocus: false,
-                      controller: colorController,
-                      decoration: InputDecoration(
-                          labelText: 'Color', hintText: 'add color')),
-                  suggestionsCallback: (pattern) async {
-
-                    return await _colorsService.getSuggestions(pattern);
-                  },
-                  itemBuilder: (context, suggestion) {
-                    return ListTile(
-                      leading: Icon(Icons.library_add),
-                      title: Text(suggestion['name']),
-                    );
-                  },
-                  onSuggestionSelected: (suggestion) {
-                    setState(() {
-                     print(_currentColor);
-                      _currentColor = suggestion['name'];
-                      colorController.text = _currentColor;
-                    });
-                  },
-                ),
-              ),
-
+//              Padding(
+//                padding: const EdgeInsets.all(8.0),
+//                child: TypeAheadField(
+//                  textFieldConfiguration: TextFieldConfiguration(
+//                      autofocus: false,
+//                      controller: colorController,
+//                      decoration: InputDecoration(
+//                          labelText: 'Color', hintText: 'add color')),
+//                  suggestionsCallback: (pattern) async {
+//                    return await _colorsService.getSuggestions(pattern);
+//                  },
+//                  itemBuilder: (context, suggestion) {
+//                    return ListTile(
+//                      leading: Icon(Icons.library_add),
+//                      title: Text(suggestion['name']),
+//                    );
+//                  },
+//                  onSuggestionSelected: (suggestion) {
+//                    setState(() {
+//                      print(_currentColor);
+//                      _currentColor = suggestion['name'];
+//                      colorController.text = _currentColor;
+//                    });
+//                  },
+//                ),
+//              ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
@@ -340,7 +331,6 @@ class _AddProductState extends State<AddProduct> {
                 ),
               ),
               Text('---Avilable Szies---'),
-
               Row(
                 children: <Widget>[
                   Checkbox(
@@ -413,7 +403,50 @@ class _AddProductState extends State<AddProduct> {
                   Text('42'),
                 ],
               ),
+          SizedBox(height: 10.0,),
+              Text('---Avilable Colors---'),
+              Row(
+                children: <Widget>[
+                  Checkbox(
+                      value: selectedColors.contains('Red'),
+                      onChanged: (value) => changeSelectedColor('Red')),
+                  Text('Red   '),
+                  Checkbox(
+                      value: selectedColors.contains('Green'),
+                      onChanged: (value) => changeSelectedColor('Green')),
+                  Text('Green '),
+                  Checkbox(
+                      value: selectedColors.contains('Blue'),
+                      onChanged: (value) => changeSelectedColor('Blue')),
+                  Text('Blue '),
+                  Checkbox(
+                      value: selectedColors.contains('Yellow'),
+                      onChanged: (value) => changeSelectedColor('Yellow')),
+                  Text('Yellow '),
 
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Checkbox(
+                      value: selectedColors.contains('White'),
+                      onChanged: (value) => changeSelectedColor('White')),
+                  Text('White'),
+                  Checkbox(
+                      value: selectedColors.contains('Black'),
+                      onChanged: (value) => changeSelectedColor('Black')),
+                  Text('Black  '),
+                  Checkbox(
+                      value: selectedColors.contains('Pink'),
+                      onChanged: (value) => changeSelectedColor('Pink')),
+                  Text('Pink '),
+                  Checkbox(
+                      value: selectedColors.contains('Orange'),
+                      onChanged: (value) => changeSelectedColor('Orange')),
+                  Text('Orange '),
+
+                ],
+              ),
               FlatButton(
                 color: red,
                 textColor: white,
@@ -448,6 +481,22 @@ class _AddProductState extends State<AddProduct> {
         //selectedSizes.insert(0,size);
         selectedSizes.add(size);
         print(selectedSizes);
+        //print(size);
+      });
+    }
+  }
+
+  void changeSelectedColor(String colors) {
+    //print(selectedSizes);
+    if (selectedColors.contains(colors)) {
+      setState(() {
+        selectedColors.remove(colors);
+      });
+    } else {
+      setState(() {
+        //selectedSizes.insert(0,size);
+        selectedColors.add(colors);
+        print(selectedColors);
         //print(size);
       });
     }
@@ -520,19 +569,27 @@ class _AddProductState extends State<AddProduct> {
       if (_image1 != null) {
         //String gg = "XL";
         if (selectedSizes.isNotEmpty) {
-          //String size = selectedSizes[0];
-          _productService.uploadProduct(
-              productNameController.text,
-              categoryController.text,
-              brandController.text,
-              quantityController.text,
-              descriptionController.text,
-              conditionController.text,
-              oldpriceController.text,
-              priceController.text,
-              selectedSizes,
-              img1);
-          Fluttertoast.showToast(msg: 'New Product Added');
+           if(selectedColors.isNotEmpty) {
+             //String size = selectedSizes[0];
+             _productService.uploadProduct(
+                 productNameController.text,
+                 categoryController.text,
+                 brandController.text,
+                 quantityController.text,
+                 descriptionController.text,
+                 conditionController.text,
+                 oldpriceController.text,
+                 priceController.text,
+                 selectedSizes,
+                 selectedColors,
+                 img1);
+             Fluttertoast.showToast(msg: 'New Product Added');
+           }
+           else {
+             Fluttertoast.showToast(msg: 'select atleast one color');
+           }
+
+
         } else {
           Fluttertoast.showToast(msg: 'select atleast one size');
         }
