@@ -435,7 +435,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             "tot": subTot.toString(),
           });
           Fluttertoast.showToast(msg: 'Added To Cart!');
-          print("gg");
+
           print(response.body);
         } else {
           Fluttertoast.showToast(msg: 'Select a quantity');
