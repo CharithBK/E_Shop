@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shopapp_tut/pages/profile.dart';
 
 import 'home.dart';
+import 'my_cardDetails.dart';
 
 class SAddress extends StatefulWidget {
   final uname;
@@ -78,7 +80,26 @@ class _SAddressState extends State<SAddress> {
                   MaterialPageRoute(builder: (context) => new HomePage(uname)));
             },
             child: Text('ⓉⓇⒺⓃⒹⓈ')),
-        actions: <Widget>[],
+        actions: <Widget>[
+          new IconButton(
+              icon: Icon(
+                Icons.people,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => new Profile(uname)));
+              }),
+          new IconButton(
+              icon: Icon(
+                Icons.attach_money,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => new MycardDetails(uname)));
+              })
+        ],
       ),
       body: Form(
         key: _formKey,

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopapp_tut/pages/profile.dart';
+import 'package:shopapp_tut/pages/shipping_address.dart';
 import 'home.dart';
 
 class MycardDetails extends StatefulWidget {
@@ -29,7 +31,7 @@ class _MycardDetailsState extends State<MycardDetails> {
   // ignore: missing_return
   Future<List<Map<String, dynamic>>> getCardDetails() async {
     final response = await http.post(
-        "https://etrendsapp.000webhostapp.com/getCard_Details.php",
+              "https://etrendsapp.000webhostapp.com/getCard_Details.php",
         body: {
           "name": uname,
         });
@@ -72,7 +74,26 @@ class _MycardDetailsState extends State<MycardDetails> {
                   MaterialPageRoute(builder: (context) => new HomePage(uname)));
             },
             child: Text('ⓉⓇⒺⓃⒹⓈ')),
-        actions: <Widget>[],
+        actions: <Widget>[
+          new IconButton(
+              icon: Icon(
+                Icons.people,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => new Profile(uname)));
+              }),
+          new IconButton(
+              icon: Icon(
+                Icons.local_shipping,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => new SAddress(uname)));
+              })
+        ],
       ),
       body: Form(
         key: _formKey,
@@ -116,6 +137,8 @@ class _MycardDetailsState extends State<MycardDetails> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'User  Card Number Empty *';
+                      }else if (value.length > 16 || 16 > value.length) {
+                        return ' Card Number need 16 numbers *';
                       }
                     },
                   ),
@@ -127,7 +150,7 @@ class _MycardDetailsState extends State<MycardDetails> {
                     enabled: _isEnabled,
                     controller: userCardDateController,
                     decoration: InputDecoration(
-                        labelText: 'Card Date ', hintText: 'card date'),
+                        labelText: 'MM/YY ', hintText: 'card date'),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
@@ -149,6 +172,8 @@ class _MycardDetailsState extends State<MycardDetails> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'User  Security Code Empty *';
+                      }else if (value.length > 4) {
+                        return ' Security Code lest than 4 numbers *';
                       }
                     },
                   ),

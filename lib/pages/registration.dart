@@ -32,16 +32,16 @@ class _RegistrationState extends State<Registration> {
 
   String msg = '';
 
-  valueChanged(e) {
+  valueChanged(x) {
     setState(() {
-      if (e == "male") {
-        GroupValue = e;
-        gender = e;
-        print(e);
-      } else if (e == "female") {
-        GroupValue = e;
-        gender = e;
-        print(e);
+      if (x == "male") {
+        GroupValue = x;
+        gender = x;
+        print(x);
+      } else if (x == "female") {
+        GroupValue = x;
+        gender = x;
+        print(x);
       }
     });
   }
@@ -85,6 +85,7 @@ class _RegistrationState extends State<Registration> {
                             "gender": gender,
                             "address": address.text,
                           });
+                        print(gender);
                       Fluttertoast.showToast(msg: 'Registered');
 
                       Navigator.push(
@@ -186,7 +187,7 @@ class _RegistrationState extends State<Registration> {
         trailing: new Radio(
           value: "male",
           groupValue: GroupValue,
-          onChanged: (e) => (valueChanged(e)),
+          onChanged: (x) => (valueChanged(x)),
         ),
       ),
     );
@@ -201,7 +202,7 @@ class _RegistrationState extends State<Registration> {
         trailing: new Radio(
           value: "female",
           groupValue: GroupValue,
-          onChanged: (e) => (valueChanged(e)),
+          onChanged: (x) => (valueChanged(x)),
         ),
       ),
     );
