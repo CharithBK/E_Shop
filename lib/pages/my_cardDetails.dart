@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:http/http.dart' as http;
 import 'home.dart';
 
 class MycardDetails extends StatefulWidget {
@@ -14,13 +16,50 @@ class MycardDetails extends StatefulWidget {
 
 class _MycardDetailsState extends State<MycardDetails> {
   final uname;
+
   _MycardDetailsState(this.uname);
+
   bool _isEnabled = false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController userCardNumberController = TextEditingController();
   TextEditingController userCardDateController = TextEditingController();
   TextEditingController userSecurityCodeController = TextEditingController();
+
+  // ignore: missing_return
+  Future<List<Map<String, dynamic>>> getCardDetails() async {
+    final response = await http.post(
+        "https://etrendsapp.000webhostapp.com/getCard_Details.php",
+        body: {
+          "name": uname,
+        });
+    var datausers = json.decode(response.body);
+    for (var data in datausers) {
+      Map<String, dynamic> myObject = {
+        "name": data['name'],
+        "card_number": data['card_number'],
+        "card_date": data['card_date'],
+        "security_code": data['security_code'],
+      };
+      print(uname);
+      print(data['name']);
+      print(data['card_number']);
+      print(data['card_date']);
+      print(data['security_code']);
+    }
+    setState(() {
+      userNameController.text = datausers[0]['name'];
+      userCardNumberController.text = datausers[0]['card_number'];
+      userCardDateController.text = datausers[0]['card_date'];
+      userSecurityCodeController.text = datausers[0]['security_code'];
+    });
+  }
+
+  @override
+  void initState() {
+    getCardDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +83,10 @@ class _MycardDetailsState extends State<MycardDetails> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(5.0),
-                  child: new Text("C A R D     D E T A I L S" ,),
+                  child: new Text(
+                    "C A R D     D E T A I L S",
+                  ),
                 ),
-
                 SizedBox(height: 45.0),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -54,11 +94,11 @@ class _MycardDetailsState extends State<MycardDetails> {
                     enabled: _isEnabled,
                     controller: userNameController,
                     decoration: InputDecoration(
-                        labelText: 'User Name ', hintText: 'name'),
+                        labelText: 'Card Holder Name ', hintText: 'name'),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'User  Name Empty *';
+                        return 'Card Holder Name Empty *';
                       }
                     },
                   ),
@@ -80,7 +120,6 @@ class _MycardDetailsState extends State<MycardDetails> {
                     },
                   ),
                 ),
-
                 SizedBox(height: 5.0),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -114,7 +153,6 @@ class _MycardDetailsState extends State<MycardDetails> {
                     },
                   ),
                 ),
-
                 SizedBox(height: 35.0),
                 new Row(
                   children: <Widget>[
@@ -122,14 +160,10 @@ class _MycardDetailsState extends State<MycardDetails> {
                       padding: const EdgeInsets.all(8.0),
                       child: new MaterialButton(
                         onPressed: () {
-
                           if (_formKey.currentState.validate()) {
-
-                              print("Save");
-                              Fluttertoast.showToast(msg: 'Details Saved');
-
+                            print("Save");
+                            SaveCardDetails();
                           }
-
                         },
                         child: new Text(
                           "Save",
@@ -145,13 +179,11 @@ class _MycardDetailsState extends State<MycardDetails> {
                         onPressed: () {
                           setState(() {
                             _isEnabled = !_isEnabled;
-                            if(_isEnabled == true) {
+                            if (_isEnabled == true) {
                               Fluttertoast.showToast(msg: 'Edit On');
-                            }
-                            else {
+                            } else {
                               Fluttertoast.showToast(msg: 'Edit Off');
                             }
-
                           });
                         },
                         child: new Text(
@@ -169,5 +201,20 @@ class _MycardDetailsState extends State<MycardDetails> {
         ),
       ),
     );
+  }
+
+  Future SaveCardDetails() async {
+    final response = await http.post(
+        "https://etrendsapp.000webhostapp.com/saveCardDetails.php",
+        body: {
+          "uname": uname,
+          "name": userNameController.text,
+          "card_number": userCardNumberController.text.toString(),
+          "card_date": userCardDateController.text,
+          "security_code": userSecurityCodeController.text.toString(),
+        });
+    Fluttertoast.showToast(msg: 'Details Saved');
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => new MycardDetails(uname)));
   }
 }
