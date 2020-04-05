@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopapp_tut/componets/cart_products.dart';
+
+import 'my_orders.dart';
 
 class Cart extends StatefulWidget {
   final uname;
@@ -38,6 +41,24 @@ class _CartState extends State<Cart> {
     print(Products_on_the_cart.length);
   }
 
+  Future<List<Map<String, dynamic>>> UploadItems() async {
+    final response = await http
+        .post("https://etrendsapp.000webhostapp.com/uploaditems.php", body: {
+      "name": uname,
+
+    });
+
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Cart(uname)),
+    );
+
+  }
+
+
+
+
   Timer timer;
   int counter = 0;
 
@@ -67,6 +88,18 @@ class _CartState extends State<Cart> {
         elevation: 0.1,
         backgroundColor: Colors.green,
         title: Text('Cart'),
+        actions: <Widget>[
+          new IconButton(
+              icon: Icon(
+                Icons.shopping_basket,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Fluttertoast.showToast(msg: 'My Orders');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => new My_orders(uname)));
+              })
+        ],
       ),
       body: new Cart_products(uname),
       bottomNavigationBar: new Container(
@@ -83,6 +116,8 @@ class _CartState extends State<Cart> {
                 padding: const EdgeInsets.all(8.0),
                 child: new MaterialButton(
                   onPressed: () {
+                    UploadItems();
+                    Fluttertoast.showToast(msg: 'Purchase Successful');
                     print(SubTotal);
                   },
                   child: new Text(

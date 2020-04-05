@@ -56,6 +56,8 @@ class _Cart_productsState extends State<Cart_products> {
     print(Products_on_the_cart.length);
   }
 
+
+
   Timer timer;
   int counter = 0;
 
@@ -237,54 +239,14 @@ class Single_cart_product extends StatelessWidget {
                     print(prod_qty);
                     print(prod_color);
 
-                    // print(Products_on_the_cart.length);
-//                  Navigator.push(
-//                    context,
-//                    MaterialPageRoute(builder: (context) => Admin(uname)),
-//                  );
                   }),
-//            Expanded(
-//              child: Padding(
-//                padding: const EdgeInsets.only(bottom: 2.0),
-//                child: new IconButton(
-//                    icon: Icon(Icons.arrow_drop_up), onPressed: () {
-//                     qtyUp ++;
-//                     //qtyUp = prod_qty;
-//                     print(qtyUp);
-//                }),
-//              ),
-//            ),
-//            Expanded(
-//              child: new Padding(
-//                  padding: const EdgeInsets.only(top: 5.0),
-//                  child: new Text(qtyUp.toString())),
-//            ),
-//            Expanded(
-//                child: Padding(
-//              padding: const EdgeInsets.only(bottom: 1.0),
-//              child: new IconButton(
-//                  icon: Icon(Icons.arrow_drop_down), onPressed: () {
 //
-//                qtyUp --;
-//                //qtyUp = prod_qty;
-//                if(qtyUp <0)
-//                  {
-//                    qtyUp = 0;
-//                    print(qtyUp);
-//                  }
-//                else {
-//                  print(qtyUp);
-//                }
-//
-//                //print(qtyUp);
-//              }),
-//            )
-//            )
-//            ,
             ],
           ),
         ),
+
       ),
+
     );
   }
 }

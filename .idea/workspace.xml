@@ -10,10 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/pages/my_order_list.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/my_orders.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/componets/cart_products.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/componets/cart_products.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/cart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/cart.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/my_order_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/my_order_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/my_orders.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/my_orders.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -388,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586017978106</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="my_orders">
+      <created>1586061749542</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1586061749542</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -424,6 +433,7 @@
     <MESSAGE value="size_db" />
     <MESSAGE value="size_db &amp; color_db" />
     <MESSAGE value="my_cardDetails" />
-    <option name="LAST_COMMIT_MESSAGE" value="my_cardDetails" />
+    <MESSAGE value="my_orders" />
+    <option name="LAST_COMMIT_MESSAGE" value="my_orders" />
   </component>
 </project>

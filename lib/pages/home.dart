@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -28,7 +29,34 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final uname;
 
-  _HomePageState(this.uname);
+  _HomePageState(this.uname) {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          filteredNames = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    this._getNames();
+    super.initState();
+  }
+
+  final TextEditingController _filter = new TextEditingController();
+  final dio = new Dio(); // for http requests
+  String _searchText = "";
+  List names = new List(); // names we get from API
+  List filteredNames = new List(); // names filtered by search text
+  Icon _searchIcon = new Icon(Icons.search);
+  Widget _appBarTitle = new Text('Search Example');
 
   get http => null;
   String dropdownCat;
@@ -36,26 +64,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget image_carousel = new Container(
-      height: 200.0,
-      child: new Carousel(
-        boxFit: BoxFit.cover,
-        images: [
-          AssetImage('images/w3.jpeg'),
-          AssetImage('images/m1.jpeg'),
-          AssetImage('images/c1.jpg'),
-          AssetImage('images/w4.jpeg'),
-          AssetImage('images/m2.jpg'),
-        ],
-        autoplay: true,
-//      animationCurve: Curves.fastOutSlowIn,
-//      animationDuration: Duration(milliseconds: 1000),
-        dotSize: 4.0,
-        indicatorBgPadding: 2.0,
-        dotBgColor: Colors.transparent,
-      ),
-    );
-
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1,
@@ -63,23 +71,8 @@ class _HomePageState extends State<HomePage> {
         title: Text('ⓉⓇⒺⓃⒹⓈ'),
         actions: <Widget>[
           new IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Fluttertoast.showToast(msg: 'Searching . . .');
-                print(dropdownCat);
-                print(dropdownBrands);
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            new Products(uname, dropdownCat, dropdownBrands)));
-
-
-              }),
+            icon: _searchIcon,
+            onPressed: _searchPressed),
           new IconButton(
               icon: Icon(
                 Icons.shopping_cart,
@@ -131,8 +124,10 @@ class _HomePageState extends State<HomePage> {
 
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => new MyAccount(uname)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => new MyAccount(uname)));
                 Fluttertoast.showToast(msg: 'My account');
               },
               child: ListTile(
@@ -146,8 +141,10 @@ class _HomePageState extends State<HomePage> {
 
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => new My_orders(uname)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => new My_orders(uname)));
                 Fluttertoast.showToast(msg: 'My Orderst');
               },
               child: ListTile(
@@ -222,6 +219,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+
+
       body: new Column(
         children: <Widget>[
           //image carousel begins here
@@ -243,90 +242,6 @@ class _HomePageState extends State<HomePage> {
 //          ),
           //Horizontal list view begins here
           HorizontalList(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: DropdownButton<String>(
-                      value: dropdownCat,
-                      hint: Text("Category"),
-                      icon: Icon(Icons.arrow_downward),
-                      iconSize: 16,
-                      elevation: 16,
-                      style: TextStyle(color: Colors.black),
-                      underline: Container(
-                        height: 4,
-                        color: Colors.lightGreen,
-                      ),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropdownCat = newValue;
-                          Products(uname,dropdownCat,dropdownBrands);
-                        });
-                        return dropdownCat;
-                      },
-                      items: <String>[
-                        'T-shirt',
-                        'Suits',
-                        'Shoes',
-                        'Sweaters',
-                        'Jackets&costa',
-                        'Trousers',
-                        'Slippers',
-                        'Shirt',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  SizedBox(width: 9.0),
-                  Expanded(
-                    child: DropdownButton<String>(
-                      value: dropdownBrands,
-                      hint: Text("Brand"),
-                      icon: Icon(Icons.arrow_downward),
-                      iconSize: 16,
-                      elevation: 16,
-                      style: TextStyle(color: Colors.black),
-                      underline: Container(
-                        height: 4,
-                        color: Colors.lightGreen,
-                      ),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropdownBrands = newValue;
-                          Products(uname,dropdownCat,dropdownBrands);
-                          //print(dropdownBrands);
-                        });
-                        return dropdownBrands;
-                      },
-                      items: <String>[
-                        'Nike',
-                        'Addidas',
-                        'Burberry',
-                        'Fendi',
-                        'Louis Vuitton',
-                        'Prada',
-                        'Chanel',
-                        'Hermes',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
           //padding widget
           new Padding(
             padding: const EdgeInsets.all(8.0),
@@ -336,9 +251,61 @@ class _HomePageState extends State<HomePage> {
           ),
 
           //grid view
-          Flexible(child: Products(uname,dropdownCat,dropdownBrands)),
+          Flexible(child: Products(uname, dropdownCat, dropdownBrands)),
         ],
       ),
     );
+  }
+
+  Widget _buildList() {
+    if (!(_searchText.isEmpty)) {
+      List tempList = new List();
+      for (int i = 0; i < filteredNames.length; i++) {
+        if (filteredNames[i]['name'].toLowerCase().contains(_searchText.toLowerCase())) {
+          tempList.add(filteredNames[i]);
+        }
+      }
+      filteredNames = tempList;
+    }
+    return ListView.builder(
+      itemCount: names == null ? 0 : filteredNames.length,
+      itemBuilder: (BuildContext context, int index) {
+        return new ListTile(
+          title: Text(filteredNames[index]['name']),
+          onTap: () => print(filteredNames[index]['name']),
+        );
+      },
+    );
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          controller: _filter,
+          decoration: new InputDecoration(
+              prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
+        );
+      } else {
+        this._searchIcon = new Icon(Icons.search);
+        this._appBarTitle = new Text('Search Example');
+        filteredNames = names;
+        _filter.clear();
+      }
+    });
+  }
+
+  void _getNames() async {
+    final response = await dio.get('https://swapi.co/api/people');
+    List tempList = new List();
+    for (int i = 0; i < response.data['results'].length; i++) {
+      tempList.add(response.data['results'][i]);
+    }
+
+    setState(() {
+      names = tempList;
+      filteredNames = names;
+    });
   }
 }

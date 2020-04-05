@@ -26,7 +26,7 @@ class _MyOrderListState extends State<MyOrderList> {
   // ignore: missing_return
   Future<List<Map<String, dynamic>>> getCartItems() async {
     final response = await http
-        .post("https://etrendsapp.000webhostapp.com/getCart.php", body: {
+        .post("https://etrendsapp.000webhostapp.com/getOrders.php", body: {
       "name": uname,
     });
     // print(response.body);
@@ -42,7 +42,7 @@ class _MyOrderListState extends State<MyOrderList> {
         "size": data['size'],
         "qty": data['qty'],
         "color": data['colors'],
-        "tot": data['total'],
+        "tot": data['tot'],
       };
       Products_on_the_cart.add(myObject);
       print(data['itemname']);

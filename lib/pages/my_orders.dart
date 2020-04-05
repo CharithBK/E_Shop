@@ -18,20 +18,21 @@ class My_orders extends StatefulWidget {
   _My_ordersState createState() => _My_ordersState(uname);
 }
 
+// ignore: camel_case_types
 class _My_ordersState extends State<My_orders> {
   final uname;
 
   _My_ordersState(this.uname);
 
 //  Timer timer;
-//  int counter = 0;
-//
-//  void addValue() {
-//    setState(() {
-//      counter++;
-//    });
-//  }
-//
+////  int counter = 0;
+////
+////  void addValue() {
+////    setState(() {
+////      counter++;
+////    });
+////  }
+//////
 //  @override
 //  void initState() {
 //    super.initState();
