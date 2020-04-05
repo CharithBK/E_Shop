@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -25,6 +27,42 @@ class _SAddressState extends State<SAddress> {
   TextEditingController userPostController = TextEditingController();
 
   _SAddressState(this.uname);
+
+  Future<List<Map<String, dynamic>>> getUserShippingDetails() async {
+    final response = await http.post(
+        "https://etrendsapp.000webhostapp.com/getShippingDetails.php",
+        body: {
+          "name": uname,
+        });
+    var datausers = json.decode(response.body);
+
+    setState(() {
+      userNameController.text = datausers[0]['name'];
+      userNumberController.text = datausers[0]['tp'];
+      userAddressController.text = datausers[0]['address'];
+      userProvinceController.text = datausers[0]['province'];
+      userCityController.text = datausers[0]['city'];
+      userPostController.text = datausers[0]['post_code'];
+
+      print(datausers[0]['country']);
+      print(datausers[0]['currency']);
+    });
+    if (datausers[0]['country'] == "") {
+      dropdownCountry = null;
+    } else {
+      dropdownCountry = datausers[0]['country'];
+    }
+    if (datausers[0]['currency'] == "") {
+      dropdownCurrency = null;
+    } else {
+      dropdownCurrency = datausers[0]['currency'];
+    }
+  }
+
+  @override
+  void initState() {
+    getUserShippingDetails();
+  }
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -60,11 +98,11 @@ class _SAddressState extends State<SAddress> {
                     controller: userNameController,
                     enabled: _isEnabled,
                     decoration: InputDecoration(
-                        labelText: 'User Name ', hintText: 'name'),
+                        labelText: 'First Name ', hintText: 'name'),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'You must enter the product name *';
+                        return 'You must enter the first name *';
                       }
                     },
                   ),
@@ -75,12 +113,15 @@ class _SAddressState extends State<SAddress> {
                   child: TextFormField(
                     controller: userNumberController,
                     enabled: _isEnabled,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         labelText: 'Contact Number ', hintText: 'mobile'),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'You must enter the contact number *';
+                      } else if (value.length > 10) {
+                        return 'Contact number cant have more than 10 numbers *';
                       }
                     },
                   ),
@@ -139,12 +180,15 @@ class _SAddressState extends State<SAddress> {
                   child: TextFormField(
                     controller: userPostController,
                     enabled: _isEnabled,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         labelText: 'Postal Code ', hintText: 'post code'),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'You must enter the postal code *';
+                      } else if (value.length > 5) {
+                        return 'Postal code cant have more than 5 numbers *';
                       }
                     },
                   ),
@@ -172,11 +216,14 @@ class _SAddressState extends State<SAddress> {
                             color: Colors.lightGreen,
                           ),
                           onChanged: (String newValue) {
-                            setState(() {
-                              dropdownCountry = newValue;
-                              print(dropdownCountry);
-                              //print(dropdownBrands);
-                            });
+                            if (_isEnabled) {
+                              setState(() {
+                                dropdownCountry = newValue;
+                                print(dropdownCountry);
+                                //print(dropdownBrands);
+                              });
+                            }
+
                             return dropdownCountry;
                           },
                           items: <String>[
@@ -217,11 +264,14 @@ class _SAddressState extends State<SAddress> {
                             color: Colors.lightGreen,
                           ),
                           onChanged: (String newValue) {
-                            setState(() {
-                              dropdownCurrency = newValue;
-                              print(dropdownCurrency);
-                              //print(dropdownBrands);
-                            });
+                            if (_isEnabled) {
+                              setState(() {
+                                dropdownCurrency = newValue;
+                                print(dropdownCurrency);
+                                //print(dropdownBrands);
+                              });
+                            }
+
                             return dropdownCurrency;
                           },
                           items: <String>[
@@ -252,6 +302,7 @@ class _SAddressState extends State<SAddress> {
                             if (dropdownCountry != null) {
                               if (dropdownCurrency != null) {
                                 print("Save");
+                                SaveShippingDetails();
                                 Fluttertoast.showToast(msg: 'Details Saved');
                               } else {
                                 Fluttertoast.showToast(
@@ -300,5 +351,25 @@ class _SAddressState extends State<SAddress> {
         ),
       ),
     );
+  }
+
+  Future SaveShippingDetails() async {
+    final response = await http.post(
+        "https://etrendsapp.000webhostapp.com/saveShippingDetails.php",
+        body: {
+          "uname": uname,
+          "fname": userNameController.text,
+          "tp": userNumberController.text,
+          "address": userAddressController.text,
+          "province": userProvinceController.text,
+          "city": userCityController.text,
+          "postcode": userPostController.text,
+          "country": dropdownCountry,
+          "currency": dropdownCurrency,
+        });
+
+    Fluttertoast.showToast(msg: 'Details Saved');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => new SAddress(uname)));
   }
 }

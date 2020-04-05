@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'home.dart';
+import 'login.dart';
 
 class Profile extends StatefulWidget {
   final uname;
@@ -18,6 +19,7 @@ class _ProfileState extends State<Profile> {
   final uname;
   String dropdownGender;
 
+
   _ProfileState(this.uname);
 
   bool _isEnabled = false;
@@ -25,15 +27,13 @@ class _ProfileState extends State<Profile> {
   TextEditingController userIdController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController userEmailController = TextEditingController();
-  TextEditingController userBdayController = TextEditingController();
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = new DateTime.now();
 
   Future<List<Map<String, dynamic>>> getUserDetails() async {
-    final response = await http.post(
-        "https://etrendsapp.000webhostapp.com/getCard_Details.php",
-        body: {
-          "name": uname,
-        });
+    final response = await http
+        .post("https://etrendsapp.000webhostapp.com/getUserDetails.php", body: {
+      "name": uname,
+    });
     var datausers = json.decode(response.body);
     for (var data in datausers) {
       Map<String, dynamic> myObject = {
@@ -41,7 +41,7 @@ class _ProfileState extends State<Profile> {
         "username": data['username'],
         "email": data['email'],
         "gender": data['gender'],
-        "bDay": data['bDay'],
+        "bDay": data['bDay'].toString(),
       };
       print(uname);
       print(data['id']);
@@ -51,10 +51,11 @@ class _ProfileState extends State<Profile> {
       print(data['bDay']);
     }
     setState(() {
-      userIdController.text = datausers[0]['name'];
-      userNameController.text = datausers[0]['card_number'];
-      userEmailController.text = datausers[0]['card_date'];
-      userBdayController.text = datausers[0]['security_code'];
+      userIdController.text = datausers[0]['id'];
+      userNameController.text = datausers[0]['username'];
+      userEmailController.text = datausers[0]['email'];
+      dropdownGender = datausers[0]['gender'];
+      selectedDate = DateTime.parse(datausers[0]['bDay']);
     });
   }
 
@@ -62,12 +63,17 @@ class _ProfileState extends State<Profile> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        firstDate: DateTime(1990, 8),
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
       });
+  }
+
+  @override
+  void initState() {
+    getUserDetails();
   }
 
   @override
@@ -165,16 +171,18 @@ class _ProfileState extends State<Profile> {
                         color: Colors.lightGreen,
                       ),
                       onChanged: (String newValue) {
-                        setState(() {
-                          dropdownGender = newValue;
-                          print(dropdownGender);
-                          //print(dropdownBrands);
-                        });
+                        if (_isEnabled) {
+                          setState(() {
+                            dropdownGender = newValue;
+                            print(dropdownGender);
+                            //print(dropdownBrands);
+                          });
+                        }
                         return dropdownGender;
                       },
                       items: <String>[
-                        'Male',
-                        'Female',
+                        'male',
+                        'female',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -196,8 +204,13 @@ class _ProfileState extends State<Profile> {
                     Text("${selectedDate.toLocal()}".split(' ')[0]),
                     SizedBox(width: 100.0),
                     RaisedButton(
-                      onPressed: () => _selectDate(context),
+                      onPressed: () {
+                        if (_isEnabled) {
+                          _selectDate(context);
+                        }
+                      },
                       child: Text('Select date'),
+                      color: Colors.lightGreen,
                     ),
                   ],
                 ),
@@ -214,6 +227,7 @@ class _ProfileState extends State<Profile> {
                           if (_formKey.currentState.validate()) {
                             if (dropdownGender != null) {
                               print("Save");
+                              SaveUserDattails();
                               Fluttertoast.showToast(msg: 'Details Saved');
                             } else {
                               Fluttertoast.showToast(msg: 'Select the gender');
@@ -236,6 +250,7 @@ class _ProfileState extends State<Profile> {
                             _isEnabled = !_isEnabled;
                             if (_isEnabled == true) {
                               Fluttertoast.showToast(msg: 'Edit On');
+
                             } else {
                               Fluttertoast.showToast(msg: 'Edit Off');
                             }
@@ -261,5 +276,29 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     );
+  }
+
+  Future SaveUserDattails() async {
+    final response = await http.post(
+        "https://etrendsapp.000webhostapp.com/saveUserDetails.php",
+        body: {
+          "id": userIdController.text,
+          "username": userNameController.text,
+          "gender": dropdownGender,
+          "bDay": selectedDate.toString(),
+
+        });
+     if(userNameController.text != uname) {
+       Fluttertoast.showToast(msg: 'Details Saved');
+       Navigator.push(context,
+           MaterialPageRoute(builder: (context) => new Login()));
+     }
+     else{
+       Fluttertoast.showToast(msg: 'Details Saved');
+       Navigator.push(context,
+           MaterialPageRoute(builder: (context) => new Profile(uname)));
+     }
+
+
   }
 }
