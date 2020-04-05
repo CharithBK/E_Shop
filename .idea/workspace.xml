@@ -10,7 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64f5864d-f1c9-41dc-bc54-3aacf4f5ae8f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/pages/product_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/product_details.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/pages/my_order_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/pages/my_orders.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -378,7 +381,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586017941618</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="my_cardDetails">
+      <created>1586017978106</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1586017978106</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

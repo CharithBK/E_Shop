@@ -14,6 +14,7 @@ import 'package:shopapp_tut/pages/login.dart';
 import 'package:sweetalert/sweetalert.dart';
 
 import 'myAccount.dart';
+import 'my_orders.dart';
 
 class HomePage extends StatefulWidget {
   final uname;
@@ -145,6 +146,8 @@ class _HomePageState extends State<HomePage> {
 
             InkWell(
               onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => new My_orders(uname)));
                 Fluttertoast.showToast(msg: 'My Orderst');
               },
               child: ListTile(
