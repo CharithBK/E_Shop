@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:http/http.dart' as http;
 import 'home.dart';
 
 class Profile extends StatefulWidget {
@@ -24,14 +26,37 @@ class _ProfileState extends State<Profile> {
   TextEditingController userEmailController = TextEditingController();
   TextEditingController userBdayController = TextEditingController();
 
-
+  Future<List<Map<String, dynamic>>> getCardDetails() async {
+    final response = await http.post(
+        "https://etrendsapp.000webhostapp.com/getCard_Details.php",
+        body: {
+          "name": uname,
+        });
+    var datausers = json.decode(response.body);
+    for (var data in datausers) {
+      Map<String, dynamic> myObject = {
+        "name": data['name'],
+        "card_number": data['card_number'],
+        "card_date": data['card_date'],
+        "security_code": data['security_code'],
+      };
+      print(uname);
+      print(data['name']);
+      print(data['card_number']);
+      print(data['card_date']);
+      print(data['security_code']);
+    }
+    setState(() {
+      userIdController.text = datausers[0]['name'];
+      userNameController.text = datausers[0]['card_number'];
+      userEmailController.text = datausers[0]['card_date'];
+      userBdayController.text = datausers[0]['security_code'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    userNameController.text= uname;
-    userIdController.text="01";
-    userEmailController.text="test123@gmail.com";
-    userBdayController.text="1995-11-11";
+
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1,
