@@ -19,14 +19,16 @@ class _ProfileState extends State<Profile> {
   String dropdownGender;
 
   _ProfileState(this.uname);
+
   bool _isEnabled = false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController userIdController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController userEmailController = TextEditingController();
   TextEditingController userBdayController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
 
-  Future<List<Map<String, dynamic>>> getCardDetails() async {
+  Future<List<Map<String, dynamic>>> getUserDetails() async {
     final response = await http.post(
         "https://etrendsapp.000webhostapp.com/getCard_Details.php",
         body: {
@@ -35,16 +37,18 @@ class _ProfileState extends State<Profile> {
     var datausers = json.decode(response.body);
     for (var data in datausers) {
       Map<String, dynamic> myObject = {
-        "name": data['name'],
-        "card_number": data['card_number'],
-        "card_date": data['card_date'],
-        "security_code": data['security_code'],
+        "id": data['id'],
+        "username": data['username'],
+        "email": data['email'],
+        "gender": data['gender'],
+        "bDay": data['bDay'],
       };
       print(uname);
-      print(data['name']);
-      print(data['card_number']);
-      print(data['card_date']);
-      print(data['security_code']);
+      print(data['id']);
+      print(data['username']);
+      print(data['email']);
+      print(data['gender']);
+      print(data['bDay']);
     }
     setState(() {
       userIdController.text = datausers[0]['name'];
@@ -54,9 +58,20 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1,
@@ -98,8 +113,6 @@ class _ProfileState extends State<Profile> {
                     },
                   ),
                 ),
-
-
                 SizedBox(height: 5.0),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -172,20 +185,24 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
                 SizedBox(height: 5.0),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextFormField(
-                    enabled: _isEnabled,
-                    controller: userBdayController,
-                    decoration: InputDecoration(
-                        labelText: 'User BirthDay ', hintText: 'BDay'),
-                    // ignore: missing_return
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'You must enter the BirthDay *';
-                      }
-                    },
-                  ),
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+                      child: new Text("BirthDay :",
+                          style: TextStyle(color: Colors.grey)),
+                    ),
+                    SizedBox(width: 5.0),
+                    Text("${selectedDate.toLocal()}".split(' ')[0]),
+                    SizedBox(width: 100.0),
+                    RaisedButton(
+                      onPressed: () => _selectDate(context),
+                      child: Text('Select date'),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.0,
                 ),
                 SizedBox(height: 35.0),
                 new Row(
@@ -214,18 +231,16 @@ class _ProfileState extends State<Profile> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: new MaterialButton(
-                       onPressed: () {
-                         setState(() {
-                           _isEnabled = !_isEnabled;
-                           if(_isEnabled == true) {
-                             Fluttertoast.showToast(msg: 'Edit On');
-                           }
-                           else {
-                             Fluttertoast.showToast(msg: 'Edit Off');
-                           }
-
-                         });
-                       },
+                        onPressed: () {
+                          setState(() {
+                            _isEnabled = !_isEnabled;
+                            if (_isEnabled == true) {
+                              Fluttertoast.showToast(msg: 'Edit On');
+                            } else {
+                              Fluttertoast.showToast(msg: 'Edit Off');
+                            }
+                          });
+                        },
 //                        () {
 //
 //                          Fluttertoast.showToast(msg: 'You can edit details');
