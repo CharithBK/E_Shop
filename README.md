@@ -6,7 +6,7 @@ A new Flutter application.
 
 For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
-
+![alt text](https://github.com/CharithBK/E_Shop/blob/master/Screenshot_2020-07-01-20-40-50-193_com.sanen.shopapptut.jpg)
 ![alt text](https://github.com/CharithBK/E_Shop/blob/master/Screenshot_2020-04-05-23-55-32-878_com.sanen.shopapptut.jpg)
 ![alt text](https://github.com/CharithBK/E_Shop/blob/master/Screenshot_2020-04-05-23-56-12-119_com.sanen.shopapptut.jpg)
 ![alt text](https://github.com/CharithBK/E_Shop/blob/master/Screenshot_2020-04-05-23-57-58-469_com.sanen.shopapptut.jpg)
