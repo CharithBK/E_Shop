@@ -16,7 +16,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold);
 
   //===============================================================================================================================
 
@@ -97,17 +97,18 @@ class _LoginState extends State<Login> {
     final username = TextField(
       controller: user,
       obscureText: false,
-      style: style,
+      style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "UserName",
+          hintText: "Username",
+
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
     final passwordField = TextField(
       controller: pass,
       obscureText: true,
-      style: style,
+      style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
@@ -118,7 +119,7 @@ class _LoginState extends State<Login> {
     final loginButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Colors.brown,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -136,7 +137,7 @@ class _LoginState extends State<Login> {
     final RegistrationButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Colors.brown,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -169,9 +170,12 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     height: 155.0,
                     child: Image.asset(
-                      "assets/logo.png",
+                      "assets/logo.jpg",
                       fit: BoxFit.contain,
                     ),
+                  ),
+                  Text("T R E N D S ™ " ,
+                    style: TextStyle(color: Colors.green , fontSize: 20, fontWeight: FontWeight.bold,),
                   ),
                   SizedBox(height: 45.0),
                   username,

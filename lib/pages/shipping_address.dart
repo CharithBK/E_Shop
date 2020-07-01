@@ -141,8 +141,8 @@ class _SAddressState extends State<SAddress> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'You must enter the contact number *';
-                      } else if (value.length > 10) {
-                        return 'Contact number cant have more than 10 numbers *';
+                      } else if (value.length > 10 || 10 > value.length) {
+                        return 'Contact number need 10 numbers *';
                       }
                     },
                   ),

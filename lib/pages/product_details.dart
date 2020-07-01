@@ -100,12 +100,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             },
             child: Text('ⓉⓇⒺⓃⒹⓈ')),
         actions: <Widget>[
-          new IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {}),
+
           new IconButton(
               icon: Icon(
                 Icons.shopping_cart,

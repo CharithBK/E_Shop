@@ -151,7 +151,7 @@ class _ProfileState extends State<Profile> {
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'You must enter the product name *';
+                        return 'You must enter the user name *';
                       }
                     },
                   ),

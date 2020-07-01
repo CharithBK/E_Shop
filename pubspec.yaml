@@ -62,6 +62,7 @@ flutter:
    - images/products/shoe3.jpg
    - images/products/blazer3.jpg
    - logo.png
+   - logo.jpg
   fonts:
     - family: Montserrat
       fonts:
