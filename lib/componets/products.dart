@@ -8,22 +8,19 @@ class Products extends StatefulWidget {
   final uname;
   final cat;
   final brand;
-  Products(this.uname,
-      this.cat,
-      this.brand);
+
+  Products(this.uname, this.cat, this.brand);
 
   @override
-  _ProductsState createState() => _ProductsState(uname,cat,brand);
+  _ProductsState createState() => _ProductsState(uname, cat, brand);
 }
 
 class _ProductsState extends State<Products> {
   final uname;
   final cat;
   final brand;
-  _ProductsState(this.uname,
-      this.cat,
-      this.brand);
 
+  _ProductsState(this.uname, this.cat, this.brand);
 
   List<Map<String, dynamic>> product_list = [];
 
@@ -33,17 +30,17 @@ class _ProductsState extends State<Products> {
     print(brand);
     String tempCat = cat;
     String tempBrand = brand;
-    if(cat == null){
+    if (cat == null) {
       tempCat = "";
     }
-    if(brand == null){
+    if (brand == null) {
       tempBrand = "";
     }
-    final response =
-        await http.post("https://etrendsapp.000webhostapp.com/getItems.php" , body: {
-          "cat": tempCat,
-          "brand": tempBrand,
-        });
+    final response = await http
+        .post("https://etrendsapp.000webhostapp.com/getItems.php", body: {
+      "cat": tempCat,
+      "brand": tempBrand,
+    });
     //print(response.statusCode);
     var datausers = json.decode(response.body);
     var pl;
@@ -59,24 +56,21 @@ class _ProductsState extends State<Products> {
         "condition": data['type'],
         "sizes": data['sizes'],
         "colors": data['colors'],
-
       };
-      product_list.add(myObject) ;
-      print(data['image']);
-      print(data['category']);
-      print(data['brand']);
-      print(data['old_price']);
-      print(data['description']);
-      print(data['type']);
-      print(data['sizes']);
-      print(data['colors']);
-      print(response.body);
-      print(brand);
-
-          }
-    print(product_list[0]['name']);
-    print(product_list.length);
-
+      product_list.add(myObject);
+//      print(data['image']);
+//      print(data['category']);
+//      print(data['brand']);
+//      print(data['old_price']);
+//      print(data['description']);
+//      print(data['type']);
+//      print(data['sizes']);
+//      print(data['colors']);
+//      print(response.body);
+//      print(brand);
+    }
+//    print(product_list[0]['name']);
+//    print(product_list.length);
   }
 
   Timer timer;
@@ -100,7 +94,7 @@ class _ProductsState extends State<Products> {
     timer?.cancel();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -123,7 +117,6 @@ class _ProductsState extends State<Products> {
               prod_color: product_list[index]['colors'],
               uname: uname,
             ),
-
           );
         });
   }
@@ -141,18 +134,19 @@ class Single_prod extends StatelessWidget {
   final prod_size;
   final prod_color;
   final uname;
-  Single_prod({
-    this.prod_name,
-    this.prod_pricture,
-    this.prod_old_price,
-    this.prod_price,
-    this.prod_category,
-    this.prod_brand,
-    this.prod_description,
-    this.prod_type,
-    this.prod_size,
-    this.uname, this.prod_color
-  });
+
+  Single_prod(
+      {this.prod_name,
+      this.prod_pricture,
+      this.prod_old_price,
+      this.prod_price,
+      this.prod_category,
+      this.prod_brand,
+      this.prod_description,
+      this.prod_type,
+      this.prod_size,
+      this.uname,
+      this.prod_color});
 
   @override
   Widget build(BuildContext context) {

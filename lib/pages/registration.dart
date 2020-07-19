@@ -148,7 +148,7 @@ class _RegistrationState extends State<Registration> {
     final username = TextField(
       controller: user,
       obscureText: false,
-      style: style,
+      style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "UserName",
@@ -158,7 +158,7 @@ class _RegistrationState extends State<Registration> {
     final passwordField = TextField(
       controller: pass,
       obscureText: true,
-      style: style,
+      style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
@@ -169,7 +169,7 @@ class _RegistrationState extends State<Registration> {
     final cpasswordField = TextField(
       controller: cpass,
       obscureText: true,
-      style: style,
+      style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Confirm Password",
@@ -182,7 +182,7 @@ class _RegistrationState extends State<Registration> {
         title: Text(
           "Male",
           textAlign: TextAlign.end,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
         ),
         trailing: new Radio(
           value: "male",
@@ -197,7 +197,7 @@ class _RegistrationState extends State<Registration> {
         title: Text(
           "Female",
           textAlign: TextAlign.end,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
         ),
         trailing: new Radio(
           value: "female",
@@ -210,7 +210,7 @@ class _RegistrationState extends State<Registration> {
     final Email = TextField(
       controller: email,
       obscureText: false,
-      style: style,
+      style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Email",
@@ -221,7 +221,7 @@ class _RegistrationState extends State<Registration> {
     final Nic = TextField(
       controller: nic,
       obscureText: false,
-      style: style,
+      style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "NIC",
@@ -231,7 +231,7 @@ class _RegistrationState extends State<Registration> {
     final add = TextField(
       controller: address,
       obscureText: false,
-      style: style,
+      style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Address",
@@ -243,7 +243,7 @@ class _RegistrationState extends State<Registration> {
     final RegistrationButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color:  Colors.brown,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -253,7 +253,7 @@ class _RegistrationState extends State<Registration> {
         child: Text("Registration",
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+                color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold)),
       ),
     );
 
@@ -273,9 +273,12 @@ class _RegistrationState extends State<Registration> {
                   SizedBox(
                     height: 155.0,
                     child: Image.asset(
-                      "assets/logo.png",
+                      "assets/logo.jpg",
                       fit: BoxFit.contain,
                     ),
+                  ),
+                  Text("T R E N D S ™ " ,
+                    style: TextStyle(color: Colors.green , fontSize: 20, fontWeight: FontWeight.bold,),
                   ),
                   SizedBox(height: 45.0),
                   username,

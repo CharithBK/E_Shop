@@ -290,14 +290,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                   padding: const EdgeInsets.all(8.0),
                   child: MaterialButton(
                     onPressed: () {
-                      print("Order Done");
-                      print(uname);
-                      print(dropdownSize);
-                      print(dropdownColors);
-                      print(dropdownQty);
-                      print(widget.product_detail_name);
-                      print(subTot);
-
+//                      print("Order Done");
+//                      print(uname);
+//                      print(dropdownSize);
+//                      print(dropdownColors);
+//                      print(dropdownQty);
+//                      print(widget.product_detail_name);
+//                      print(subTot);
+                      buyNow();
 
                     },
                     color: Colors.green,
@@ -409,6 +409,43 @@ class _ProductDetailsState extends State<ProductDetails> {
 //    );
 //  }
 
+
+  Future buyNow() async {
+    if (dropdownSize != null) {
+      if (dropdownColors != null) {
+        if (dropdownQty != null) {
+          print(uname);
+          print(dropdownSize);
+          print(dropdownColors);
+          print(dropdownQty);
+          print(widget.product_detail_name);
+          print(subTot);
+          final response = await http
+              .post("https://etrendsapp.000webhostapp.com/add_cart.php", body: {
+            "name": uname,
+            "itemname": widget.product_detail_name,
+            "size": dropdownSize,
+            "qty": dropdownQty,
+            "colors": dropdownColors,
+            "tot": subTot.toString(),
+          });
+          Fluttertoast.showToast(msg: 'Deady to buy');
+
+          print(response.body);
+        } else {
+          Fluttertoast.showToast(msg: 'Select a quantity');
+        }
+      } else {
+        Fluttertoast.showToast(msg: 'Select a color');
+      }
+    } else {
+      Fluttertoast.showToast(msg: 'Select a size');
+    }
+  }
+
+
+
+
   Future addtoCart() async {
     if (dropdownSize != null) {
       if (dropdownColors != null) {
@@ -477,28 +514,20 @@ class _Similar_ProductsState extends State<Similar_Products> {
         "details": data['description'],
         "condition": data['type'],
         "sizes": data['sizes'],
+        "colors": data['colors']
       };
       product_list.add(myObject);
-//      print(data['image']);
-//      print(data['category']);
-//      print(data['brand']);
-//      print(data['old_price']);
-//      print(data['description']);
-//      print(data['type']);
-//      print(data['sizes']);
     }
-//    print(product_list[0]['name']);
-//    print(product_list[2]['sizes']);
-//    print(product_list.length);
-
-    setState(() {
-      // data = datausers;
-      for (var dt in datausers[3]['sizes'].split(",")) {
-        data.add(dt.toString());
-       // print(dt);
-      }
-     // print(data);
-    });
+//
+//
+//    setState(() {
+//      // data = datausers;
+//      for (var dt in datausers[3]['sizes'].split(",")) {
+//        data.add(dt.toString());
+//       // print(dt);
+//      }
+//     // print(data);
+//    });
   }
 
   Timer timer;
@@ -540,6 +569,7 @@ class _Similar_ProductsState extends State<Similar_Products> {
             prod_description: product_list[index]['details'],
             prod_type: product_list[index]['condition'],
             prod_size: product_list[index]['sizes'],
+            prod_color: product_list[index]['colors'],
             uname: uname,
           );
         });
@@ -556,6 +586,7 @@ class Similar_Single_prod extends StatelessWidget {
   final prod_description;
   final prod_type;
   final prod_size;
+  final prod_color;
   final uname;
 
   Similar_Single_prod({
@@ -568,6 +599,7 @@ class Similar_Single_prod extends StatelessWidget {
     this.prod_description,
     this.prod_type,
     this.prod_size,
+    this.prod_color,
     this.uname,
   });
 
@@ -589,6 +621,7 @@ class Similar_Single_prod extends StatelessWidget {
                         product_detail_description: prod_description,
                         product_detail_type: prod_type,
                         product_detail_size: prod_size,
+                        product_detail_colors: prod_color,
                         uname: uname,
                       ))),
               child: GridTile(
